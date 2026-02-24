@@ -1,0 +1,305 @@
+Chapter 1 
+
+- A computer is a machine that executes instructions.
+- It does not think — it follows rules.
+- All intelligence comes from logic written by humans.
+
+- Computer Systems: 
+- Hardware limits software.
+- Software directs hardware.
+- The OS is the manager between them.
+
+
+-- Hardware 
+- Hardware is **physical and touchable**.
+- Hardware does nothing on its own — it needs instructions (software).
+- Hardware is designed around one goal: **processing instructions as efficiently as possible**.
+
+The CPU has:
+
+- Control Unit (directs traffic)
+- Arithmetic Logic Unit (ALU – performs calculations)
+- Registers (tiny, ultra-fast memory inside CPU)
+
+Q. What happens if you install high-end software on weak hardware?
+A. You will discover:
+- Slow performance
+- Freezing
+- Crashing
+
+This leads to discussions about **hardware limitations** and performance bottlenecks.
+
+-- Software 
+- Application Software / Apps / Software
+- Solves user problems.
+- Runs on top of system software.
+
+- Software = instructions written in a programming language.
+- Software tells hardware what to do.
+- Without software, hardware is useless metal and plastic.
+
+
+-- Operating Systems / Systems software 
+- Windows, macOS, Linux, UNIX
+
+- What does an OS actually do?
+- Memory management 
+- Process scheduling 
+- File System management (FAT32, NTFS) 
+- Device Drivers 
+- Security 
+
+- Controls the computer.
+- Manages hardware resources.
+- Provides environment for applications.
+
+Q. Why is Linux popular in servers and cybersecurity?
+A. Guiding you towards:
+- Open source
+- Stability
+- Customization
+- Cost effectiveness
+
+*Differences between purchased, downloadable, or self‑developed programs
+
+-- IPO - The Input Processing Output Model 
+- IPO is foundational. Everything in computing follows this.
+- data, processing, knowledge 
+- processing includes: calculations, decision-making, data transformations, validation 
+- The discussion of the IPO Model here is more a general concept as compared to the IPO model we would discuss for implementing problem solving
+
+- Input - Sources of input (user, sensors, files, network)
+- Processing - CPU role, Calculations, comparisons, transformations
+- Output - Display, print, audio, file output, communication signals
+
+*Every app on your phone follows IPO.
+
+Example: Instagram
+- Input: Photo
+- Processing: Filters applied
+- Output: Displayed image
+
+-- Programming Languages 
+- Examples: Kotlin, JavaScript, TypeScript, 	Java, C#, Python, PHP, R, Julia
+- instructions written to perform a task 
+- programmers design an algorithm 
+
+- Syntax 
+- rules that govern the language 
+- rules that define the structure of statements and expressions 
+	
+- Compiler vs Interpreter (C++ vs Python)
+- Error reporting mechanisms
+
+- Compiler = Translator who translates whole book first.
+- Interpreter = Translator translating sentence-by-sentence live.
+
+- compiler - faster execution - errors are shown immediately 
+- a translator that takes a coded program and converts it to a low-level, machine language.
+
+- interpreter - easier testing, slower execution 
+- translates one statement at a time
+
+-- Object Code 
+-   Role of compilers
+-   Linking & executable creation
+
+- Source Code > Compiler > Object code > (Linker) > Executable 
+
+We often skip the “linker” concept.
+*If your program uses libraries, they must be linked together before it runs.
+
+
+-- Computer Memory 
+
+- RAM 
+- Volatility
+- Temporary storage
+- Speed and accessibility
+
+- Secondary Storage -   
+- HDD, SSD, flash memory
+- Non‑volatility
+- Slower access compared to RAM
+- NTFS / FAT32 
+- SSD faster because no moving parts.
+- HDD uses spinning magnetic disks.
+
+-- 6 Steps Problem Solving 
+*Programming is 70% thinking, 30% typing.
+
+1. Identify the problem (what is being asked?)
+2. Understand the problem (inputs? outputs? constraints?)
+3. Identify alternative solutions to solve the problem 
+4. Select the best way to solve the problem from the list of alternative solutions (efficiency matters)
+5. Write the algorithm (List the instructions that enable you to solve the problem using the select solution)
+6. Test & Evaluate the solution (find logic errors)
+
+- while used for everyday types of tasks, it could be adapted to help solve computer related problems -&- in turn help develop computer programs 
+- example discussed briefly - "Get to work in the morning" - transport options, route options, time to leave, tome to reach work, choose best route, go to work, then after, evaluate the route taken, decide if I am going to use the same route again. 
+
+1. Why do beginners jump straight into coding?
+2. Why do experienced programmers plan first?
+3. Can you solve a problem you don’t fully understand?
+
+- Example
+- Problem: Calculate average of 3 marks.
+- Common student mistake: Forget to divide by 3.
+- That is a *logical error*, not syntax.
+
+-- IPO Model 
+- input / processing / output 
+- note the order I wish for your to take note of: 1 > Input 2 > Output 3 > Processing 
+* trains and promotes reverse thinking because you begin to think how to go from input to the required output
+
+-- Program Development Cycle (Steps)
+
+1. Understand Problem
+2. Plan Logic (Pseudocode, Flowcharts)
+3. Code Program
+4. Translate to Machine Code
+5. Test Program (Syntax/Logic Errors)
+6. Implement Program
+7. Maintain Program
+
+- Importance of comments (explained + documentation)
+- more catered towards a computer program - but again - relate these steps to the ones we learnt above 
+- Emphasizing Maintenance > Most real-world programming time is spent:
+- Fixing bugs
+- Updating features
+- Improving security
+
+
+** Extra thought  
+-- 2 Types of Solutions 
+- algorithmic	(follow a series of instructions) 
+- heuristic 	(follow a series of instructions - but constantly revisit to redo)
+- search for a meaning to help you understand these terms for the 2 types of solutions produced
+**
+
+-- Programming models 
+
+- Procedural - program divided into *functions, procedures, modules, methods - called as needed 
+- step-by-step 
+- top-down approach 
+- functions / procedures 
+
+- Object-oriented - program divided into classes that are instantiated to an object and the programming within is called as needed
+- class - structure + behaviour 
+- instance of the class is an object 
+- encapsulation 
+- inheritance 
+- polymorphism 
+	
+*Real-World Analogy
+
+Object = Student
+
+Attributes:
+- Name
+- Age
+- Student number
+
+Behaviours:
+- Study()
+- WriteExam()
+- PayFees()
+
+Encapsulation:
+Keep student’s marks private.
+
+Inheritance:
+PostgraduateStudent inherits from Student.
+
+Polymorphism:
+Different students implement Study() differently.
+
+
+-- Algorithms / Flowcharts 
+- algorithms - instructions 
+- a clear series of steps 
+- must have a begin & end (Start / Stop) - finite - must start and must stop 
+- effective in completing tasks
+- input (accept value from user) & output (display result or prompt to ask user to input)
+
+- the order of instructions 
+- numbering instructions will begin at 0. - helps to read the coded instructions 
+
+- each instruction performs one action 
+- indentation is important to implement, view & read code 	
+- no punctuation 
+- naming of variables 
+
+Example: 
+0. Start 
+1.	input number 
+2. 	answer = number * 3 
+3.	output answer 
+4. Stop 
+
+	
+- flowcharts - visual representation of the algorithm 
+- use Office 365 - Visio or draw.io (some shapes need to be customized a little)
+
+- rules - single entry / exit  
+- symbols 
+- rectangle - processing - calculations 
+- rounded rectangle - start / stop 
+- parallelogram	- input / output 
+
+- flowlines 
+- connect shapes to help visualize the flow of the program from start to end 
+- top-down flow is default & noted in example shown in class
+- we will label the flowlines when the time comes in future chapter work
+
+- other 
+- diamond - decisions + loops (single entry - multiple exits, but only one exit will be recognized based on the result of the decision)
+- hexagon - specifically for the for loop 
+- rectangle with 2 lines - sub-processes / functions / procedures 
+- circle - used to end a for loop + its also an on-page reference 
+- upside down house - off-page reference 
+
+-- Simple Program Logic 
+- variables (variables / constants): containers to store values during the processing of a program 
+- data types - define the type of data meant to be stored
+	- 3 categories explored in this class  
+	- numeric	integer, float, 
+	- string 	string, character, 
+	- boolean	
+
+* operators - symbols used to perform operations 
+
+- control structures 
+	- sequential 	- sequence 
+	- decision 	- selection
+	- loop 		- iteration 
+
+- 3 Error Types 
+	- syntax - errors in the language / the (syntax) code 
+	- run-time - program executes, but crashes after something occurs
+	- logical - program executes, but the result is incorrect - programmer's logic is incorrect 
+
+Q. Which error type is hardest to detect?
+Syntax, Runtime, Logical
+A. Most will say logical.
+
+BUT Why?
+
+- Program runs but produces wrong answer.
+- No obvious crash.
+- Requires reasoning.
+
+Q. What does debugging (fixing problems) train in your brain?
+A. 
+- Analytical thinking
+- Pattern recognition
+- Patience
+- Persistence
+
+
+-- Closing 
+- Is programming about memorizing syntax?
+- Or is it about solving problems logically?
+- Can someone be good at coding but poor at problem-solving?
+
+*Programming is applied logic.
