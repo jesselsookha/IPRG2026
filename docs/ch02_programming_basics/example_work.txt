@@ -1,0 +1,44 @@
+/*
+ * Title: Calculating the total time worked 
+ * Name: Jessel Sookha
+ * Student Number: ST1055555555 
+ * Date: 28 Feb 2026 
+ * Description: 
+	Request the user to submit the 4 recorded times, in minutes since 
+	midnight for an employee. The program determines the total number 
+	of minutes and then calculates & outputs the number of hours and 
+	reminaing minutes worked during a day.   
+ */
+
+0. Start 
+1. Declarations 
+	num intMorningIn	// came into work  
+	num intNoonOut		// left for lunch 
+	num intNoonIn 		// came back from lunch
+	num intNightOut 	// went home 
+	num intHours, intMins
+
+2.	output "Enter the time the emp came into work: " 
+3.	input intMorningIn 
+
+4.	output "Enter the time the emp left for lunch: " 
+5.	input intNoonOut 
+
+6.	output "Enter the time the emp came back from lunch: "
+7.	input intNoonIn 
+
+8.	output "Enter the time the emp went home: " 
+9. 	input intNightOut 
+
+	// calculate the total number of hours contained within the total mins worked 
+10.	intHours = ((intNoonOut - intMorningIn) + (intNightOut - intNoonIn)) \ 60
+	
+	// calculate the total nmber of remaining mins without the hours 
+11. 	intMins = ((intNoonOut - intMorningIn) + (intNightOut - intNoonIn)) MOD 60 
+
+12. 	output "The total number of hours worked is " + intHours 
+13.	output "The total number of minutes worked in " + intMins
+
+14. Stop 
+
+
