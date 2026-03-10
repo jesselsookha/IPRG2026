@@ -1,0 +1,305 @@
+Chapter 3 - Logic Structures 
+
+- Spaghetti Code
+
+-- What is Spaghetti Code (Beyond the Definition)?
+-- Spaghetti code is not just “messy code.” It’s code where:
+	- Control jumps around unpredictably
+	- Logic is tangled
+	- Small changes break other parts
+	- No clear beginning or end to sections
+
+It often happens when:
+- Beginners keep adding features without redesigning
+- Deadlines are rushed
+- No planning was done (no pseudocode, no flowcharts)
+- Copy–paste programming
+
+---
+
+- Simple Example
+
+Bad structure:
+
+Start
+input number
+if number > 0
+    print "Positive"
+go to EndCheck
+if number < 0
+    print "Negative"
+EndCheck:
+print "Done"
+Stop
+
+Thinking: 
+- Why is there a jump?
+- What if we add more conditions?
+- How many labels will we need? What is the purpose of the labels? 
+
+- Prevention Steps against Spaghetti Code 
+	- comments
+	- understanding the code base 
+	- perform unit tests  
+	- use light frameworks 
+	- always double-check 
+
+** Read the Manual to get a complete understanding 
+
+---
+
+- Three Basic Logic Structures
+
+All programs — no matter how complex — are built from only three structures.
+
+- Sequential Logic
+-- All instructions are executed in the order that it has been written - in sequence 
+-- It is:
+	- The default
+	- Straight-line execution
+	- Top to bottom
+
+It’s predictable.
+
+- Analogy
+
+Following the method to bake a cake. 
+You can’t rearrange those randomly.
+
+- Example
+0. Start 
+1. Declarations
+	num fltLength
+	num fltWidth
+	num flttArea
+ 
+2.	input fltLength
+3.	input fltWidth
+4.	fltArea = fltLength * fltWidth
+5. 	output fltArea
+6. Stop 
+
+- Decision Logic
+
+-- Decision logic introduces:
+	- Choice
+	- Branching
+	- Different paths
+
+- This is where programs become dynamic.
+- The question is presented in the form of a logical expression; depending on the result, a path of execution is then decided 
+
+-- Analogy
+
+Traffic light:
+	- If green → go
+	- If red → stop
+	- Else → prepare
+
+-- Introduced to 2 new coding structures 
+	- if..then 
+	- if..then/else 
+-- Example 
+
+?.	if intMark >= 50 then 
+    		output "Pass"
+	else 
+    		output "Fail"
+	endif 
+
+?.	if intMark >= 75 then 
+    		output "Distinction"
+	else 
+		if intMark >= 50 then 
+    			output "Pass"
+		else 
+			output "Fail"
+		endif 
+	endif 	
+
+-- “Can two branches run at the same time?”
+
+?.	if intAge>= 18 AND fltBal > 10000.00 then 
+		output "You get a loan" 
+  	else 
+		output "You do not get a loan"
+  	endif 
+
+-- case logic / case statement
+	- Evaluate a decision and there are multiple "branches (true)" that could be executed 
+	- There is also an "else" component 
+	- Spoke about the execution of games that uses a case statement and a loop to play   
+
+
+- Loop Logic
+
+-- Loops are:
+	- Repetition structures
+	- Used when we don’t want to duplicate code
+	- Controlled by conditions
+
+-- Analogy
+
+Brushing teeth:
+	- Brush
+	- Check time
+	- Continue until 2 minutes passed
+
+	- This is a while loop.
+
+--- 
+
+-- while..loop (pre-test)
+	- Condition checked first
+	- May run zero times
+
+- Example 
+?.	while fltBalance > 0
+    		// Withdraw money
+	endwhile 
+
+	- “What if balance is already 0?”
+
+---
+
+2.	output "Enter Age" 
+3.	input intAge 
+
+4.	while intAge <> -1 // -1 is the sentinel value - to be discussed in Chapter 6 
+		....
+		....
+		.... the instructions that are repeated 
+	endwhile 
+---
+
+0. Start 
+1. Declarations 
+	num intMark 
+	num intSum 
+	num fltAvg
+	num intCount 
+
+2.	intCount = 0 
+3.	intSum = 0 
+
+4.	output "Please enter the mark for the student " 
+5.	input intMark 
+
+6.	while mark <> -1 
+		intSum = intSum + intMark 
+		intCount = intCount + 1 
+		output "Please enter the mark for the student " 
+		input intMark 
+	endwhile 
+
+7.	if intCount <> 0 then
+		fltAvg = intSum / intCount 
+		output "The average mark in the class is : " + fltAvg 
+	else 
+		output "There is no average to display" 
+	endif 
+
+8. Stop 
+
+
+-- do..while (post test)
+	- Runs at least once
+	- Condition checked after
+
+-- Analogy
+You try the door before checking if it’s locked.
+
+?. 	do 
+		output "Enter Age " 
+		input intAge 
+		...
+		...
+		...
+	while intAge <> 0 
+
+
+-- for..loop (automatic-counter)
+	- Used when you know how many times
+
+?.	for intCount = 1 to 10 Step 1
+    		output intCount // instruction that are repeated 
+	endfor 
+
+-- Questions to ask about loops
+	- “What happens if we forget to update the loop variable?”
+	- “Why are infinite loops dangerous?”
+	- “Where might infinite loops be useful?”
+
+(Operating systems, game loops, servers)
+
+- Need for Structure
+
+-- Clarity
+	Structured programs:
+	- Are readable
+	- Communicate intent
+	- Reduce mental load
+
+“If someone else reads your code, should they need you there to explain it?”
+
+-- Maintenance
+	Most real-world programming is:
+	- Fixing bugs (debugging / errors)
+	- Updating systems
+	- Improving performance
+
+“Which is harder: writing code or fixing someone else’s?”
+
+-- Professionalism
+
+- Programming is not just about making it work — it’s about making it understandable.
+	Employers care about:
+	- Clean structure
+	- Consistent style
+	- Logical flow
+
+-- Modularity
+	Break programs into:
+	- Functions
+	- Procedures
+	- Logical blocks
+	- Other (processes, sub-processes, methods)
+
+** Efficiency 
+	- Time 
+	- Quality vs Quantity 
+---
+
+- “Why do companies enforce coding standards?”
+- “Is messy code unethical in professional settings?”
+
+---
+
+- Recognising Structure Issues
+
+-- Flowchart Layout
+	- Clean top-to-bottom flow
+	- No unnecessary diagonal lines
+	- Clear branches
+
+-- Single Entry / Single Exit
+	A structure should:
+	- Start at one point
+	- End at one point
+
+	Bad practice:
+	- Multiple random exit points
+
+-- Avoid Crossing Flowlines
+	Crossed lines in flowcharts usually mean:
+	- Poor planning
+	- Overlapping logic
+	- Potential spaghetti code
+
+---
+
+1. “Why do all programming languages use the same three logic structures?”
+2. “If logic structures are simple, why is software still so complex?”
+3. “Is bad structure a technical problem or a thinking problem?”
+4. “Does structure limit creativity — or enable it?”
+5. “Can artificial intelligence write spaghetti code?”
