@@ -1,0 +1,268 @@
+CHAPTER 4 — Sequential Logic
+
+- Sequential Logic Structure
+
+Sequential logic is the simplest control structure in programming.
+
+It means:
+-- Instructions execute one after another, in the exact order they are written — from top to bottom.
+
+There are:
+
+* No decisions
+* No repetition
+* No jumping around
+
+It is the default mode of a program.
+
+-- Analogy
+
+- What happens if you brush your teeth before putting toothpaste on the brush?
+
+or:
+
+- What happens if you bake a cake before mixing the ingredients?
+
+** A recipe
+the method 	- important to remember the right ingredients and the order that needs to be followed to bake the cake 
+algorithm  	- everything we learnt in Chapter 2 is presented in the form of an algorithm 
+
+
+Life itself is sequential.
+
+Programming simply formalizes something they already understand.
+
+-- Core Components of Sequential Logic
+
+Most sequential programs contain:
+
+1. Input
+2. Processing
+3. Output
+
+** Remember the IPO Model in Chapter 1 
+
+Input → Process → Output
+
+This becomes the mental template for every program you write.
+
+-- Program Flow
+
+In sequential logic:
+
+* Execution starts at the first line
+* Continues downward
+* Stops at the last line
+
+	START
+  	↓
+	Step 1
+  	↓
+	Step 2
+ 	↓
+	Step 3
+  	↓
+	STOP
+
+-- Relationship to More Complex Structures
+
+Sequential logic is the foundation for:
+
+* Selection (if..then, if..then..else)
+* Repetition (while, do..while, for)
+* Functions / Procedures
+* Object-oriented design
+
+** “Every complex program is just sequential logic — plus control over which steps execute and how often.”
+
+
+? If a program only uses sequential logic, what can’t it do?
+	- It cannot make decisions
+	- It cannot repeat tasks automatically
+	- It cannot respond differently to different inputs
+
+
+-- Problem 
+
+A worker earns:
+
+* Hourly rate
+* Number of hours worked
+
+Calculate and output the Weekly wage which is equal to the hourly rate multiplied by the hours worked
+
+0. Start 
+1. Declarations 
+	num intHours 
+	num fltRateOfPay 
+	num fltWages 
+
+2.	output "Please enter the number of hours worked in the week: "
+3.	input intHours 
+
+4.	output "Please enter the rate of pay per hour: " 
+5.	input fltRateOfPay 					// R[____]
+
+6.	fltWages = intHours * fltRateOfPay 
+
+7.	output "The weekly wages is R" + fltWages	// The weekly wages is R1234.99
+
+8. Stop 
+
+
+- What happens if we calculate the wages before getting input?
+- What if we output before calculating?
+
+** You cannot use a value that does not yet exist.
+
+- Flowchart was your homework 
+	- Oval (rounded rectangle)	Start/Stop
+	- Parallelogram 		Input/Output
+	- Rectangle 			Process (& Declarations)
+	- Arrow/Flow lines 		Flow direction
+
+---
+
+1. Sequential Does NOT Mean Simple Thinking
+
+Even complex software like:
+	- Microsoft Excel
+	- WhatsApp
+At its lowest level still executes instructions sequentially.
+
+---
+
+2. Hidden Sequential Logic in Daily Life
+	- Making coffee
+	- Sending an email
+	- Logging into the university portal
+	- Sharpen a pencil 
+
+Which steps must come first?
+Which steps depend on earlier steps?
+
+You need to begin thinking algorithmically.
+
+---
+
+3. The Idea of State
+
+Even in simple sequence:
+	- Variables store values
+	- Values change
+	- Order affects the final state
+
+	Example:
+	intNum = 0 		(0)
+
+	intNum = 5		(5)
+	intNum = intNum + 2
+
+	What is intNum now?	(7)
+
+	-- 
+	intNum = 0 		(0)
+
+	intNum = intNum + 2	(2)
+	intNum = 5		
+
+	What is intNum now?	(5)
+
+- The sequence matters when you understand the story and the intended purpose of the order of instructions 
+
+-- Order Again 
+
+** Remember the program that calculated the total hours and minutes that an employee worked in a day 
+
+// original code that we coded
+intHours = (intNoonOut - intMorningIn) + (intNightOut - intNoonIn) \ 60 
+intMins = (intNoonOut - intMorningIn) + (intNightOut - intNoonIn) MOD 60 
+
+// edited - total minutes is first calculated 
+intTotalMins = (intNoonOut - intMorningIn) + (intNightOut - intNoonIn)
+
+// hours and minutes are now calculated as before 
+intHours = intTotalMins \ 60 
+intMins = intTotalMins - (intHours * 60)
+
+// what if we make the mistake of attempting the calculate the minutes before the hours 
+// note the use of the intTotalMins variable and now what is this order incorrect 
+intTotalMins = (intNoonOut - intMorningIn) + (intNightOut - intNoonIn)
+intMins = intTotalMins - (intHours * 60)
+intHours = intTotalMins \ 60 
+
+
+ 
+
+---
+
+-- Why must computers be given instructions in extreme detail, while humans can “fill in the gaps”?
+
+---
+
+-- If a payroll program calculates wages incorrectly because steps were in the wrong order, who is responsible?
+	- The programmer?
+	- The company?
+	- The computer?
+
+---
+
+-- When a program produces the wrong answer, what is the FIRST thing you should check?	
+	- Order of steps
+	- Variable assignment
+	- Inputs
+
+
+---
+
+- Sequential logic teaches us that programming is not about syntax first — it is about thinking clearly, logically, and in order.
+	If we understand:
+	- Order
+	- Data dependency
+	- Input → Process → Output
+
+	Then we are ready for the next level 
+
+----------------------------------------------
+
+Program from the homework 
+
+Number of repoorts to be printed - 25 + (5 extra according to the story) = 30 
+Number of pages in the report - 140 * 30ppl = 4200 pages 
+
+Ream = 500 pages 
+
+Number of reams = number of pages / ream 
+		  4200 / 500 
+		  8.4 
+
+We need only the integer part as the answer 
+
+Number of reams = number of pages \ ream	- using integer division 
+What about the .4 ? The story asked us to assume that we will always calculate a floating point number - meaning that we would always be expected to purchase 1 more ream to cover the remaining pages in the calculation 
+
+200 pages * (15ppl + 5 extra) = 4000 \ 500 = 8 (+ 1) // because even though the example presents 8, a whole number, we will never know the actual result of the calculation  
+
+300 pages * (6ppl + 5 extra) = 3300 \ 500 = 6 (+ 1) // the result of normal division is 6.6 
+
+0.  Start 
+1.  Declarations 
+	num intNumPpl 	// number of people in the meeting 
+	num intRepPages // number of pages in the report 
+	num intTotalPages 
+	num intNumReams
+
+2.	output "Enter the number of people coming to the meeting: " 
+3.	input intNumPpl 
+
+4.	output "Enter the number of pages in the report: " 
+5.	input intRepPages 
+
+6.	intTotalPages = intRepPages * (intNumPpl + 5)
+7.	intNumReams = intTotalPages \ 500 
+8.	intNumReams = intNumReams + 1 
+
+9. 	output "Joe needs to purchase " + intNumReams + " reams."
+10. Stop 
+
+
