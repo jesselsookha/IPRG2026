@@ -1,0 +1,618 @@
+Chapter 5 — Decision Logic (continued) 
+
+-- Multiple if…then Statements
+
+There are 3 variations that are shared: 
+	* straight-through logic (separate if..then statements)
+	* positive logic (nested if..then statements)
+	* negative logic (nested if..then statements)
+	
+
+-- Straight-Through Logic
+
+Separate independent if's
+
+- Example 
+
+0. Start 
+1. Declarations 
+	num intMark 
+
+2.	output "Please enter the mark: " 
+3.	input intMark 
+
+4.	if intMark >= 50 then 
+		output "Pass"
+	endif 
+
+5.	if intMark >= 75 then 
+		output "Distinction" 
+	endif 
+
+6. Stop   
+
+// Both if..then statements can run.
+
+- Variations - The following was discussed with the intention of being able to see the mistakes. 
+Since both of the above conditions is about the marks, the discussion was, could we combine the 2 if..then statements into 1 and use a compound condition
+
+
+1 > using OR with a single alternative if..then statement 
+
+	if intMark >= 50 OR intMark >= 75 then 
+		output "Pass" 
+		output "Distinction" 
+	endif 
+
+	if mark is 60 - Pass & Distinction - is this correct?  
+	but if mark is 80 - what is the output? 
+
+2 > using AND with a single alternative if..then statement 
+
+	if intMark >= 50 AND intMark >= 75 then 
+		output "Pass" 
+		output "Distinction" 
+	endif 
+
+	if mark is 65 - it does not print anything - this is wrong 
+	if mark is 80 - Pass and Distinction is outputted, that is correct 
+
+
+3 > using OR with a dual alternative if..then..else statement 
+
+	if intMark >= 50 OR intMark >= 75 then 
+		output "Pass" 
+	else 
+		output "Distinction" 
+	endif 
+
+4 > using AND with a dual alternative if..then..else statement 
+
+	if intMark >= 50 AND intMark >= 75 then 
+		output "Distinction" 
+	else 
+		output "Pass" 
+	endif 
+
+Both 3 & 4 - seems to be correct, but when we executed the code, and noted some marks, it worked in some cases, but again, not for every possible mark. 
+
+So it turned out that the 2 simple (single-alternative) if..then statements was the correct choice for this example. While both the conditions was about the marks, the results, "Passed" & "Distinction" was never related. 
+
+So we follow the rules of straight-through logic. 
+ 
+-- Nested if Statements
+
+An if..then inside an if..then 
+
+- Example
+
+5.	if intAge >= 18 then 
+		// if the above result is true, this if..then is executed
+    		if blnHasID = true then 
+			// if both conditions are true, then this section 
+			// worth of instructions are executed 
+		else 
+			// the 1st condition is true and the 2nd condition is 
+			// false, then this instruction block is executed 
+		endif 
+	else 
+		// if the 1st condition is false then this instruction block 
+		// is executed
+	endif 
+
+5.	if intAge >= 18 then 
+		if blnHasID then 
+			output "Go vote" 
+		else 
+			output "Can't vote" 
+		endif 
+	else 
+		output "Go home" 
+	endif 
+
+
+Depending on the intended logic, we might consider
+
+	if intAge >= 18 AND blnHasID then
+		// true block 
+	else 
+		// false block 
+	endif 
+
+	// both pieces on either side of the AND must be true in order for the true block of instructions to be executed 
+	// if either side is false, then the whole result is false and the false block is executed
+			
+- Another Example 
+
+6.	if intHours > 40 then 
+ 		fltWages = (40 * fltRate) +  ((intHours - 40) * fltRate * 1.5) // overtime pay 
+		if (intHours - 40) > 20 then 
+			fltWages = fltWages + 1000 // bonus pay
+		endif
+	else 
+		fltWages = intHours * fltRate // normal pay
+	endif 
+
+- Another Example 
+
+4. 	if intMark >= 50 then 
+		output "Passed" 
+		if intMark >= 80 then 
+			output "Distinction" 
+		endif 
+	else 
+		output "Failed" 
+	endif 
+
+
+* Nesting increases complexity.
+* Deep nesting reduces readability. 
+
+-- Positive vs Negative Logic
+
+- These variations is about the range checks and an opportunity to learn about efficiency. Please make sure to read through the notes in the manual as much as you revisit these notes. 
+
+- These considerations shared below offer an interesting thought. While we are expected to learn about nested if..then and these ideas known as positive and negative logic, we need to understand the following:
+  
+	* Deep nesting slows readability. (too many levels)
+	* Harder to test. (constant testing for all variations of input)
+	* Harder to maintain. (too many conditions to look through)
+
+- But this does not stop us from coding what is needed for a given storyline 
+
+- Example 
+- Ask the user to enter a mark for an assessment and determine the letter grade associated to the mark
+
+Mark		Grade
+90 - 100	A
+89 - 89 	B
+70 - 79		C
+60 - 69		D
+50 - 59		E
+< 50 		F
+
+- As discussed in class, we did not code the version of positive logic immediately. We approached the coding in stages, trying our best to learn and refine the code, until we reach the final form. 
+
+// The initial version was to look at each range and code separate if.then statements for each "grade" 
+
+0. Start 
+1. Declarations 
+	num intMark 
+	string strGrade 
+
+2.	output "Enter mark: " 
+3.	input intMark 
+
+4.	if intMark >= 90 AND intMark <= 100 then 
+		strGrade = "A"
+	endif 
+
+5.	if intMark >= 80 AND intMark <= 89 then 
+		strGrade = "B"
+	endif 
+
+6.	if intMark >= 70 AND intMark <= 79 then 
+		strGrade = "C"
+	endif 
+
+7.	if intMark >= 60 AND intMark <= 69 then 
+		strGrade = "D"
+	endif 
+
+8.	if intMark >= 50 AND intMark <= 59 then 
+		strGrade = "E"
+	endif 
+
+9.	if intMark < 50 then 
+		strGrade = "F"
+	endif 
+
+10. 	output "The grade is " + strGrade 
+
+11. Stop 	
+
+- While the above code does the work of determining the grade, we spoke about the fact that we need to execute all the if..then statements. If many students have good marks, the grade is A or B, but then why do we execute all the other if..then statements in the set. 
+
+* The following iterations will not show the whole program, just the if..then statements set 
+
+- This code is the initial idea of nested if..then statement using positive logic. For every condition that results in being true, an instruction is executed and if its false, then another if..then statement is coded. This makes the execution already a little more efficient. 
+
+If a mark, for example, is 95, then we know the first if..then statement is true - the grade is A - but the most important, is that we do not need to execute the remaining set of statements since it is contained in the false section of the if..then statement
+
+4.	if intMark >= 90 AND intMark <= 100 then 
+		strGrade = "A"
+	else  
+		if intMark >= 80 AND intMark <= 89 then 
+			strGrade = "B"
+		else 	
+			if intMark >= 70 AND intMark <= 79 then 
+				strGrade = "C"
+			else  
+				if intMark >= 60 AND intMark <= 69 then 
+					strGrade = "D"
+				else  
+					if intMark >= 50 AND intMark <= 59 then 
+						strGrade = "E"
+					else  
+						if intMark < 50 then 
+							strGrade = "F"
+						endif
+					endif 
+				endif 
+			endif 
+		endif 
+	endif
+
+- While the above did deal with the efficiency a little, there is more refinement that can happen - take note of the last condition, when the mark is less than 50, then the last obvious grade is "F", so why do we need to keep the last if..then statement, we just need the instruction
+
+4.	if intMark >= 90 AND intMark <= 100 then 
+		strGrade = "A"
+	else  
+		if intMark >= 80 AND intMark <= 89 then 
+			strGrade = "B"
+		else 	
+			if intMark >= 70 AND intMark <= 79 then 
+				strGrade = "C"
+			else  
+				if intMark >= 60 AND intMark <= 69 then 
+					strGrade = "D"
+				else  
+					if intMark >= 50 AND intMark <= 59 then 
+						strGrade = "E"
+					else  
+						strGrade = "F"
+					endif 
+				endif 
+			endif 
+		endif 
+	endif
+
+- Then in class, it was stated a little more revising could happen
+
+	if intMark >= 90 	
+	- the false of this part is < 90 and < 90 is the same as <= 89 
+	
+	- so if, for example, the first if..then statements false, is the "true" for the next if..then statements condition, why do we need to test 		the "2nd relational expression", when we know that coming here is simply because the above statement was false 
+
+	- please note that this way of thinking requires more time and practice with more examples will help you to see and understand why the next 	iteration of the code is actually the final form for positive logic 
+
+4.	if intMark >= 90 then 
+		strGrade = "A"
+	else  
+		if intMark >= 80 then 
+			strGrade = "B"
+		else 	
+			if intMark >= 70 then 
+				strGrade = "C"
+			else  
+				if intMark >= 60 then 
+					strGrade = "D"
+				else  
+					if intMark >= 50 then 
+						strGrade = "E"
+					else  
+						strGrade = "F"
+					endif 
+				endif 
+			endif 
+		endif 
+	endif  
+
+- Again, for every condition that results in being true, there is an instruction, and if false, another if..then statement is executed and when we reach the "2nd last" statement, its false, is the "last statements" true instruction 
+
+-- Negative Logic 
+
+The opposite of positive logic, while in positive logic, an instruction was executed when the condition was true, in negative logic, the instruction is executed when the condition is false. Again, this is about effieciency, about knowing something about the data. 
+
+4.	if intMark < 90 then 
+		if intMark < 80 then 
+			if intMark < 70 then 
+				if intMark < 60 then 
+					if intMark < 50 then 
+						strGrade = "F"
+					else  
+						strGrade = "E"
+					endif
+				else 
+					strGrade = "D" 
+				endif
+			else 
+				strGrade = "C" 
+			endif 
+		else 
+			strGrade = "B"
+		endif 
+	else 
+		strGrade = "A"
+	endif  
+
+- In class we used the positive logic answer to help us code the negative logic version. We changed the relational operator to the opposite and noted that the false executes the instruction, and the true executed the next if..then statement in the set. 
+
+---
+
+Then we spoke about the following: While the above code, over time, will be understood, there is something important that we do as programmers, our homework, research, reviewing of documentation and there is a chance we pick up something important. In the above example, to reach strGrade = "F", we have to go through 5 if..then statements. There is nothing wrong, but every split-second counts and if we could save time, we should. 
+
+So we reversed the set of ranges  
+
+Mark		Grade 
+< 50		F 
+50 - 59 	E 
+60 - 69		D 
+70 - 79 	C 
+80 - 89 	B 
+90 - 100	A 
+
+And proceed to compile the nested set of if..then statements using both positive & negative logic 
+
+- positive logic 
+
+4.	if intMark < 50 then 
+		strGrade = "F" 
+	else 
+		if intMark < 60 then
+			strGrade = "E" 
+		else 
+			if intMark < 70 then 
+				strGrade = "D" 
+			else 
+				if intMark < 80 then 
+					strGrade = "C" 
+				else 
+					if intMark < 90 then 
+						strGrade = "B" 
+					else 
+						strGrade = "A" 
+					endif 
+				endif 
+			endif 
+		endif 
+	endif  
+
+- when we spoke about this, it was interesting to realize the choice for the values we are comparing against - for readability, for presentation, so 50, 60, 70, 80, and 90 ... a little odd, but its a little better than the following: 
+
+4. 	if intMark <= 49 then 
+		strGrade = "F" 
+	else 
+		if intMark <= 59 then
+			strGrade = "E" 
+		else 
+			if intMark <= 69 then 
+				strGrade = "D" 
+			else 
+				if intMark <= 79 then 
+					strGrade = "C" 
+				else 
+					if intMark <= 89 then 
+						strGrade = "B" 
+					else 
+						strGrade = "A" 
+					endif 
+				endif 
+			endif 
+		endif 
+	endif  
+
+- negative logic 
+
+	if intMark >= 50 then 
+		if intMark >= 60 then
+			if intMark >= 70 then 
+				if intMark >= 80 then 
+					if intMark >= 90 then 
+						strGrade = "A" 
+					else 
+						strGrade = "B" 
+					endif 
+				else 
+					strGrade = "C"
+				endif 
+			else 
+				strGrade = "D"
+			endif 
+		else 
+			strGrade = "E"
+		endif 
+	else 
+		strGrade = "F"
+	endif  
+
+- A conclusion at this point
+----------------------------
+
+The Art of the Decision
+
+In programming, a solution that "works" is only the beginning. As we have seen with these four variations of grading logic, the same result can be achieved through different lenses: 
+
+Positive vs. Negative logic and Ascending vs. Descending ranges.
+
+Why is it important to master all four? Because as a programmer, you aren't just a "writer"—you are an optimizer and a communicator.
+
+1. Designing for the Data (The "Efficiency" Factor)
+
+We often write code assuming all data is equal, but in the real world, it rarely is. 
+
+- If you are grading a Master’s level course where 90% of students get an "A," starting your check at the top (Positive Logic, Descending) is the fastest path. 
+- If you are screening for a remedial program where most students score below 50, starting at the bottom (Positive Logic, Ascending) saves the processor from checking five unnecessary conditions for every student.
+
+The Lesson: Know your data. Choose the path that reaches the most common result the fastest.
+
+2. Designing for Humans (The "Readability" Factor)
+
+Code is read by humans far more often than it is written. 
+
+- Positive Logic (If 'this' is true, do 'that') generally mirrors how humans think, making it easier to debug.
+- Negative Logic (If 'not' this, then check 'that') can sometimes feel "inside out," but it is a powerful tool for filtering out exceptions or "edge cases" early.
+
+The Lesson: If a teammate can’t understand your logic in ten seconds, the code is a liability, even if it works.
+
+3. The Power of Choice
+
+There is rarely "one right way" in software development. By learning these four variations, you are building a toolbox. 
+
+- One method might be easier to maintain (e.g., adding a "D+" grade later).
+- Another might be easier to test because the boundaries (< vs <=) are more distinct.
+
+
+We don't learn four ways to do one thing just to be thorough. We learn them so that when we face a complex problem, we don't just grab the first tool we see. We look at the requirements, look at our data, and choose the best tool for that specific job. 
+
+> A programmer who only knows one path is a passenger; a programmer who knows all the paths is the navigator.
+
+-- Compound Conditions
+
+Combine AND + OR carefully.
+
+- Example
+	if (intAge >= 18 AND blnCitizen) OR blnHasSpecialPermit
+
+Parentheses prevent logic errors.
+
+-- Case Structure
+
+Now shift from logic to structure.
+
+Use when:
+
+- Comparing ONE variable
+- Against multiple specific values
+
+
+- Basic structure 
+
+	case of variable		// condition: if the variable = value  
+		value: {instructions}
+		value: {instructions}
+		value: {instructions}
+		value: {instructions}
+		default: {instructions}
+	endcase
+ 
+- Example 
+Ask the user to enter their choice of colour for a car. If they enter an incorrect value, white will be chosen for them  
+
+	1. Red 		1500
+	2. Black 	2000	
+	3. Silver	2200
+	(default colour is white + 500)
+
+0. Start 
+1. Declarations 
+	num intChoice 
+	num fltPrice = 0 
+
+2.	output "Enter choice" 
+3.	input intChoice 
+
+4.	if intChoice = 1 then 
+		fltPrice = fltPrice + 1500 // red 
+	else 
+		if intChoice = 2 then 
+			fltPrice = fltPrice + 2000 // black 
+		else 
+			if intChoice = 3 then 
+				fltPrice = fltPrice + 2200 // silver 
+			else 
+				fltPrice = fltPrice + 500 // default white 
+			endif 
+		endif 
+	endif 	 		 		
+
+	...
+
+
+4.	case of intChoice 
+		1: fltPrice = fltPrice + 1500 // red 
+		2: fltPrice = fltPrice + 2000 // black
+		3: fltPrice = fltPrice + 2200 // silver
+		default: fltPrice = fltPrice + 500 // white - default colour chosen for you 
+	endcase 
+
+- cleaner than many if..then statements.
+- case is for equality checks — not ranges (in many languages). but it is noted that many modern programming languages have special case statements with features and functionality that really do offer more. 
+
+- A small note about 'default'
+
+	* Default handles unexpected input
+	* Never assume input will be valid.
+
+	* What happens if user enters “9”?
+
+- without 'default' - it is risky  	
+
+	* Should we always handle unexpected values?
+	* What happens in real systems when we don’t?
+
+- Example 
+	if intChoice < 1 OR intChoice > 3 then
+		 fltPrice = fltPrice + 500 // white
+		 output "Incorrect choice entered - default white car is added to the list" 
+	else 
+		case of intChoice 
+			1: fltPrice = fltPrice + 2500 //red 
+			2: fltPrice = fltPrice + 2200 //black 
+			3: fltPrice = fltPrice + 1900 //silver 
+		endcase 
+	endif 
+
+- Example 
+- The following was discussed in class, since we are soon going to learn about loops, what if there was only 3 colour choices, nothing else. If you enter the wrong value, we will repeatedly ask you until you provide the correct value
+
+2.	do 
+		output "Enter colour choice: "
+		output "1. Red" 	
+		output "2. Black"
+		output "3. Silver"
+		input intChoice 
+
+		if intChoice < 1 OR intChoice > 3 then
+			output "Error - incorrect choice entered"
+			output "Please select a valid choice"  
+		else 
+			case of intChoice 
+				1: fltPrice = fltPrice + 2500 //red 
+				2: fltPrice = fltPrice + 2200 //black 
+				3: fltPrice = fltPrice + 1900 //silver 
+			endcase 
+		endif 
+	while intChoice < 1 OR intChoice > 3
+
+3.	output "The price is R" + fltPrice 
+
+
+-- Menu-Driven Programs (Loop + Case)
+
+This is where it becomes powerful.
+
+Program runs:
+
+1. Display menu
+2. User selects option
+3. CASE executes
+4. Loop repeats
+
+This is the foundation of:
+
+* ATM systems
+* POS systems
+* Game menus
+
+* Why do most systems use menus?
+* Why combine loop + case?
+
+- Example
+
+2.	do 
+		// Display Menu
+		output "Enter Selection" 
+		output "Play Game" 
+		output "Load Saved Game" 
+		output "Settings" 
+		output "Exit"
+
+		input strSelection // input the string value 
+
+		case strSelection of 			
+			"Play Game": playGame() 		
+			"Load Saved Game": loadGame()
+			"Settings":  settings()
+		endcase
+	while strSelection <> "Exit"  
