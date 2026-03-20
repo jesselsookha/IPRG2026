@@ -1,0 +1,395 @@
+Chapter 5 — Decision Logic 
+
+-- Decision Logic Structure
+
+Programs are not smart — they only choose between paths you (the programmer) explicitly give them.
+
+“If it rains, I take an umbrella.
+“If I pass, I celebrate. Else, I study harder.
+
+Decision logic = controlling the flow of execution.
+
+-- Single-Alternative (if…then)
+
+One condition → one action → no alternative path.
+
+- Basic structure 
+	if [condition] then 
+		{true instructions}
+	endif 
+
+- condition is a logical expression - that must produce the result of true or false
+- If the result of the condition is true, then the instructions contained within the "true" block are only executed
+
+- Example 
+	if intTemperature > 30 then 
+    		output "It’s hot"
+	endif
+
+- Real-world analogy
+
+If the fire alarm rings → leave the building.
+No “else”. If condition is false, nothing happens.
+
+- Used when action is required only under specific circumstances.
+- Very common in validation.
+
+-- Dual-Alternative (if…then…else)
+
+Two possible paths — exactly one will execute.
+
+- Basic structure 
+ 	if [condition] then 
+		// {true instructions} 
+	else 
+		// {false instructions} 
+	endif 
+
+- If the result of the condition is true, then the instructions contained within the "true" block are executed and if the result of the condition is false, then the instructions contained within the "false" block are executed
+
+- Example 
+4.	if intMark >= 50 then 
+		output "Passed" // true
+	else 
+		output "Failed" // false  
+	endif 
+	// if the mark entered is equal to or above 50 then the output is "Passed" - if the result of the condition 	// is false, meaning the mark is less than 50 then the output is "Failed"  	
+
+
+5.	if intMark < 50 then 
+		output "Failed" // true 
+	else 
+		output "Passed" // false  
+	endif
+	// the above statement is the *opposite* of the previous one, note the change in the condition, this changes 	// what is required to happen inside the true block and what needs to happen in the false block  	
+
+- Real-world analogy:
+
+If you have a ticket → enter.
+Else → no entry.
+
+- Guarantees a decision.
+- Reduces ambiguity.
+
+
+-- Conditions
+
+This is about how computers evaluate truth.
+
+There is only true or false - never both while we are learning about logical expressions. 
+
+- Relational Expressions
+
+	- Primarily use relational operators:
+		* >	greater than
+		* <	less than 
+		* >=	greater than or equal to
+		* <=	less than or equal to 
+		* =	equal to
+		* <>	not equal to
+
+- We develop relational expressions to compare values. 
+- Remember that the operands on either side of the operator is as a pair, either both numerical, both strings or both characters
+
+- Example:
+
+	intAge >= 18
+	intMark >= 50 
+	strSearch = strName  
+
+
+- Logical Expressions 
+	- Primarily use logical operators 
+		* NOT 
+		* AND 
+		* OR 
+
+- Example 
+
+	blnFacialRecognition AND blnStudentCard 
+	
+	// With logical operators we are able to combine conditions.
+	intAge >= 18 AND blnHasID = true
+
+- Real-world example
+
+To rent a car: Must be 25+ AND have a valid license.
+
+- Analogy
+
+AND = “All must be true”
+OR = “At least one must be true”
+
+- Mixed Expressions
+	- Uses a mix of mathematical, relational and/or logical operators 
+	- Based on the notes in Chapter 2, the order of precedence will result in the condition always being true or 	false
+	- Must learn to formulate the expression correctly, noting the operator and the operands 
+
+- Example
+
+	(intAge > 18 AND blnCitizen = true) OR blnPassport = true
+
+	intNum MOD 2 = 0 
+
+- Now logic becomes layered.
+
+* Use parentheses () for clarity.
+* Computers follow precedence rules — humans get confused easily.
+
+- Boolean Variables as Conditions**
+
+* Because a boolean variable holds a value of true or false, we may do the following: 
+
+	// instead of:
+	if blnIsRegistered = true then 
+
+	// better:
+	if blnIsRegistered
+
+Cleaner code = fewer errors.
+
+- Example 
+	if blnStudentCard then 
+		output "Let you in to campus"	
+	else 
+		output "Don't let you in to campus"	
+	endif 
+
+- Example - an incorrect way to use only the boolean variable and not a relational expression
+
+4.	if blnStudentCard then 
+		// {empty true block - not acceptable}
+	else 
+		output "Don't let you in"
+	endif  
+
+	// if for whatever reason, this is what you needed, then it should be coded in the following way	
+4.	if blnStudentCard = false then
+		output "Don't let you in"
+	endif 
+
+---
+Example: Determine the wages for an employee. Based on the number of hours worked, if the employee has worked up to 40 hours, their pay is normal, but if they have worked for more than 40 hours, the extra hours will calculate and determine overtime pay at 1 1/2 times the pay rate. 
+
+0. Start 
+1. Declarations 
+	num intHours 	// number of hours worked in the week 
+	num fltRate	// rate of pay paid per hour 
+	num fltWages 	// variable to store the wages
+
+2.	output "Enter the number of hours worked: "
+3.	input intHours 
+
+4.	output "Enter the rate of pay: R"
+5.	input fltRate 
+
+6.	if intHours > 40 then 
+		// true > overtime
+ 		fltWages = (40 * fltRate) +  ((intHours - 40) * fltRate * 1.5)
+	else 
+		// false > normal
+		fltWages = intHours * fltRate 
+	endif 
+
+7.	output "The weekly wages to pay the employee is R" + fltWages
+8. Stop 
+
+---
+An alternative to the above if..then..else statement - the opposite of the above statement
+
+6.	if intHours <= 40 then 
+		// true > normal 
+	else 
+		// false > overtime 
+	endif 
+
+---
+In class we spoke about an addition to the storyline. If the employee has worked for more than 20 hours in overtime, then they receive an extra R1000 in their wages amount. 
+
+There are different instructions we could explore here: 
+
+0. Start 
+1. Declarations 
+	num intHours 	// number of hours worked in the week 
+	num fltRate	// rate of pay paid per hour 
+	num fltWages 	// variable to store the wages
+	num intOvertimeHours // variable to hold the number of overtime hours worked
+
+2.	output "Enter the number of hours worked: "
+3.	input intHours 
+
+4.	output "Enter the rate of pay: R"
+5.	input fltRate 
+
+6.	intOvertimeHours = intHours - 40 
+
+7.	if intHours > 40 then 
+		// true > overtime
+ 		fltWages = (40 * fltRate) +  (intOvertimeHours * fltRate * 1.5)
+	else 
+		// false > normal
+		fltWages = intHours * fltRate 
+	endif 
+
+8.	if intOvertimeHours > 20 then 
+		fltWages = fltWages + 1000 // adding the bonus 
+	endif 
+
+9.	output "The weekly wages to pay the employee is R" + fltWages
+10. Stop 
+
+// In the above example, you will note that if the employee has or has not worked overtime, and technically if the // overtime is above or below the bonus time, instruction 8 will always be executed. 
+
+---
+
+0. Start 
+1. Declarations 
+	num intHours 	// number of hours worked in the week 
+	num fltRate	// rate of pay paid per hour 
+	num fltWages 
+
+2.	output "Enter the number of hours worked: "
+3.	input intHours 
+
+4.	output "Enter the rate of pay R"
+5.	input fltRate 
+
+6.	if intHours > 40 then 
+		// true > overtime
+ 		fltWages = (40 * fltRate) +  ((intHours - 40) * fltRate * 1.5)
+		if (intHours - 40) > 20 then 
+			fltWages = fltWages + 1000
+		endif
+	else 
+		// false > normal
+		fltWages = intHours * fltRate 
+	endif 
+
+7.	output "The weekly wages to pay the employee is R" + fltWages
+8. Stop 
+
+// The alternative is to place the other if..then statement inside the true block, because this if..then statement is only for the employees being paid overtime. It is not necessary to execute the statement for all the mp
+---
+
+
+-- Relational Operators
+
+Choosing the correct operator will take practice and must have an understanding of the meaning of the chosen operator. 
+
+- Example mistake:
+
+	if intMark > 50 then 
+
+	// What about 50 exactly?
+	
+	if intMark >= 50 then // this would be preferred 
+
+Boundary testing for different scenarios
+	* What happens at exactly 50?
+	* What happens at 0?
+	* What happens at 100?
+
+- Thinking Positively vs Negatively
+
+	// instead of:
+	if NOT (intAge < 18) then 
+
+	// use 
+	if intAge >= 18 then 
+
+Positive logic is easier to understand and test.
+
+* Why is negative thinking harder for humans?
+* Why might programmers accidentally introduce bugs using NOT?
+
+- Range-Based Decision Errors
+
+- Classic mistake
+
+	if intMark >= 50 AND intMark <= 75 then
+ 
+	// then forgetting what happens above 75
+	// this is not an obvious error, but we must always research the story to make sure the conditions we 	// develop meet the requirements of what is needed for the program
+
+* What if ranges overlap?
+* What if a value falls outside the range?
+
+- Example in the homework: 
+		Mark 		Letter Grade  	
+		90 - 100	A
+		80 - 89		B
+		70 - 79 	C
+		60 - 69		D 
+		50 - 59		E 
+		< 50 		F 
+
+
+- Other Examples 
+
+	if intHours > 40 
+
+	if strName = intNum // this statement is incorrect - we cannot compare a string value with a numerical value
+
+	// note how the entire range (of values) using relational expressions, is evaluated with the AND operator
+	if intMark >= 90 AND intMark <= 100 then 
+		strGrade = "A" 
+	endif 
+
+	// given a range - 0 1 2 3 4 5 6 7 8 9 
+	// how do we write a condition to check if the number entered is NOT within the range 
+	if (intNum < 0) OR (intNum > 9)
+
+	// is within the range of 0 to 9
+	if (intNum >= 0) AND (intNum <= 9) then 
+
+
+-- AND Logic
+
+Short-Circuit Evaluation - used to combine expressions, but also simply to evaluate 2 or more boolean variables 
+2 operands - either boolean variables or logical expresssions
+
+- Example
+	if user <> null AND blnIsLoggedIn
+
+	// If user is null, second condition isn’t checked. This is because the computer understands that with an 	// AND operator, all "pieces" must be true in order for the result to be true. As soon as one is false, 	// reading from left to right, the whole result is going to be false 
+
+* The order of the coded expressions matter
+* Prevents runtime errors.
+
+- Multi-Condition Checks
+
+- Example - University admission:
+
+	* intAccountingMark >= 60
+	* intMathMark >= 50
+	* intEnglishMark >= 50
+
+	All must pass.
+
+	* Is this fair?
+	* What if one subject is slightly lower?
+	* Is it our responsibility to question the ethics in the logic. Is the comparison check for the Accounting mark correct?  
+
+-- OR Logic
+
+Used when alternatives exist
+2 operands - either boolean variables or logical expressions 
+
+- Example
+	if strPaymentMethod = "cash" OR strPaymentMethod = "card"
+
+OR makes systems flexible.
+
+-- NOT Logic
+
+NOT reverses truth.
+
+- Example 
+	if NOT blnIsLoggedIn
+
+- Warning > NOT + complex conditions = confusion.
+
+* Why do double negatives confuse humans?
+* How can we rewrite logic to avoid NOT?
+	// a change to the above example - this is us trying to avoid using NOT 
+	if blnIsLoggedIn = false
