@@ -149,7 +149,6 @@ Constructive engagement is welcomed.
 ## ∴ Lecturer Information
 
 This subject is taught by **Jessel Sookha**  
-Emeris Sandton  
 
 GitHub Profile:  
 [https://github.com/jesselsookha](https://github.com/jesselsookha)
