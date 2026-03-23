@@ -1,7 +1,6 @@
 # ◆ Introduction to Programming Logic ◆
 
 > IPRG5111 · 2026  
-> Emeris Sandton
 
 Welcome to the official repository for **Introduction to Programming Logic (IPRG5111)**.
 
