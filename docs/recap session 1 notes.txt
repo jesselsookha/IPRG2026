@@ -1,0 +1,474 @@
+Recap Session Transcript
+
+We've completed 30 sessions together, and your assignment is coming up. 
+Today, I want to help you connect the dots across Chapters 1 through 5.
+
+Part 1: The Foundation – What is Programming?
+
+- What is programming?
+
+- Computers do not think. They execute instructions. 
+- All intelligence comes from logic written by humans (you, the programmer).
+
+- Computer Systems: 
+	- Hardware is physical; it does nothing on its own. 
+	- Software directs hardware. 
+	- The operating system manages the relationship between them.
+
+- The IPO Model: 
+	- Input → Processing → Output – is foundational. 
+	- Every app on your phone follows this. 
+	- When designing, think in this order: Input first, then Output, then Processing. 
+	- This trains reverse thinking, you start with what you need to produce and work 	backward.
+
+	Real-World Connection
+	Think about the Instagram example: Input is a photo, Processing applies filters, Output 	displays the image. Simple. But notice: without planning, you'd write code that filters 	before the photo is loaded. That's a sequence error.
+
+- Common Misconception
+Many beginners jump straight into coding. Why? Because typing feels like progress. But experienced programmers plan first because you cannot solve a problem you don't fully understand.
+
+- Programming is 70% thinking, 30% typing. 
+- The 6-step problem-solving process exists for a reason: 
+	- Identify, 
+	- Understand, 
+	- Identify Alternatives, 
+	- Select the Best, 
+	- Write the Algorithm, 
+	- Test and Evaluate.
+
+---
+
+Programming Basics – The Tools of the Trade 
+
+- Variables and Constants
+Variables are containers that hold values that may change. Constants hold values that never change.
+
+If you declare 
+	num fltVAT = 0.15 
+as a constant, you cannot later write 
+	fltVAT = 0.16
+That's a compilation error.
+
+- Hungarian Naming Convention
+
+- In this subject, we use Hungarian casing. 
+- Prefix tells you the type:
+	num intNumberOfPeople 	// numerical - integer
+	num fltItemPrice 	// numerical - floating-point
+	string strFullName 	// string
+	string chrChoice	// string - character 
+	boolean blnVerified 	// boolean
+
+The variable name itself should be meaningful. 
+Remember fltDA is not acceptable, it takes too long to figure out. 
+fltDiscountAmount is clear.
+
+- Operators – Three Categories
+
+Mathematical 	^, *, /, \, MOD, +, -
+	7 \ 2 = 3 (integer division) 
+	7 MOD 2 = 1 (remainder) |
+
+Relational 	<, >, <=, >=, =, <>	
+	Produces true or false
+
+Logical 	NOT, AND, OR
+	Combines conditions
+	Produces true or false 
+
+- Order of Precedence
+Remember: 
+	brackets first, 
+	then (built-in) functions, 
+	then mathematical operators, 
+	then relational, 
+	then logical. 
+
+This matters when building complex conditions
+
+- Input and Output
+
+Always be courteous to your user. 
+
+Use prompts: output 'Enter a number:' before your input statement. 
+
+For output, don't just display a value, display a message with context: 
+output 'The answer is ' + intAnswer
+
+- Comments
+
+Comments are non-executable. Use them to explain why, not what. The code already shows what. Comments should explain intent or warn about tricky logic.
+
+---
+
+Part 3: Logic Structures – The Three Building Blocks
+
+- All programs – no matter how complex – are built from only three structures: Sequential, Decision, and Loop. That's it. Everything else is just how you organize them.
+
+1. Sequential Logic
+- Instructions execute one after another, top to bottom. No decisions. No repetition.
+
+Why does order matter?
+
+intNum = 0
+intNum = 5
+intNum = intNum + 2  // intNum = 7
+
+But if you reorder:
+
+intNum = 0
+intNum = intNum + 2  // intNum = 2
+intNum = 5           // intNum = 5
+
+- The sequence changes the final state. The computer does exactly what you tell it, not what you meant.
+
+- Sequential logic teaches us one crucial lesson: 
+	You cannot use a value that does not yet exist. 
+	Always process after input, output after processing.
+
+2. Decision Logic
+- Decision logic introduces choice – branching. Programs become dynamic.
+
+Single-alternative (if..then):
+
+if intTemperature > 30 then
+    output "It's hot"
+endif
+
+- Only one path. If condition is false, nothing happens.
+
+Dual-alternative (if..then..else):
+
+if intMark >= 50 then
+    output "Pass"
+else
+    output "Fail"
+endif
+
+- Exactly one path executes. No ambiguity.
+
+Nested if statements:
+
+if intMark >= 90 then
+    strGrade = "A"
+else
+    if intMark >= 80 then
+        strGrade = "B"
+    else
+        if intMark >= 70 then
+            strGrade = "C"
+        else
+            strGrade = "F"
+        endif
+    endif
+endif
+
+- Notice: once we find the grade, we don't keep checking. That's efficiency.
+
+Positive vs Negative Logic
+- Positive logic executes instructions when conditions are true. Negative logic executes when conditions are false.
+- Why learn both? Because real-world data has patterns. If most students fail, check failure first. If most get A's, check A's first. Know your data; optimize your path.
+
+3. Loop Logic
+- Loops are repetition structures. They prevent code duplication.
+
+- Pre-test (while..loop): Condition checked first. May run zero times.**
+
+while intBalance > 0
+    // withdraw money
+endwhile
+
+- Post-test (do..while): Runs at least once. Condition checked after.
+
+do
+    output "Enter Age: "
+    input intAge
+while intAge <> 0
+
+- Counter-controlled (for..loop): Use when you know how many times.
+
+for intCount = 1 to 10 Step 1
+    output intCount
+endfor
+
+Critical Questions:
+- "What happens if you forget to update the loop variable?"	
+	> Infinite loop.
+- "Why are infinite loops dangerous?"
+	> Program freezes, resources consumed.
+- "Where might infinite loops be useful?"
+	> Operating systems, game loops, servers.
+
+Single Entry / Single Exit
+- Every structure should start at one point and end at one point. Multiple exit points create spaghetti code – tangled logic that breaks when you try to modify it.
+
+---
+
+Part 4: Decision Logic Deep Dive – The Marking Guide Example
+
+- Example that demonstrates everything we've discussed.
+
+Problem: Determine Letter Grade from Numerical Mark
+
+Mark Range	Grade
+90 – 100	A
+80 – 89		B
+70 – 79		C
+60 – 69		D
+50 – 59		E
+< 50		F
+
+Version 1: Straight-Through (Beginner Approach)
+
+if intMark >= 90 AND intMark <= 100 then 
+	strGrade = "A"
+endif 
+if intMark >= 80 AND intMark <= 89 then 
+	strGrade = "B"
+endif 
+if intMark >= 70 AND intMark <= 79 then 
+	strGrade = "C"
+endif 
+if intMark >= 60 AND intMark <= 69 then 
+	strGrade = "D"
+endif 
+if intMark >= 50 AND intMark <= 59 then 
+	strGrade = "E"
+endif 
+if intMark < 50 then 
+	strGrade = "F"
+endif
+
+- This works. But if a student scores 95, we execute ALL six checks even though we found the answer at the first one. Inefficient.
+
+Version 2: Positive Logic (Efficient)
+
+if intMark >= 90 then
+    strGrade = "A"
+else
+    if intMark >= 80 then
+        strGrade = "B"
+    else
+        if intMark >= 70 then
+            strGrade = "C"
+        else
+            if intMark >= 60 then
+                strGrade = "D"
+            else
+                if intMark >= 50 then
+                    strGrade = "E"
+                else
+                    strGrade = "F"
+                endif
+            endif
+        endif
+    endif
+endif
+
+- Now with a mark of 95, we check once and assign. No wasted checks.
+
+Version 3: Positive Logic (Ascending Order – Different Efficiency)
+
+if intMark < 50 then
+    strGrade = "F"
+else
+    if intMark < 60 then
+        strGrade = "E"
+    else
+        if intMark < 70 then
+            strGrade = "D"
+        else
+            if intMark < 80 then
+                strGrade = "C"
+            else
+                if intMark < 90 then
+                    strGrade = "B"
+                else
+                    strGrade = "A"
+                endif
+            endif
+        endif
+    endif
+endif
+
+- Notice the elegance? The numbers are clean: 50, 60, 70, 80, 90. And it reads naturally.
+
+Version 4: Negative Logic (Descending)
+
+if intMark >= 50 then
+    if intMark >= 60 then
+        if intMark >= 70 then
+            if intMark >= 80 then
+                if intMark >= 90 then
+                    strGrade = "A"
+                else
+                    strGrade = "B"
+                endif
+            else
+                strGrade = "C"
+            endif
+        else
+            strGrade = "D"
+        endif
+    else
+        strGrade = "E"
+    endif
+else
+    strGrade = "F"
+endif
+
+- This is the mirror image. Instructions execute when conditions are true, but the assignment happens in the false branch of deeper conditions. It's less intuitive but equally valid.
+
+The Lesson
+- There is rarely 'one right way' in programming. The same problem can be solved multiple ways. 
+Your job is to:
+	- Know your data – which outcome is most common?
+	- Prioritize readability – can someone else understand it?
+	- Choose the tool that fits the job – not just the first tool you know."
+
+---
+
+Part 5: The Case Structure – Multi-Way Branching
+
+- When you're comparing one variable against multiple specific values, nested if statements become messy. That's when we use the case structure.
+
+Syntax
+
+case of variable
+    value1: instructions
+    value2: instructions
+    value3: instructions
+    default: instructions
+endcase
+
+Example: Car Colour Selection
+
+case of intChoice
+    1: fltPrice = fltPrice + 1500   // red
+    2: fltPrice = fltPrice + 2000   // black
+    3: fltPrice = fltPrice + 2200   // silver
+    default: fltPrice = fltPrice + 500   // white
+endcase
+
+- The default handles unexpected input. Never assume input will be valid.
+
+Case + Loop = Menu-Driven Programs
+- This combination is the foundation of ATMs, POS systems, and game menus.
+
+
+do
+    output "1. Play Game"
+    output "2. Load Game"
+    output "3. Settings"
+    output "4. Exit"
+    input intChoice
+    
+    case of intChoice
+        1: playGame()
+        2: loadGame()
+        3: settings()
+        4: output "Goodbye!"
+    endcase
+while intChoice <> 4
+
+- The loop keeps the program alive. The case handles the user's choice. This pattern appears everywhere.
+
+---
+
+Part 6: The Program Development Cycle – Planning Before Coding
+- Let's connect everything to the full development cycle.
+
+- The 7 Steps
+1. Understand the Problem – What is being asked? Inputs? Outputs? Constraints?
+2. Plan the Logic – Pseudocode and flowcharts first.
+3. Code the Program – Translate to syntax.
+4. Translate to Machine Code – Compiler/interpreter handles this.
+5. Test the Program – Syntax errors and logic errors.
+6. Implement the Program – Deploy.
+7. Maintain the Program – This is where most real-world time is spent.
+
+- Flowchart Symbols to Remember
+
+Shape 			Purpose
+Rounded Rectangle	Start / Stop
+Parallelogram		Input / Output
+Rectangle		Processing (calculations)
+Diamond			Decision (if/else)
+Hexagon			For loop
+Rectangle with 2 lines 	Sub-process / Function
+
+- Common Error Types
+
+Syntax	- Wrong language structure. Compiler catches it.
+Runtime	- Program executes but crashes during operation.
+Logical	- Program runs but produces wrong result. Hardest to detect.
+
+Which error type is hardest to detect? Logical errors. 
+Why? Because the program runs, no crash, but the answer is wrong. 
+You have to reason backward to find the mistake.
+
+---
+
+Part 7: Debugging and Professional Mindset
+
+- Debugging Trains Your Brain
+	- Analytical thinking – breaking down problems
+	- Pattern recognition – spotting common errors
+	- Patience – methodical problem-solving
+	- Persistence – not giving up
+
+- Features of Good Program Design
+
+1. Use comments where needed – not every line, but explain intent
+2. Choose identifiers wisely – meaningful, descriptive names
+3. Write clear prompts and outputs – be courteous to the user
+4. Plan before you code – pseudocode and flowcharts first
+5. Maintain single entry/single exit – avoid spaghetti code
+
+- Spaghetti Code Prevention
+Spaghetti code is not just messy – it's code where:
+	- Control jumps unpredictably
+	- Logic is tangled
+	- Small changes break other parts
+	- There's no clear beginning or end to sections
+
+How do you prevent it? Comments, unit tests, planning, and always double-checking.
+
+- Reflection
+
+Is programming about memorizing syntax? No. It's about solving problems logically. 
+
+Can someone be good at coding but poor at problem-solving? Yes – and that person will struggle to work professionally. Employers care about clean structure, consistent style, and logical flow.
+
+---
+
+Part 8: Connecting the Chapters – The Big Picture
+- Let's step back and see how everything connects.
+
+| Chapter | Core Idea | Why It Matters |
+|---------|-----------|----------------|
+1: IPO Model, Problem-Solving		- The framework for thinking about any program
+2: Variables, Operators, Data Types 	- The building blocks – you can't code without these
+3: Three Logic Structures		- All programs are built from these
+4: Sequential Logic			- Order matters – you cannot use values that don't exist
+5: Decision Logic			- Choice, branching, and the art of efficient conditions
+
+- Every program you will ever write is built on these foundations. Master these, and you can build anything.
+
+---
+
+Programming is applied logic. It's not about memorizing syntax – syntax is just the tool. 
+It's about:
+	- Thinking clearly about problems
+	- Breaking complex tasks into simple steps
+	- Choosing efficient paths through data
+	- Writing code that others can read and maintain
+
+---
+
+Your assignment is coming. Remember:
+	- Plan before you code
+	- Use the 6-step problem-solving method
+	- Test with different inputs
+	- Handle edge cases (What happens at 0? At 100? At boundaries?)
+	- Comment your intent, not the obvious
