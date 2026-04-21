@@ -1,0 +1,1785 @@
+Chapter 6 — Loop Logic
+======================
+
+- Introduction to Looping
+
+-- There is a need for repetition
+
+* Computers are fast, but they are not “smart” — they only repeat what we tell them.
+* Loops allow us to automate repetition.
+* Without loops, programs become long, repetitive, and error-prone.
+* Loops are about process control, not just repetition.
+
+Simple Example - The Calculating of the Average of Students in a Class
+
+Instead of writing:
+
+?. output "Enter Age" 
+?. input intAge 
+?. intSum = intSum + intAge 
+?. intCount = intCount + 1
+
+?. output "Enter Age" 
+?. input intAge 
+?. intSum = intSum + intAge 
+?. intCount = intCount + 1
+
+?. output "Enter Age" 
+?. input intAge 
+?. intSum = intSum + intAge 
+?. intCount = intCount + 1
+
+?. output "Enter Age" 
+?. input intAge 
+?. intSum = intSum + intAge 
+?. intCount = intCount + 1
+
+?. output "Enter Age" 
+?. input intAge 
+?. intSum = intSum + intAge 
+?. intCount = intCount + 1
+
+?. output "Enter Age" 
+?. input intAge 
+?. intSum = intSum + intAge 
+?. intCount = intCount + 1
+
+?. output "Enter Age" 
+?. input intAge 
+?. intSum = intSum + intAge 
+?. intCount = intCount + 1
+
+
+We write:
+
+repeat n times:
+    output "Enter Age" 
+    input intAge 
+    intSum = intSum + intAge 
+    intCount = intCount + 1
+
+-- Business Examples
+
+* Payroll calculation for 500 employees
+* Processing 10,000 bank transactions
+* Generating monthly statements
+* Sending marketing emails
+* Inventory updates
+
+-- Question: 
+If Amazon had to manually write code for each customer order, what would happen?
+
+* Loops enable scalability (Scalability in programming is a system's ability to handle increasing workloads—such as more users, data, or traffic  without a decline in performance)
+* Modern systems rely on repetition at massive scale
+
+-- Other Questions
+* Where do you see repetition in your daily life?
+* What tasks would be impossible without automation?
+* Is repetition always good? When might repetition cause problems?
+
+---
+
+- Common Loop Tasks
+
+-- Incrementing / Decrementing
+
+* Counting up (0 to 10) 	// incrementing: intCount = intCount + 1 
+* Counting down (10 to 0)	// decrementing: intCount = intCount - 1 
+
+* Moving through indexes	// going to see this in Chapter 7 - Arrays 
+* Time simulation (seconds ticking) // still counting - towards something 
+
+^ counting always uses a constant value (in the above example + 1, or - 1) 
+
+-- Simple Example
+
+intCount = 0 
+while intCount <= 5 
+    output intCount 
+    intCount = intCount + 1 
+
+-- Real-life analogy:
+
+* Elevator floors
+* Countdown timer
+* Scoreboard
+
+---
+
+- Accumulating
+
+-- This is where logic becomes powerful.
+
+* Accumulation = adding values repeatedly
+* Used for totals, averages, statistics
+* Requires initialization
+
+-- Example: Sales Total
+
+fltTotal = 0
+for each fltSale
+    fltTotal = fltTotal + fltSale
+
+-- Example: Total Age 
+intSum = 0 
+for each intAge 
+    intSum = intSum + intAge // remember the discussion that we had at the beginning of this chapter
+
+^ adding always uses a variable (in the above examples sale and intAge) 
+
+-- Extra Information
+
+* Accumulation is the foundation of:
+
+  * Analytics
+  * Financial systems
+  * Data science
+  * AI training (summing loss functions)
+
+-- Questions to Ask Ourselves
+
+* What happens if we forget to initialize total?
+* Why is accumulation different from incrementing? ()
+
+---
+
+- Sentinel Values / Flags / Indicators
+
+-- This section is excellent for developing logic maturity.
+-- Differences:
+
+* Sentinel	- A special value that stops a loop (usually set by the user)
+* Flag		- A boolean variable that tracks a condition (usually internal to the programmer)
+* Indicator	- A variable showing state (e.g., found/not_found)
+
+-- Example 1: Guessing Game
+
+User continues entering guesses until they guess -1.
+
+while guess <> -1
+
+-- Example 2: Data Entry
+
+Keep entering marks until user enters -1.
+
+while intAge <> -1 // -1 is the sentinel value 
+
+
+-- Questions to Ask Ourselves
+
+* Why must sentinel values be chosen carefully?
+* What if -1 is a valid input? and What if -1 is not a valid input? 
+
+-- Other Examples 
+
+// choosing sentinel values that does not exist within the range 
+// because it means something to the storyline 
+
+intTemp <> 999		// it could never be 999 degrees (can't be -1 like the other example)
+strResponse = "YES" 	// user wants to continue since they continue to enter "YES" 
+blnRepeat = true	// similar to the above example 
+
+-- Flag Example
+
+An internal variable that is declared and used in the program 
+
+blnFound = false
+if intNumber = intTarget
+    blnFound = true
+endif 
+
+Flags are used for:
+
+* Searching
+* Validation
+* Authentication success
+
+---
+
+* When is a sentinel value better than a counter? 
+- A sentinel value is used when the number of inputs or iterations is unknown, and the loop should stop when a specific value is encountered. A counter is used when the number of iterations is known in advance. 
+
+* When is a flag better than a sentinel?
+- A flag is better when you need to record whether a certain condition has occurred (e.g., a value was found or an error happened), rather than stopping the loop based on a specific input value like a sentinel. 
+
+* Can you combine them?
+- Yes, a sentinel can be used to control when the loop ends, while a flag can track conditions during processing (e.g., whether a specific value was found or a condition was met). 
+
+---
+
+- The while..loop
+
+-- Structure
+
+Core Logic Pattern:
+
+while [condition]
+    {instructions} 
+endwhile 
+
+Emphasize:
+A loop has **three required components**:
+
+1. Initialization (before the loop begins)
+2. Condition (the loop is dependent on this)
+3. Update (we must affect change in order for the loop iteration to be valid or not)
+
+Without one, we could likely cause a logical error.
+
+-- Pre-test Behaviour
+
+* Condition checked before execution
+* May run zero times
+
+Example:
+
+while fltBalance > 0
+
+// This loop might never be executed if the fltBalance is zero (0)
+
+-- Primer Read
+
+This is often confusing initially. We are expected to read the first value BEFORE the loop begins. The loop condition is dependent on that value that decides if the instructions inside the loop are going to be executed or not. 
+ 
+input intAge 		// the primer read 
+
+while intAge <> -1 	// -1 is the sentinel value 
+	// process the age and anything else 
+	input intAge 	// read the value again (we need to affect change to the loop iteration)
+endwhile 
+
+* Avoids duplicating read logic
+* Ensures first value is checked
+
+-- Logical Errors (Sentinel Inside Loop)
+
+Classic beginner mistake:
+
+* Sentinel not updated
+* Infinite loop
+* Off-by-one errors
+
+Discussion:
+
+* Why are infinite loops dangerous? 
+- If the loop continues executing the instructions, it could lead to overusing resources. The program might crash unexpectedly. There might be other programs that need to be executed, but it cannot be, until the previous program ends.  
+
+* When might infinite loops be intentional? (servers, operating systems)
+- There is some processing that needs to be repeated continuously
+
+-- Program 
+
+Calculate the average age of all the students in class. (* we do not know how many students are in class at the moment)
+
+*The program that was discussed in class was compiled in stages. 
+
+0. Start 
+1. Declarations 
+	num intAge 	// input variable 
+	num intSum 	// used to accumulate the ages while we process the set of students 
+	num intCount 	// used to count the number of ages entered into the program 
+	num fltAvg 	// used to save the average age value that is calculated 
+
+----
+
+0. Start 
+1. Declarations 
+	num intAge, intSum, intCount 
+	num fltAvg 
+
+	// we are allowed to declare multiple variables on the 'same line' 
+	// preference is given to varibles of the 'same' data type 
+
+// numeric - integer would be on one line 
+// numeric - float would be on one line 
+// string - character - its own line 
+// string - string - its own line  
+// boolean - its own line 
+
+----
+
+// the below stage is the need to initialize the values at declaration 
+// and going back to the declaring the variables on on their own line, so that the code is more readable 
+
+0. Start 
+1. Declarations 
+	num intAge 
+	num intSum = 0 		// initialize the sum - to have a value to begin with 
+	num intCount = 0 	// initialize the counter - to have a value to begin with 
+	num fltAvg 
+
+----
+
+// slight edit - instead of initializing at declaration, we chose to initialize with separate instructions 
+
+0. Start 
+1. Declarations 
+	num intAge 
+	num intSum 
+	num intCount 
+	num fltAvg 
+
+2.	intSum = 0 	// initialize the accumulating and counting variables 
+3.	intCount = 0 
+
+4.	output "Enter Age (-1 to Stop): "	// the primer read - prompt requests the age and informs the user of the sentinel value 
+5.	input intAge 
+
+6.	while intAge <> -1				// condition is dependent on the sentinel value 	
+		intCount = intCount + 1			// increment the counter 
+		intSum = intSum + intAge 		// accumulate the age 
+		output "Enter Age (-1 to Stop): "	// prompt to request the subsequent ages while inside the loop 
+		input intAge 
+	endwhile 
+
+7.	fltAvg = intSum / intCount 			// after the loop ends - the average can be calculated 
+8.	output "The average age is " + fltAvg 
+9. Stop 
+
+// trace table 
+
++--------+----------+--------+--------+-----------------------+
+| intAge | intCount | intSum | fltAvg | Decision (intAge<>-1) |
++--------+----------+--------+--------+-----------------------+
+|        |    0̶     |   0̶    |        |                       |
+|   1    |    1̶     |   1̶    |        |        True           |
+|   2    |    2̶     |   3̶    |        |        True           |
+|   3    |    3̶     |   6̶    |        |        True           |
+|   4    |    4̶     |  1̶0̶    |        |        True           |
+|   5    |    5̶     |  1̶5̶    |        |        True           |
+|   6    |    6̶     |  2̶1̶    |        |        True           |
+|   7    |    7̶     |  2̶8̶    |        |        True           |
+|   8    |    8̶     |  3̶6̶    |        |        True           |
+|   9    |    9̶     |  4̶5̶    |        |        True           |
+|  10    |   10     |  55    |        |        True           |
+|  -1    |   10     |  55    |  5.5   |        False          |
++--------+----------+--------+--------+-----------------------+
+
+----
+
+// slight edit - causing a logical error 
+// what if the input inside the loop is incorrectly placed (the order of instructions is changed) 
+// logically, what have we done? 
+
+
+0. Start 
+1. Declarations 
+	num intAge 
+	num intSum 
+	num intCount 
+	num fltAvg 
+
+2.	intSum = 0 
+3.	intCount = 0 
+
+4.	output "Enter Age (-1 to Stop): "
+5.	input intAge 
+
+6.	while intAge <> -1
+		output "Enter Age (-1 to Stop): "	// x - it is wrong to input here 
+		input intAge 
+		intCount = intCount + 1
+		intSum = intSum + intAge 		
+	endwhile 
+
+7.	fltAvg = intSum / intCount 
+8.	output "The average age is " + fltAvg 
+9. Stop 
+
+// the discussion - changing the order of instructions inside the loop can cause logical errors. In this case, by placing the subsequent input first inside the loop, we unfortunately lose the primer read input value. So when we need to calculate the sum and count, we will end up having the wrong values.  
+
+// trace table 
+
++--------+----------+--------+--------+-----------------------+
+| intAge | intCount | intSum | fltAvg | Decision (intAge<>-1) |
++--------+----------+--------+--------+-----------------------+
+|   1    |    0̶     |   0̶    |        |        True           |
+|   2    |    1̶     |   2̶    |        |        True           |
+|   3    |    2̶     |   5̶    |        |        True           |
+|   4    |    3̶     |   9̶    |        |        True           |
+|   5    |    4̶     |  1̶4̶    |        |        True           |
+|   6    |    5̶     |  2̶0̶    |        |        True           |
+|   7    |    6̶     |  2̶7̶    |        |        True           |
+|   8    |    7̶     |  3̶5̶    |        |        True           |
+|   9    |    8̶     |  4̶4̶    |        |        True           |
+|  10    |    9̶     |  5̶4̶    |        |        True           |
+|  -1    |   10     |  53    |  5.3   |        False          |
++--------+----------+--------+--------+-----------------------+
+
+----
+
+// while the above programs highlight working examples, and then the discussions about the order of instructions inside the loop, there is now new concern. What if the user enters the sentinel value at the beginning of the execution of the program. 
+
+0. Start 
+1. Declarations 
+	num intAge 
+	num intSum 
+	num intCount 
+	num fltAvg 
+
+2.	intSum = 0 
+3.	intCount = 0 
+
+4.	output "Enter Age (-1 to Stop): "
+5.	input intAge 				// entered the sentinel value -1 
+
+6.	while intAge <> -1
+		intCount = intCount + 1
+		intSum = intSum + intAge 		
+		output "Enter Age (-1 to Stop): "
+		input intAge 
+	endwhile 
+
+7.	if intCount = 0 then 
+		output "No average calculated" 
+	else 
+		fltAvg = intSum / intCount 
+		output "The average age is " + fltAvg 
+	endif 
+8. Stop 
+
+In the above program, the user chooses to enter -1 at the beginning of the program. This means that the count is never incremented and the sum is never accumulated. The average calculation is now at risk of the divide-by-zero problem. So we introduce a decision (if..then) statement to determine if we may calculate the average or not. 
+
+// trace table - valid ages entered 
+
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+| intAge | intCount | intSum | fltAvg | Decision (intAge<>-1) | Decision (Count=0)  |                              |
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+|        |    0̶     |   0̶    |        |                       |                     |                              |
+|  18    |    1̶     |  1̶8̶    |        |        True           |                     |                              |
+|  19    |    2̶     |  3̶7̶    |        |        True           |                     |                              |
+|  20    |    3̶     |  5̶7̶    |        |        True           |                     |                              |
+|  21    |    4̶     |  7̶8̶    |        |        True           |                     |                              |
+|  22    |    5̶     |  1̶0̶0̶   |        |        True           |                     |                              |
+|  23    |    6̶     |  1̶2̶3̶   |        |        True           |                     |                              |
+|  24    |    7̶     |  1̶4̶7̶   |        |        True           |                     |                              |
+|  25    |    8̶     |  1̶7̶2̶   |        |        True           |                     |                              |
+|  18    |    9̶     |  1̶9̶0̶   |        |        True           |                     |                              |
+|  19    |   10     |  209   |        |        True           |                     |                              |
+|  -1    |   10     |  209   |  20.9  |        False          |        False        | The average age is 20.9      |
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+
+// trace table - sentinel value entered immediately at the beginning 
+
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+| intAge | intCount | intSum | fltAvg | Decision (intAge<>-1) | Decision (Count=0)  |                              |
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+|  -1    |    0̶     |   0̶    |        |        False          |        True         | No average calculated        |
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+
+* The discussions around the use of the while..loop is mainly because we do not know how times to execute the instructions inside the loop. But if we do know how many times to execute, our immediate go-to is the for..loop, but a while..loop is also able to accomplish this task 
+
+- Example - Print out the 7 times table
+
+0. Start 
+1. Declarations 
+	num intNum 
+	num intCount 
+
+2.	intCount = 0 	// intCount is the counter and will be used in the calculation and the output 
+3.	intNum = 7 	// the 7 times table 
+
+4.	while intCount <= 12 
+		output intNum + " x " + intCount + " = " + (intNum * intCount)
+		intCount = intCount + 1 
+	endwhile 			
+5. Stop 
+
+// output intNum + " x " + intCount + " = " + (intNum * intCount)
+// something different was shared here, in the output statement an expression was used to output the result of the multiplication. This was done instead of having a variable be assigned the value. Since the program is more about the output of each of the 13 lines for the times table, we decided to calculate with the expression embedded inside the output statement 
+
+- Kotlin version 
+
+fun main() {
+	var intNum : Int = 0 
+   	var intCount: Int = 0 
+    
+    intCount = 0 
+    intNum = 7 
+    
+    while (intCount <= 12){
+	println("" + intNum + " x " + intCount + " = " + (intNum * intCount))
+	// println("$intNum x $intCount = $(intNum * intCount)")
+        intCount = intCount + 1 
+    }
+}
+
+
+---
+
+- The do…while Loop
+
+-- Post-test Behaviour
+
+* Runs at least once
+* Condition checked after execution
+
+Example:
+
+do
+    {instructions}
+while [condition]
+
+-- Differences from while
+
+| while           | do..while              |
+| --------------- | ---------------------- |
+| Pre-test        | Post-test              |
+| May not execute | Executes at least once |
+
+-- Questions to ask yourself 
+
+* When is “at least once” useful?
+  - Menu systems
+  - Login attempts
+  - Validation loops
+
+----
+-- Example - The same program to calculate the average age, using the do..while loop 
+
+0. Start 
+1. Declarations 
+	num intAge 
+	num intSum 
+	num intCount 
+	num fltAvg 
+
+2.	intSum = 0 
+3.	intCount = 0 
+
+4.	output "Enter Age (-1 to Stop): "
+5.	input intAge 
+
+6.	do
+		intCount = intCount + 1
+		intSum = intSum + intAge 		
+		output "Enter Age (-1 to Stop): "
+		input intAge 
+	while intAge <> -1 
+
+7.	if intCount = 0 then 
+		output "No average calculated" 
+	else 
+		fltAvg = intSum / intCount 
+		output "The average age is " + fltAvg 
+	endif 
+8. Stop 
+
+// trace table 
+
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+| intAge | intCount | intSum | fltAvg | Decision (intAge<>-1) | Decision (Count=0)  |                              |
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+|   1    |    0̶     |   0̶    |        |                       |                     |                              |
+|   1    |    1̶     |   1̶    |        |        True           |                     |                              |
+|   2    |    2̶     |   3̶    |        |        True           |                     |                              |
+|   3    |    3̶     |   6̶    |        |        True           |                     |                              |
+|   4    |    4̶     |  1̶0̶    |        |        True           |                     |                              |
+|   5    |    5̶     |  1̶5̶    |        |        True           |                     |                              |
+|   6    |    6̶     |  2̶1̶    |        |        True           |                     |                              |
+|   7    |    7̶     |  2̶8̶    |        |        True           |                     |                              |
+|   8    |    8̶     |  3̶6̶    |        |        True           |                     |                              |
+|   9    |    9̶     |  4̶5̶    |        |        True           |                     |                              |
+|  10    |   10     |  55    |        |        True           |                     |                              |
+|  -1    |          |        |  5.5   |        False          |        False        | The average age is 5.5       |
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+
+----
+
+// slight edit - since the do..while loop allows the program is execute the instructions inside at least once, why do I need the 'primer read' before the loop begins? 
+// why can't we consider the following: 
+
+0. Start 
+1. Declarations 
+	num intAge 
+	num intSum 
+	num intCount 
+	num fltAvg 
+
+2.	intSum = 0 
+3.	intCount = 0 
+
+4.	do
+		output "Enter Age (-1 to Stop): "	// prompt is executed inside the loop and is here at the beginning 
+		input intAge 
+
+		intCount = intCount + 1
+		intSum = intSum + intAge 		
+	while intAge <> -1 
+
+5.	if intCount = 0 then 
+		output "No average calculated" 
+	else 
+		fltAvg = intSum / intCount 
+		output "The average age is " + fltAvg 
+	endif 
+6. Stop
+
+// we have created a logical error
+ 
+// trace table 
+
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+| intAge | intCount | intSum | fltAvg | Decision (intAge<>-1) | Decision (Count=0)  |                              |
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+|        |    0̶     |   0̶    |        |                       |                     |                              |
+|   1    |    1̶     |   1̶    |        |        True           |                     |                              |
+|   2    |    2̶     |   3̶    |        |        True           |                     |                              |
+|   3    |    3̶     |   6̶    |        |        True           |                     |                              |
+|   4    |    4̶     |  1̶0̶    |        |        True           |                     |                              |
+|   5    |    5̶     |  1̶5̶    |        |        True           |                     |                              |
+|   6    |    6̶     |  2̶1̶    |        |        True           |                     |                              |
+|   7    |    7̶     |  2̶8̶    |        |        True           |                     |                              |
+|   8    |    8̶     |  3̶6̶    |        |        True           |                     |                              |
+|   9    |    9̶     |  4̶5̶    |        |        True           |                     |                              |
+|  10    |   10̶     |  5̶5̶    |        |        True           |                     |                              |
+|  -1    |   11     |  54    |  4.91  |        False          |        False        | The average age is 4.91      |
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+
+// even worse - what if the user enters -1 at the beginning of the processing 
+
+// trace table 
+
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+| intAge | intCount | intSum | fltAvg | Decision (intAge<>-1) | Decision (Count=0)  |                              |
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+|        |    0̶     |   0̶    |        |                       |                     |                              |
+|  -1    |    1     |  -1    |  -1    |        False          |        False        | The average age is -1        |
++--------+----------+--------+--------+-----------------------+---------------------+------------------------------+
+
+----
+
+// So how do we fix this? 
+
+0. Start 
+1. Declarations 
+	num intAge 
+	num intSum 
+	num intCount 
+	num fltAvg 
+
+2.	intSum = 0 
+3.	intCount = 0 
+
+4.	do
+		output "Enter Age (-1 to Stop): " 
+		input intAge 
+
+		if intAge <> -1 then 			// introduce a new decision 
+			intCount = intCount + 1		// processing of the age only happens if the age <> -1 
+			intSum = intSum + intAge 		
+		endif 
+	while intAge <> -1 
+
+5.	if intCount = 0 then 
+		output "No average calculated" 
+	else 
+		fltAvg = intSum / intCount 
+		output "The average age is " + fltAvg 
+	endif 
+6. Stop
+
+// trace table 
+
++--------+----------+--------+--------+-----------------------+----------------------+---------------------+------------------------------+
+| intAge | intCount | intSum | fltAvg | if..then (intAge<>-1) | loop (Age<>-1)       | Decision (Count=0)  |                              |
++--------+----------+--------+--------+-----------------------+----------------------+---------------------+------------------------------+
+|        |    0̶     |   0̶    |        |                       |                      |                     |                              |
+|   1    |    1̶     |   1̶    |        |        True           |        True          |                     |                              |
+|   2    |    2̶     |   3̶    |        |        True           |        True          |                     |                              |
+|   3    |    3̶     |   6̶    |        |        True           |        True          |                     |                              |
+|   4    |    4̶     |  1̶0̶    |        |        True           |        True          |                     |                              |
+|   5    |    5̶     |  1̶5̶    |        |        True           |        True          |                     |                              |
+|   6    |    6̶     |  2̶1̶    |        |        True           |        True          |                     |                              |
+|   7    |    7̶     |  2̶8̶    |        |        True           |        True          |                     |                              |
+|   8    |    8̶     |  3̶6̶    |        |        True           |        True          |                     |                              |
+|   9    |    9̶     |  4̶5̶    |        |        True           |        True          |                     |                              |
+|  10    |   10     |  55    |        |        True           |        True          |                     |                              |
+|  -1    |   10     |  55    |  5.5   |        False          |        False         |        False        | The average age is 5.5       |
++--------+----------+--------+--------+-----------------------+----------------------+---------------------+------------------------------+
+
++--------+----------+--------+--------+-----------------------+----------------------+---------------------+------------------------------+
+| intAge | intCount | intSum | fltAvg | if..then (intAge<>-1) | loop (Age<>-1)       | Decision (Count=0)  |                              |
++--------+----------+--------+--------+-----------------------+----------------------+---------------------+------------------------------+
+|        |    0̶     |   0̶    |        |                       |                      |                     |                              |
+|  -1    |    0     |   0    |        |        False          |        False         |        True         | No average calculated        |
++--------+----------+--------+--------+-----------------------+----------------------+---------------------+------------------------------+
+
+-- Sentinel Selection Pitfalls
+
+These questions are being shared here, but have been dealt with in the above program versions/variations/ 
+
+* What if user inputs the sentinel first?
+* What if sentinel is a valid data value?
+
+- Sentinel values must be:
+* Outside valid input range
+* Clearly communicated to users
+
+Our program code, the order of instructions, the logic needs to be adapted to meet the needs of the storyline. If and when the storyline evolves, our program code must evolve with it. 
+
+---
+- Example - using a do..while loop to force the user to enter a valid value within the range of 1 and 10
+
+?.	do
+		output "Enter number bet. 1 and 10" 
+		input intGuess 
+
+		if intGuess < 1 OR intGuess > 10 then 
+			output "Error - invalid number" 
+		endif
+	while intGuess < 1 OR intGuess > 10
+
++----------+------------------------+---------------------+------------------------------+
+| intGuess | Decision (invalid?)    | Error Message       | Loop Condition (repeat?)     |
++----------+------------------------+---------------------+------------------------------+
+|   15     |        True            | Error - invalid     | True (15 > 10)               |
+|    0     |        True            | Error - invalid     | True (0 < 1)                 |
+|    7     |        False           |                     | False (valid input)          |
++----------+------------------------+---------------------+------------------------------+
+
+---
+Example
+
+- The computer generates a random number between 1 and 10 (inclusive).
+- The user attempts to guess the number.
+- After each guess, the program must provide feedback:
+  - “Too High!” if the guess is above the number
+  - “Too Low!” if the guess is below the number
+  - A success message if correct
+- The user must be able to:
+  - Continue guessing until correct
+  - End a round early using -1
+  - Play multiple rounds if desired
+
+
+// we built this program in stages and did not complete it all in one variation.
+// each stage introduces ONE new idea at a time.
+
+Stage 1 — Single Attempt Logic (no repetition yet)
+==================================================
+
+purpose:
+- introduce random number generation
+- introduce basic selection (if / else)
+- show how a single guess is evaluated
+
+concept focus:
+- linear execution
+- decision-making only
+- no repetition yet
+
+0. Start 
+1. Declarations 
+	num intComputerNumber 
+	num intGuess 
+
+2.	intComputerNumber = random(1,10)
+
+3.	output "Enter guess: " 
+4.	input intGuess 
+
+5.	if intGuess = intComputerNumber then 
+		output "You won! you guessed the number" 
+	else 
+		if intGuess > intComputerNumber then 
+			output "Too High!" 
+		else 
+			output "Too Low!"
+		endif 
+	endif 
+
+
+note:
+- this is a single-pass program
+- only ONE guess is processed
+- repetition is not yet introduced
+- the logic shows decision-making only
+
+
+------------------------------------------------------------
+
+Stage 2 — Adding a Guess Counter (still no loop)
+================================================
+
+purpose:
+- introduce state (tracking data over time)
+- prepare for repetition concept
+
+concept focus:
+- variables can store progression
+- counting interactions
+
+0. Start 
+1. Declarations 
+	num intComputerNumber 
+	num intGuess 
+	num intGuessCount 
+
+2.	intComputerNumber = random(1,10)
+3.	intGuessCount = 0 
+
+4.	output "Enter guess: " 
+5.	input intGuess 
+
+6.	if intGuess = intComputerNumber then 
+		output "You won! you guessed the number" 
+		output "Total guesses: " + intGuessCount 
+	else 
+		if intGuess > intComputerNumber then 
+			output "Too High!" 
+		else 
+			output "Too Low!"
+		endif 
+		output "Enter guess: "	// repeated if user guesses incorrectly (* but still no loop has been implemented *) 
+		input intGuess
+	endif 
+
+
+note:
+- we now track guesses, but only manually
+- repetition is still not automated
+- this highlights why loops are needed
+
+
+------------------------------------------------------------
+
+Stage 3 — Introducing a Flag + While Loop
+=========================================
+
+purpose:
+- introduce repetition (looping)
+- introduce termination control (flag)
+
+concept focus:
+- loops require exit conditions
+- state controls repetition
+
+0. Start 
+1. Declarations 
+	num intComputerNumber 
+	num intGuess 
+	num intGuessCount 
+	num intFlag // 0 = not guessed, 1 = guessed 
+
+2.	intComputerNumber = random(1,10)
+3.	intGuessCount = 0 
+4.	intFlag = 0 
+
+5.	output "Enter guess: " 
+6.	input intGuess 
+	
+7.	while intFlag = 0 
+		intGuessCount = intGuessCount + 1 
+
+		if intGuess = intComputerNumber then 
+			output "You won! you guessed the number" 
+			output "Total guesses: " + intGuessCount
+			intFlag = 1 
+		else 
+			if intGuess > intComputerNumber then 
+				output "Too High!" 
+			else 
+				output "Too Low!"
+			endif 
+			output "Enter guess: " 
+			input intGuess
+		endif 
+	endwhile 
+8. Stop 
+
+note:
+- repetition is now automated
+- the program continues until correct guess
+- flag controls loop termination
+
+// trace table - correct guess on first attempt 
+
++-------------------+----------------+---------+----------+-----------------+----------------------------+-----------------------------------+
+| intComputerNumber | intGuess | intGuessCount | intFlag  | while Flag = 0  | Guess = intComputerNumber  | Prompt / Output                   |
++-------------------+----------+---------------+----------------------------+----------------------------+-----------------------------------+
+|        6          |          |   0̶           |   0̶      |                 |                            | Enter guess                       |
+|                   |    6     |               |          |   true          |                            |                                   | 
+|                   |          |   1           |   1      |                 |   true                     | You won! you guessed the number   |
+|                   |          |               |          |   false         |                            |                                   |    
++-------------------+----------+---------------+----------+-----------------+----------------------------+-----------------------------------+
+
+note: 
+- Only one input cycle
+- Prompt appears once
+- Output confirms success
+- Flag stops repetition immediately
+
+// trace table - multiple incorrect guesses before success 
+
++-------------------+----------------+---------+----------+-----------------+-------------------------------+------------------------------+--------------------------------+
+| intComputerNumber | intGuess | intGuessCount | intFlag  | while Flag = 0  | intGuess = intComputerNumber  | intGuess > intComputerNumber | Prompt / Output                |
++-------------------+----------+---------------+----------------------------+-------------------------------+------------------------------+--------------------------------+
+|        6          |          |   0̶           |   0̶      |                 |                               |                              | Enter guess                    |
+|                   |    3̶     |               |          |   true          |                               |                              |                                | 
+|                   |          |   1̶           |   0̶      |                 |   false                       | false                        | Too Low!                       |
+|                   |          |               |          |                 |                               |                              | Enter guess                    |
+|                   |    9̶     |   2̶           |   0̶      |   true          |   false                       | false                        | Too High!                      | 
+|                   |          |               |          |                 |                               |                              | Enter guess                    |
+|                   |    6     |   3           |   1      |   true          |   true                        |                              | You won! you guessed the number| 
+|                   |          |               |          |   false         |                               |                              |                                |
++-------------------+----------+---------------+----------+-----------------+-------------------------------+------------------------------+--------------------------------+
+
+note: 
+- Each incorrect guess triggers:
+  - output message 
+  - new prompt
+  - Loop continues because flag remains 0
+- Final correct guess:
+  - sets flag to 1
+  - terminates loop
+
+------------------------------------------------------------
+
+Stage 4 — Adding Sentinel Exit (-1)
+===================================
+
+purpose:
+- introduce user-controlled exit
+- demonstrate compound conditions
+
+concept focus:
+- loops can have multiple exit rules
+- user has control over termination
+
+0. Start 
+1. Declarations 
+	num intComputerNumber 
+	num intGuess 
+	num intGuessCount 
+	num intFlag 
+
+2.	intComputerNumber = random(1,10)
+3.	intGuessCount = 0 
+4.	intFlag = 0 
+
+5.	output "Enter guess (-1 to exit the round): " 
+6.	input intGuess 
+	
+7.	while intFlag = 0 AND intGuess <> -1 
+		intGuessCount = intGuessCount + 1 
+
+		if intGuess = intComputerNumber then 
+			output "You won! you guessed the number" 
+			output "Total guesses: " + intGuessCount
+			intFlag = 1 
+		else 
+			if intGuess > intComputerNumber then 
+				output "Too High!" 
+			else 
+				output "Too Low!"
+			endif 
+			output "Enter guess (-1 to exit the round): " 
+			input intGuess
+		endif 
+	endwhile 
+
+
+note:
+- now two exit conditions exist:
+  - correct guess (flag)
+  - user exit (-1)
+- introduces compound boolean logic in loops
+
+
+------------------------------------------------------------
+
+Stage 5 — Full Game Loop (WHILE version)
+========================================
+
+purpose:
+- introduce multi-round gameplay
+- show nested loops
+
+concept focus:
+- game session vs game round
+- nested repetition structures
+
+0. Start 
+1. Declarations 
+	num intComputerNumber 
+	num intGuess, intGuessCount, intFlag 
+	string strPlayAgain 
+
+2.	strPlayAgain = "YES"
+
+3.	while strPlayAgain = "YES" 
+		intComputerNumber = random(1,10)
+		intGuessCount = 0 
+		intFlag = 0 
+
+		output "Enter guess (-1 to exit the round): " 
+		input intGuess 
+	
+		while intFlag = 0 AND intGuess <> -1 
+			intGuessCount = intGuessCount + 1 
+
+			if intGuess = intComputerNumber then 
+				output "You won! you guessed the number" 
+				output "Total guesses: " + intGuessCount
+				intFlag = 1 
+			else 
+				if intGuess > intComputerNumber then 
+					output "Too High!" 
+				else 
+					output "Too Low!"
+				endif 
+				output "Enter guess (-1 to exit the round): " 
+				input intGuess
+			endif 
+		endwhile 
+
+		output "Do you want to play again? (YES/NO): "
+		input strPlayAgain
+	endwhile 
+
+4.	output "Thank you for playing - the game will exit" 
+5. Stop 
+
+
+note:
+- introduces full program structure
+- outer loop = game sessions
+- inner loop = guessing rounds
+- system becomes modular and structured
+
+---
+
+// TRACE TABLE 1 — ONE ROUND, GUESS IN 2–3 TRIES
+// Assumptions:
+// intComputerNumber = 7
+// User guesses: 3 → 9 → 7
+// User continues playing after round
+// Outer loop: strPlayAgain = "YES"
+
+
+| intComputerNumber | intGuess | intGuessCount | intFlag | strPlayAgain = "YES" | intFlag = 0 AND intGuess <> -1 | intGuess = intComputerNumber | intGuess > intComputerNumber | Prompt / Output                                    |
+| ----------------- | -------- | ------------- | ------- | -------------------- | ------------------------------ | ---------------------------- | ---------------------------- | -------------------------------------------------- |
+| 7                 |          | 0             | 0       | YES (true)           | TRUE                           |                              |                              | Enter guess (-1 to exit the round)                 |
+|                   | 3        | 1             | 0       |                      | TRUE                           | FALSE                        | FALSE                        | Too Low!                                           |
+|                   | 9        | 2             | 0       |                      | TRUE                           | FALSE                        | TRUE                         | Too High!                                          |
+|                   | 7        | 3             | 1       |                      | FALSE (flag becomes 1)         | TRUE                         |                              | You won! you guessed the number / Total guesses: 3 |
+|                   |          |               |         | NO (false)           |                                |                              |                              | Do you want to play again? (YES/NO)                |
+|                   |          |               |         |                      |                                |                              |                              | Thank you for playing - the game will exit         |
+
+// Result:
+// Inner loop exits due to intFlag = 1`
+// Outer loop exits because strPlayAgain = NO 
+
+---
+
+// TRACE TABLE 2 — USER EXITS ROUND WITH SENTINEL (-1), THEN QUITS GAME
+// Assumptions:
+// intComputerNumber = 5
+// User enters: 2 then -1
+// Then chooses NO to continue
+
+---
+
+| intComputerNumber | intGuess | intGuessCount | intFlag | strPlayAgain | intFlag = 0 AND intGuess <> -1 | intGuess = intComputerNumber | intGuess = -1 | Prompt / Output                            |
+| ----------------- | -------- | ------------- | ------- | ------------ | ------------------------------ | ---------------------------- | ------------- | ------------------------------------------ |
+| 5                 |          | 0             | 0       | YES          | TRUE                           |                              |               | Enter guess (-1 to exit the round)         |
+|                   | 2        | 1             | 0       |              | TRUE                           | FALSE                        | FALSE         | Too Low!                                   |
+|                   | -1       | 1             | 0       |              | FALSE                          |                              | TRUE          | (Round ends immediately)                   |
+|                   |          |               |         |              |                                |                              |               | Do you want to play again? (YES/NO)        |
+|                   |          |               |         | NO           |                                |                              |               | Thank you for playing - the game will exit |
+
+note: 
+- Sentinel immediately breaks inner loop
+- Outer loop evaluates restart decision
+- Program terminates cleanly
+
+---
+
+// TRACE TABLE 3 — TWO FULL ROUNDS (BOTH COMPLETED SUCCESSFULLY)
+
+// Assumptions:
+// Round 1: number = 4, guesses = 6 → 2 → 4
+// Round 2: number = 8, guesses = 1 → 10 → 8
+// Player chooses YES after round 1, NO after round 2
+
+---
+
+## ROUND 1
+
+| intComputerNumber | intGuess | intGuessCount | intFlag | strPlayAgain | intGuess = number | intGuess > number | Prompt / Output                    |
+| ----------------- | -------- | ------------- | ------- | ------------ | ----------------- | ----------------- | ---------------------------------- |
+| 4                 |          | 0             | 0       | YES          |                   |                   | Enter guess (-1 to exit the round) |
+|                   | 6        | 1             | 0       | YES          | FALSE             | TRUE              | Too High!                          |
+|                   | 2        | 2             | 0       | YES          | FALSE             | FALSE             | Too Low!                           |
+|                   | 4        | 3             | 1       | YES          | TRUE              |                   | You won! / Total guesses: 3        |
+|                   |          |               |         | YES          |                   |                   | Do you want to play again?         |
+
+## ROUND 2
+
+| intComputerNumber | intGuess | intGuessCount | intFlag | strPlayAgain | intGuess = number | intGuess > number | Prompt / Output                            |
+| ----------------- | -------- | ------------- | ------- | ------------ | ----------------- | ----------------- | ------------------------------------------ |
+| 8                 |          | 0             | 0       | YES          |                   |                   | Enter guess (-1 to exit the round)         |
+|                   | 1        | 1             | 0       | YES          | FALSE             | FALSE             | Too Low!                                   |
+|                   | 10       | 2             | 0       | YES          | FALSE             | TRUE              | Too High!                                  |
+|                   | 8        | 3             | 1       | YES          | TRUE              |                   | You won! / Total guesses: 3                |
+|                   |          |               |         | NO           |                   |                   | Thank you for playing - the game will exit |
+
+------------------------------------------------------------
+
+Stage 6 — Final Variation (DO..WHILE version)
+=============================================
+
+purpose:
+- demonstrate alternative loop selection
+- show guaranteed first execution
+
+concept focus:
+- do..while = post-test loop
+- loop always runs at least once
+
+0. Start 
+1. Declarations 
+	num intComputerNumber 
+	num intGuess, intGuessCount, intFlag 
+	string strPlayAgain 
+
+2.	strPlayAgain = "YES"
+
+3.	do 
+		intComputerNumber = random(1,10)
+		intGuessCount = 0 
+		intFlag = 0 
+
+		output "Enter guess (-1 to exit the round): " 
+		input intGuess 
+	
+		while intFlag = 0 AND intGuess <> -1 
+			intGuessCount = intGuessCount + 1 
+
+			if intGuess = intComputerNumber then 
+				output "You won! you guessed the number" 
+				output "Total guesses: " + intGuessCount
+				intFlag = 1 
+			else 
+				if intGuess > intComputerNumber then 
+					output "Too High!" 
+				else 
+					output "Too Low!"
+				endif 
+				output "Enter guess (-1 to exit the round): " 
+				input intGuess
+			endif 
+		endwhile 
+
+		output "Do you want to play again? (YES/NO): "
+		input strPlayAgain
+
+	while strPlayAgain = "YES"
+
+4.	output "Thank you for playing - the game will exit" 
+5. Stop 
+
+
+note:
+- guarantees at least one round executes
+- structurally identical logic to while version
+- only loop timing changes
+
+
+FINAL SUMMARY
+=============
+
+1. Programs are built incrementally
+   - start simple
+   - add one concept at a time
+   - avoid designing full complexity immediately
+
+2. Variables represent state
+   - intGuessCount → tracks interaction history
+   - intFlag → controls loop termination
+   - strPlayAgain → controls program-level repetition
+
+3. Loops are not interchangeable
+   - while → condition checked first
+   - do..while → guaranteed execution first
+
+4. Real systems are layered
+   - input handling
+   - decision logic
+   - repetition control
+   - session control
+
+5. Nested loops represent system structure
+   - inner loop = task repetition (guessing)
+   - outer loop = session repetition (playing again)
+
+6. Design matters more than syntax
+   - same problem can be solved in multiple valid ways
+   - correctness depends on logic placement, not just keywords
+
+
+----
+// JavaScript Version of the program 
+
+let intComputerNumer; 
+let intGuess; 
+let intGuessCount; 
+let intFlag; 
+let strPlayAgain; 
+
+strPlayAgain = "YES";
+
+do {
+    intComputerNumber = Math.floor(Math.random() * 10) + 1;
+    console.log("Secret Number: " + intComputerNumber);
+    intGuessCount = 0; 
+    intFlag = 0; 
+
+    intGuess = Number(prompt("Enter your guess (-1 to exit): "));
+    
+    while ((intFlag === 0) && (intGuess !== -1)){
+        intGuessCount++; 
+        if (intGuess == intComputerNumber){
+            console.log("You won! - You guessed my number");
+            console.log("You took " + intGuessCount + " guesses");
+            intFlag = 1; 
+        } else {
+            if (intGuess > intComputerNumber){
+                console.log("Too High!");
+            } else { 
+                console.log ("Too Low!"); 
+            }
+            intGuess = Number(prompt("Enter your guess (-1 to exit): "));
+        }
+    }
+    strPlayAgain = prompt("Do you want to play again? (YES/NO): "); 
+} while (strPlayAgain === "YES")
+
+console.log("Thank you for playing - game will exit"); 
+
+----
+// variation that forces the user to enter a valid number between 1 and 10 (inclusive) or -1, the sentinel value to exit the round 
+// multiple nested loops 
+
+0. Start 
+1. Declarations 
+	num intComputerNumber 
+	num intGuess, intGuessCount, intFlag 
+	string strPlayAgain 
+
+2.	strPlayAgain = "YES"
+
+3.	do 
+		intComputerNumber = random(1,10)
+		intGuessCount = 0 
+		intFlag = 0 
+
+		do
+			output "Enter guess (-1 to exit the round): " 
+			input intGuess 
+			if (intGuess < -1) OR (intGuess = 0) OR (intGuess > 10) then 
+				output "Error - Invalid Number Entered" 
+			endif 
+		while (intGuess < -1) OR (intGuess = 0) OR (intGuess > 10)
+	
+		while intFlag = 0 AND intGuess <> -1  
+			intGuessCount = intGuessCount + 1 
+			if intGuess = intComputerNumber then 
+				output "You won! you guessed the number" 
+				output "Total guesses: " + intGuessCount
+				intFlag = 1  
+			else 
+				if intGuess > intComputerNumber then 
+					output "Too High!" 
+				else 
+					output "Too Low!"
+				endif 
+				do
+					output "Enter guess (-1 to exit the round): " 
+					input intGuess 
+					if (intGuess < -1) OR (intGuess = 0) OR (intGuess > 10) then 
+						output "Error - Invalid Number Entered" 
+					endif 
+				while (intGuess < -1) OR (intGuess = 0) OR (intGuess > 10)
+			endif 
+		endwhile
+		output "Do you want to play again? (YES/NO): "
+		input strPlayAgain
+	while strPlayAgain = "YES"
+4.	output "Thank you for playing - the game will exit" 
+5. Stop 
+
+----   
+- Example 
+
+Similar to the program you had coded for IMAD - Allow the user to guess a number between 1 & 50. We added a little more of our own logic to the processing.  
+
+// The user is prompted to enter a number 1 & 50. If the number is not within the range, they are presented with an error and requested to enter the value 
+// again. We implemented a do..while loop becaus we know that we want to "let them in" to the loop at least once for the initial input. If they enter the
+// correct value, the loop will exit  
+
+0. Start
+1. Declarations 
+	num intNum 
+
+2.	do 
+		output "Enter number (between 1 & 50): "
+		input intNum 
+
+		if intNum < 1 OR intNum > 50 then 
+			output "Error - Invalid number entered"
+		endif 
+	while intNum < 1 OR intNum > 50
+
+3.	output "The number entered is " + intNum 
+4. Stop 
+
+----
+
+// In your classwork, instead of multiple chances to enter a number, you forced the user to guess the number with only 3 chances 
+
+0. Start
+1. Declarations 
+	num intNum 
+	num intCount 
+
+2.	intCount = 0 
+
+3.`	while intCount < 3 						// loop to count the number of entries
+		do 							// loop to control the input 
+			output "Enter number (between 1 & 50): "
+			input intNum 
+
+			if intNum < 1 OR intNum > 50 then 
+				output "Error - Invalid number entered"
+			endif 
+		while intNum < 1 OR intNum > 50
+		intCount = intCount + 1 
+	enwhile 				
+
+4. Stop 
+
+----
+
+// A more complete program code similar to the implementation in the Android project 
+// Note the compund condition, BUT also note that there is 1 loop only. The condition 
+// deals with both the number of entries and that the input is within the allowed range
+
+0. Start
+1. Declarations 
+	num intNum 
+	num intCount 
+	num intGuess 
+
+2.	intGuess = random(1, 50)
+3.	intCount = 0 
+
+4.	output "Enter number (between 1 & 50): "
+5.	input intNum 
+
+6.`	while (intCount < 3) AND (intNum >= 1 OR intNum <= 50)
+		intCount = intCount + 1 
+		if intNum = intGuess then 
+			output "You won" 
+		else
+			if intNum < 1 OR intNum > 50 then 
+				output "Error" 
+			endif 
+		endif 		
+		output "Enter number (between 1 & 50): "
+		input intNum 
+	enwhile 				
+
+7. Stop 
+
+
+----
+
+- The for..loop
+
+This is where control becomes structured.
+
+-- Structure
+
+for [counting variable] = [starting number] to [ending number] Step [increment by number]
+   {instructions} 
+endfor 
+
+Combines:
+* Initialization
+* Condition
+* Update
+
+In one line.
+
+-- Automatic Counter Logic
+
+* Counter managed automatically
+* Reduces risk of infinite loops
+* Cleaner for fixed repetition
+
+- Question: Why is for..loop safer for beginners?
+- Because when we know how many times to execute, coding a for..loop makes sense 
+
+- Example - The Average Age 
+
+0. Start
+1. Declarations 
+	num intAge 
+	num intSum, intCount 
+	num fltAvg 
+
+2.	intSum = 0 
+3.	intCount = 0 
+
+4.	for intCount = 1 to 10 Step 1 			// this loop will execute 10 times 
+		output "Enter Age (-1 to Exit): " 
+		input intAge 
+		intSum = intSum + intAge 
+	endfor 
+
+5.	fltAvg = intSum / 10 
+6.	output "The average age is " + fltAvg + " year/s" 
+
+7. Stop 
+
+----
+
+- Example - Revisiting the Times Table 
+
+0. Start 
+1. Declarations 
+	num intNum 
+	num intCount 
+
+2.	intNum = 1 
+
+3.	for intCount = 1 to 12 Step 1 
+		output intNum + " x " + intCount + " = " + (intNum * intCount)	// 1 x 1 = 1 
+	endfor 
+
+4. Stop 
+
+JavaScript equivalent:	for (intCount = 1; intCount <= 12; intCount++)
+Kotlin equivalent:	for (intCount in 1..12)
+
+-- Step Values
+
+* Count by 2s		
+?. for intCount = 1 to 10 Step 2  
+	output intCount 
+   endfor 
+
+- output will print out: 1, 3, 5, 7, 9 
+
+* Count by 5s
+?. for intCount = 1 to 20 Step 5 
+	output intCount 
+   endfor 
+
+- output will print out: 1, 6, 11, 16
+
+* Other than Step 1 - we are able to skip numbers (elements)
+?. for intCount = 1 to 10 Step 1 
+	output intCount 
+   endfor 
+
+- output will print out: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+
+Real-life analogy:
+
+* Sampling every 5th customer
+* Checking every 10th record
+
+
+-- Counting Up / Down
+
+Examples:
+
+* Countdown
+
+?. for intCount = 10 to 1 Step -1 
+	// instructions processing a set in reverse order 
+   endfor 
+
+-- Loop Condition Handling
+
+The development of the condition for a while..loop and a do..while loop is an important choice. In both cases, the result of the condition dictates the repetition(true) or the exit(false) of the loop. 
+
+If the storyline is: 
+- dependent on the user's input, then a sentinel value will be used. 
+- dependent on the number of times that the instructions need to be executed, then a counter variable will be used.
+- dependent on actions of the program, something that is likely decided internally, then a flag variable will be used.  
+
+* It is important to remember the common tasks, specifically counting (using incrementing or decrementing), depending on what we are counting, we must be aware of the "off-by-one error", a possible logical error that could occur if the order of instructions are not performed correctly. 
+
+* The conditions are never only just 1 variation. There are times when a compound condition will aid in dealing with multiple decisions that are apart of the storyline. 
+
+-- Nested Loops
+
+- Outer / Inner Loops
+
+- Analogy:
+* Calendar:
+  * Year loop
+  * Month loop
+  * Day loop
+
+- Example 
+Print out a calendar todo list template for 3 years, 12 months per year, and 31 days to a month (the days that are not needed will be 'scratched' out by the user when this is printed)
+
+0. Start 
+1. Declarations 
+	num intYear, intMonth, intDay 
+
+2.	for intYear = 1 to 3 Step 1 
+		output "Year: #" + intYear 
+		for intMonth = 1 to 12 Step 1 
+			output "Month: #" + intMonth 
+			for intDay = 1 to 31 Step 1 
+				output "Day: #" + intDay + " ____________________"  
+			endfor
+			output "End of Month: #" + intMonth 
+		endfor
+		output "End of Year: #" + intYear  
+	endfor 
+
+- Example 
+Revisiting the times table program - Instead of printing only one times table, we are requested to print the full 12 times tables similar to the charts we remember in school 
+
+// printing the 1 times table 
+
+0. Start 
+1. Declarations 
+	num intNum 
+	num intCount 
+
+2.	intNum = 1 
+
+3.	for intCount = 1 to 12 Step 1 
+		output intNum + " x " + intCount + " = " + (intNum * intCount)	// 1 x 1 = 1 
+	endfor 
+
+4. Stop 
+
+----
+
+// if we then want to print each times table, and progressing from the above program 
+// we are then going to assign intNum with each times table number & then copy and paste the loop to print the 12 lines  
+
+0. Start 
+1. Declarations 
+	num intNum 
+	num intCount, intAns 
+
+2.	intNum = 1 
+3.	for intCount = 1 to 12 Step 1 
+		intAns = intNum * intCount
+		output intNum + " * " + intCount + " = " + intAns 	// 1 x 1 = 1 
+	endfor 
+
+4.	intNum = 2 
+5.	for intCount = 1 to 12 Step 1 
+		output intNum + " x " + intCount + " = " + (intNum * intCount)	// 1 x 1 = 1 
+	endfor 
+
+6.	intNum = 3 
+7.	for intCount = 1 to 12 Step 1 
+		output intNum + " x " + intCount + " = " + (intNum * intCount)	// 1 x 1 = 1 
+	endfor 
+
+8.	intNum = 4 
+9.	for intCount = 1 to 12 Step 1 
+		output intNum + " x " + intCount + " = " + (intNum * intCount)	// 1 x 1 = 1 
+	endfor 
+
+10.	intNum = 5 
+11.	for intCount = 1 to 12 Step 1 
+		output intNum + " x " + intCount + " = " + (intNum * intCount)	// 1 x 1 = 1 
+	endfor 
+
+	...
+
+?.	intNum = 12 
+?.	for intCount = 1 to 12 Step 1 
+		output intNum + " x " + intCount + " = " + (intNum * intCount)	// 1 x 1 = 1 
+	endfor 
+
+?. Stop 
+ 
+// issue - this ends up being 12 loops in the program. Far too much code and with each copy-&-paste only 1 value kept on changing, the value of the intNum variable. 
+
+---- 
+
+// the fix - use nested loops 
+// the outer loop will handle each times table 
+// the inner loop will output the 12 lines 
+
+0. Start 
+1. Declarations 
+	num intNum, intCount 
+
+2.	for intNum = 1 to 12 Step 1 
+		for intCount = 1 to 12 Step 1 
+			output intNum + " x " + intCount + " = " + (intNum * intCount)			
+		endfor 
+	endfor 
+
+3. Stop 
+
+----
+
+// if we want to be more user-friendly - offering headings and sub-headings for the presentation 
+
+0. Start 
+1. Declarations 
+	num intNum, intCount 
+
+2.	output "##### The Times Tables x12 #####" 
+
+3.	for intNum = 1 to 12 Step 1 
+		output "Start of " + intNum + " Times Table" 
+		for intCount = 1 to 12 Step 1 
+			output intNum + " x " + intCount + " = " + (intNum * intCount)			
+		endfor 
+		output "End of " + intNum + " Times Table" 
+	endfor 
+
+4.	output "##### End of The Times Tables x12 #####"
+
+5. Stop 
+
+----
+
+- Multi-dimensional Iteration
+
+Think:
+
+* Tables
+* Grids
+* Seating charts
+* Spreadsheets
+
+- Example: Answer Sheet Generator
+
+Example logic:
+
+for student = 1 to 10 Step 1 
+    output "Student Number: _______________________" 
+    output "Name: _________________________________" 
+    output "Group: ________________________________"
+
+    for question = 1 to 20 Step 1 
+        output "Question #" + question 
+	output "___________________________________"
+    endfor 
+
+endfor 
+
+- Real-world systems:
+
+* Exam generation software
+* Seating allocation
+* 2D game boards
+
+- Questions: 
+
+* How many total operations occur?
+* What happens if both loops are large?
+
+-- Advantages of Looping
+
+Efficiency
+* Fewer lines of code
+* Less maintenance
+
+Reusability
+* Generalized logic
+
+Less Code Repetition
+* Avoids copy-paste errors
+
+Expanded  
+* Automation
+* Scalability
+* Abstraction
+* Computational thinking
+
+-- Logic of a Loop
+
+This is the most important conceptual section.
+
+Every loop contains:
+
+1. Initialisation
+2. Condition
+3. Update
+
+If any one is wrong → logic fails.
+
+- Before running a loop, students should ask:
+
+* Where does my loop start?
+* When does it stop?
+* What changes each iteration?
+
+-- Big Idea to Emphasize
+
+Loops are not about syntax.
+
+They are about:
+
+* Control
+* Structure
+* Prediction
+* Designing repeatable processes
+
+---- 
+
+- Example
+- The following program is Q1 from the Homework for Chapter 6 
+
+// A
+
+0. Start
+1. Declarations 
+	num fltPrice 
+	num intDay 
+	num fltDiscount = 0.1 // 10% discount 
+
+2.	output "Enter the original price of the item: R" 
+3.	input fltPrice 
+
+4.	for intDay = 1 to 5 Step 1 
+		fltPrice = fltPrice - (fltPrice * fltDiscount)
+		output "Day " + intDay + " = R" + fltPrice 
+	endfor 
+5. Stop 
+
+----
+
+// B 
+
+0. Start
+1. Declarations 
+	num fltPrice, fltWholesalePrice  
+	num intDay 
+	num fltDiscount = 0.1 
+
+2.	output "Enter the original price of the item: R" 
+3.	input fltPrice 
+
+4.	output "Enter the wholesale price of the item: R" 
+5.	input fltWholesalePrice 
+
+6.	for intDay = 1 to 5 Step 1 
+		fltPrice = fltPrice - (fltPrice * fltDiscount)
+		if fltPrice < fltWholesalePrice then // if the calculated discounted amount falls below the wholesale price 
+			fltPrice = fltWholesalePrice // set the current price to the wholesale price 
+		endif 
+		output "Day " + intDay + " = R" + fltPrice 
+	endfor 
+7. Stop 
+
+ 
