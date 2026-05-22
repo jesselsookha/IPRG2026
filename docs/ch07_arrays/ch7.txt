@@ -1,0 +1,1840 @@
+Chapter 7 — Arrays
+-------------------
+
+- Array Fundamentals
+
+It is "Indexed Storage". The core idea: 
+
+An array is a collection of values stored in consecutive memory locations and accessed using an index.
+
+- Arrays are about organization + predictability
+- They allow us to treat many values as one structure
+- They introduce the idea of a new data structure as compared to the simple variable we have discussed in all our previous chapters
+
+Analogy
+
+- Seats in a cinema
+
+Each one:
+
+- Has a number (index)
+- Holds one item
+- Is accessed by its number
+
+---
+
+- Fixed Size
+
+When you declare an array, memory is allocated immediately.
+
+- The computer must know how much space to reserve.
+
+** 
+This is why many modern languages later introduce dynamic arrays (ArrayList, lists, dictionary, collections, etc.)
+**
+
+---
+
+- Base Zero Indexing
+
+The index is an offset from the first memory location.
+
+The counting of & the referencing of the array cells always begin from index - 0 
+
+---
+
+- One-Dimensional Arrays
+
+Index:   0   1   2   3   4
+Value:  10  15  20  25  30
+
+> Where is 20 stored? 
+-- in cell 2, the third cell 
+
+> What does 'array[3]' really mean?
+-- we are accessing the value in cell 3 of the array 
+
+Important Concept - Arrays store:
+
+- Values of the same type (for example, all numbers, all strings, ...)
+- In contiguous memory
+
+
+		0	1	2	3	4	5
+intAge		-------------------------------------------
+		18	19	20	18	18	20
+
+strDays 
+	0 | "Sunday" 
+	1 | "Monday" 
+	2 | "Tuesday"
+	3 | "Wednesday"
+	4 | "Thursday" 
+	5 | "Friday" 
+	6 | "Saturday"
+---
+
+- Accessing Elements
+
+Retrieving a value
+	output "Student: " + strStudent[2] + " has a mark of " + intMarks[2] + "% for Test 1" 
+
+Modifying a value
+	intMarks[3] = 75 // assigning the mark 75 to cell 3 - the 4th cell
+	// remember that the cells of the array are still the variables we have learnt in the past 
+	// meaning that values can change (unless it is a CONSTANT)
+
+---
+
+- Populating with Loops
+
+Arrays and loops are inseparable.
+
+Without loops:
+
+- Arrays are clumsy
+- Repetitive code appears
+
+Imagine an array of 10,000 elements. It would be hard to work with if we do not use a loop statement. 
+All 3 types of loops could be used to reference/iterate through the elements of an array, but a for..loop is preferred. Since we know the number of elements that are in an array, the for..loop can be set to execute that many number of times for each element in the array. 
+
+---
+
+- Parallel Arrays**
+	
+             0        1         2
+-----------------------------------
+names[3] = "Anna",  "Ben",   "Cara"
+marks[3] =  85,     72,      90
+
+Index 0 relates to the same student.
+
+Parallel arrays simulate what later becomes:
+
+- Objects
+- Records
+- Classes
+
+Discussion > What could go wrong if the arrays become misaligned?
+
+Possible answers:
+- Data corruption
+- Logical bugs
+- Inconsistent results
+
+---
+
+-- Declaring and Initializing Arrays
+
+- Syntax
+
+*Declaration does not equal *Initialization
+
+Declaration
+	0. Start 
+	1. Declarations 
+		num intNum [10]	// an array of 10 cells 
+		string strName [5] 
+		num intMarks [15] 
+
+Declarations + Initializations for 2 arrays 
+	0. Start 
+	1. Declarations 
+		string strStudents [5] = "John", "Jack", "Jane", "Jenny", "Joe" 
+		num intMarks[5] = 65, 87, 99, 100, 15
+
+		num intNum[10] = "1", "2", ... // not acceptable - syntax error 
+
+
+Another Declaration 
+	0. Start 
+	1. Declarations 
+		num intSIZE = 10 // CONSTANT 
+		num intNum[intSIZE] // Array uses the constant value so the size is now known 
+
+More information about the index / cell number / element number 
+	- must always be an integer 
+		output strStudents[4]
+
+	- can be an integer variable 
+		output strStudents[intIndex]
+
+	- also can be an expression - BUT the result of the expression must always be an integer value 
+		output strStudents[intSIZE - 1] 
+
+	** the following will produce a run-time error if the array has 5 cells - first cell = 0 | last cell = 4  
+		output strStudent[5]	// x wrong - index is out of bounds (for the array)
+
+	
+		for intCount = 1 to 5 Step 1 // loop looks to be correct 
+			output strStudents[intCount]  
+		endfor  
+		// but when the loop intCount variable reaches 5 - and there is no cell 5
+		// the program will crash 
+
+---
+
+- Loading Arrays
+
+The example shown above, presented that at the point of declaration of the array variable, the values are loaded. Now we will see other possible workflows for loading arrays. 
+
+* The Programmer - there are times when we as programmers would prefer to work with values that we understand and the example below does help a little to get things going with the rest of the processing that needs to be coded. 
+
+0. Start 
+1. Declarations 
+	num intNum[10]
+	
+
+2.	intNum[0] = 1 	// specifically referencing the element number and the assigned value 
+3.	intNum[1] = 2 
+4.	intNum[2] = 3 
+5.	intNum[3] = 4 
+6.	intNum[4] = 5 
+7.	intNum[5] = 6 
+8.	intNum[6] = 7 
+9.	intNum[7] = 8 
+10.	intNum[8] = 9 
+11.	intNum[9] = 10 
+
+---
+
+* The Programmer again ... shorter than the above example 
+
+0. Start 
+1. Declarations 
+	num intNum[10] = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+
+--- 
+
+* The Programmer again ... if the intention was to load a set of values, we could consider using a loop 
+
+0. Start 
+1. Declarations 
+	num intNum[10] 
+	num intIndex 
+
+2.	for intIndex = 0 to 9 Step 1 
+		intNum[intIndex] = intIndex + 1 
+	endfor  
+
+---
+
+* Load the array through user input 
+
+0. Start 
+1. Declarations 
+	num intNum[10] 
+	num intElement 
+
+2.	for intElement = 0 to 9 Step 1
+		output "Enter number: " // Enter number: ___
+		input intNum[intElement]
+	endfor 
+
+---
+// the below example uses the index as part of the prompt to help present the request a little better  
+
+0. Start 
+1. Declarations 
+	num intNum[10] 
+	num intElement 
+
+2.	for intElement = 0 to 9 Step 1
+		output "Enter number for cell [" + intElement + "]: " // Enter number for cell [0]: ___
+		input intNum[intElement]
+	endfor 
+
+---
+
+// Imagine we wanted to enter the sales amounts for a store, for 15 days 
+
+The Array - fltSales 
+	[0] 	... 
+	[1] 	...
+	[2] 	...
+	[3] 	...
+	[4] 	...
+	[5] 	...
+	[6] 	...
+	[7] 	...
+	[8] 	...
+	[9] 	...
+	[10] 	...
+	[11] 	...
+	[12] 	...
+	[13] 	...
+	[14] 	...
+
+0. Start 
+1. Declarations 
+	num fltSales[15] 
+	num intDay 
+
+2.	for intDay = 0 to 14 Step 1 
+		output "Enter sales for day #" + intDay + " : "	 // Enter sales for day #0 :  
+		input fltSales[intDay] 
+	endfor 
+
+- The prompt - take note > day #0 is not very user friendly. While the intDay variable is being used to reference the elements of the array from 0 to 14 for the 15 days ... being used in the output might confuse the user 
+
+--- 
+- Take note of the expression used in the prompt (intDay + 1) - presenting 1 to 15 for the user, while we use 0 to 14 for the indexes of the array
+
+0. Start 
+1. Declarations 
+	num fltSales[15] 
+	num intDay 
+
+2.	for intDay = 0 to 14 Step 1 
+		output "Enter sales for day #" + (intDay + 1) + " : "	// Enter sales for day #1 :  
+		input fltSales[intDay] 
+	endfor 
+
+- An alternative for the presentation of the prompt message 
+
+	output "Day #" + (intDay + 1) + " sales : R" 	// Day #1 sales : R...
+
+---
+- Another possible alterative - changing the loop starting and ending value to help with the prompt, but then we need to change the index in the input statement
+
+2.	for intDay = 1 to 15 Step 1 
+		output "Enter sales for day #" + intDay + " : "	// Enter sales for day #1 :  
+		input fltSales[intDay - 1] 
+	endfor 
+
+I would still prefer the previous examples 
+
+--- 
+- The following example was not discussed in class. This kind of example is highlighted later in the chapter notes, but I thought it would be a nice inclusion to the notes at this point. 
+
+Let's say we want to input the sales amounts for 7 days - and instead of displaying a day number, could we actually display the day names 
+
+0. Start 
+1. Declarations 
+	string strDAY[7] = "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" // constant 
+ 	num fltSales[7] 
+	num intIndex 
+
+2.	for intIndex = 0 to 6 Step 1 
+		output "Enter the sales amount for " + strDAY[intIndex] + ": " 
+		input fltSales[intIndex] 
+	endfor 
+
+	// since we have 7 days and 7 amounts - the intIndex variable helps to reference related cells 
+	// when we re-read this example, we are dealing with parallel 1D arrays 
+
+---
+
+
+- Printing Arrays
+
+Arrays are processed one element at a time.
+
+
+0. Start 
+1. Declarations 
+	string strStudents[10]
+	num intA1Marks[10] 
+	num intCount 
+
+2.	// we would code the input 
+3.	// we would process the data - calculations - decisions - etc. 
+
+4.	output "***** Assignment 1 Marks *****" // heading for the report 
+
+5.	for intCount = 0 to 9 Step 1
+		output strStudents[intCount] + " : " + intA1Marks[intCount] + "%" 
+	endfor 
+
+6.	output "***** End of Report *****"
+
+---
+
+?.	intCount = 0 
+?.	while intCount <= 9 
+		output "The value in cell [" + intCount + "] is " + intNum[intCount] 
+		intCount = intCount + 1 
+	endwhile 
+
+---
+
+- Summation / Averages
+
+- Accumulators
+- Running totals
+- Pattern recognition in algorithms
+
+(One of) the Patterns:
+
+1. Initialize accumulator
+2. Loop
+3. Update
+
+
+0. Start 
+1. Declarations 
+	num fltSales[15] 
+	num intDay 
+	num fltTotalSales, fltAvgSales	
+
+2.	for intDay = 0 to 14 Step 1 
+		output "Enter sales for day #" + (intDay + 1) + " : " 
+		input fltSales[intDay] 
+	endfor 
+
+3.	fltTotalSales = 0 
+
+4.	for intDay = 0 to 14 Step 1 
+		fltTotalSales = fltTotalSales + fltSales[intDay] 
+	endfor 
+
+5.	fltAvgSales = fltTotalSales / 15 
+
+6.	output "The total sales for the 15 days is R" + fltTotalSales 
+7.	output "The average sales is R" + ffltAvgSales
+
+8. Stop 
+
+---
+
+- Highest / Lowest (Comparison logic)
+
+There are different variations to approach the solution. Initializing high and low is an important consideration that we make. Initially will will consider intHigh = -1, and intLow = 999. This is done when we understand the data that is stored. 
+
+But then, when we do not immediately know much of the stored data, we will reconsider the initialization values.   
+
+Effectively we build our critical thinking.
+
+
+0. Start 
+1. Declarations 
+	num intNum[10] = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+	num intCount 
+	num intHigh 
+	num intLow 
+
+2.	intHigh = -1	
+3.	intLow = 999
+
+4.	for intCount = 0 to 9 Step 1  	
+		if intNum[intCount] > intHigh then 	// comparisons being executed 
+			intHigh = intNum[intCount]
+		endif 
+
+		if intNum[intCount] < intLow then 
+			intLow = intNum[intCount] 
+		endif 
+	endfor 
+
+	// output the highest and lowest values 
+
+5.	output "The highest number in the array is " + intHigh 
+6.	output "The lowest number in the array is " + intLow
+
+7. Stop  
+
+---
+
+// The following example not only determines the highest and lower values in the array, 
+// but also, the element number where the highest and lowest values were found. 
+
+0. Start 
+1. Declarations 
+	num intNum[10] = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+	num intCount 
+	num intHigh, intHIndex 
+	num intLow, intLIndex
+
+2.	intHigh = -1
+3.	intLow = 999
+
+4.	for intCount = 0 to 9 Step 1  	
+		if intNum[intCount] > intHigh then 	// comparisons being executed 
+			intHigh = intNum[intCount]
+			intHIndex = intCount 		// save the index where highest is found 
+		endif 
+
+		if intNum[intCount] < intLow then 
+			intLow = intNum[intCount] 
+			intLIndex = intCount 		// save the index where lowest is found
+		endif 
+	endfor 
+
+5.	output "The highest number in the array is " + intHigh + " in cell [" + intHIndex + "]."
+6.	output "The lowest number in the array is " + intLow + " in cell [" + intLIndex + "]."
+
+7. Stop  
+
+	// The highest number in the array is 10 in cell [9]. 
+
+---
+
+// A combined example - but as mentioned above, take note of the initialization of the high and low variables. 
+// Since we do not know the sales aomunts that will be entered by the user, we initialize the high and low variables 
+// to be the 1st cell of the array. In this way, we then process the comparisons for the remainder of the set of values 
+// in the array 
+
+0. Start 
+1. Declarations 
+	num fltSales[15] 
+	num intDay 
+	num fltTotalSales, fltAvgSales	
+	num fltHigh, fltLow 
+	num intHIndex, intLIndex 
+
+2.	for intDay = 0 to 14 Step 1 
+		output "Enter sales for day #" + (intDay + 1) + " : " 
+		input fltSales[intDay] 
+	endfor 
+
+3.	fltTotalSales = 0 // initialie the total sales variable
+
+4.	for intDay = 0 to 14 Step 1 
+		fltTotalSales = fltTotalSales + fltSales[intDay] // accumulate the sales
+	endfor 
+
+5.	fltAvgSales = fltTotalSales / 15	// calculate the average sales amount 
+
+6.	fltHigh = fltSales[0]			// initialized to the 1st cell of the array 
+7.	intHIndex = 0				// index is also set to the 1st cell 
+
+8.	fltLow = fltSales[0]			// initialized to the 1st cell of the array
+9.	intLIndex = 0 				// index is also set to the 1st cell 
+
+10.	for intDay = 1 to 14 Step 1		// the loop - starting value is also changed, 1 instead of 0
+		if fltSales[intDay] > fltHigh then 
+			fltHigh = fltSales[intDay]
+			intHIndex = intDay 
+		endif 
+		if fltSales[intDay] < fltLow then 
+			fltLow = fltSales[intDay]
+			intLIndex = intDay 
+		endif 
+	endfor 
+
+12.	output "The total sales for 15 days is R" + fltTotalSales 
+13.	output "The average sales for 15 days is R" + fltAvgSales 
+
+14.	output "The highest recorded sales is R" + fltHigh + " on day #" + (intHIndex + 1)  	
+15.	output "The lowest recorded sales is R" + fltLow + " on day #" + (intLIndex + 1)  	
+
+16. Stop
+
+---
+
+- Sequential / Linear Search
+
+Sequential search checks each element in the array one by one until the desired value is found (or until the end). It’s simple but raises important questions about efficiency.
+
+---
+
+Version 1: Basic Sequential Search
+
+0. Start
+1. Declarations
+       num intNum[10]
+       num intCount
+       num intSearch
+
+2.     for intCount = 0 to 9 Step 1
+           intNum[intCount] = intCount + 1   // fill array with values 1 to 10
+       endfor
+
+3.     output "What number are you looking for? : "
+4.     input intSearch
+
+5.     for intCount = 0 to 9 Step 1
+           if intSearch = intNum[intCount] then
+               output "Value is found"      // prints if match found
+           endif
+       endfor
+
+6. Stop
+
+Explanation: This works, but notice the inefficiency: even if the value is found at position 0, the loop continues checking all other positions. This is why we discuss early termination. Also take note, we have forgotten something in the above program, what if the value is not found? 
+
+---
+
+Version 2: “NOT Found” Output > BUT ITS INCORRECT 
+
+0. Start
+1. Declarations
+       num intNum[10]
+       num intCount
+       num intSearch
+
+2.     for intCount = 0 to 9 Step 1
+           intNum[intCount] = intCount + 1
+       endfor
+
+3.     output "What number are you looking for? : "
+4.     input intSearch
+
+5.     for intCount = 0 to 9 Step 1
+           if intSearch = intNum[intCount] then
+               output "Value is found"
+           else
+               output "Value is NOT found"   // ❌ prints too many times
+           endif
+       endfor
+
+6. Stop
+
+Explanation: This version is logically flawed. If the search value is not at index 0, it immediately prints “NOT found” — even though the value might appear later. The “NOT found” message should only appear once, after the entire search is complete.
+
+---
+
+Version 3: Early Termination with Index Trick
+
+0. Start
+1. Declarations
+       num intNum[10]
+       num intCount
+       num intSearch
+
+2.     for intCount = 0 to 9 Step 1
+           intNum[intCount] = intCount + 1
+       endfor
+
+3.     output "What number are you looking for? : "
+4.     input intSearch
+
+5.     for intCount = 0 to 9 Step 1
+           if intSearch = intNum[intCount] then
+               output "Value is found"
+               intCount = 25   // force loop to end early
+           endif
+       endfor
+
+6.     if intCount = 10 then
+           output "Value is NOT found"
+       endif
+7. Stop
+
+Explanation: Here we “break” the loop by setting the counter beyond the loop range. It works, but it’s a hack. This introduces the idea of early termination — stopping once the value is found.
+
+---
+
+Version 4: Using a Flag Variable (A better version compared to V3 above)
+
+0. Start
+1. Declarations
+       num intNum[10]
+       num intCount
+       num intSearch
+       num intFlag
+
+2.     for intCount = 0 to 9 Step 1
+           intNum[intCount] = intCount + 1
+       endfor
+
+3.     output "What number are you looking for? : "
+4.     input intSearch
+
+5.     intFlag = 0   // 0 = not yet found
+
+6.     for intCount = 0 to 9 Step 1
+           if intSearch = intNum[intCount] then
+               output "Value is found"
+               intFlag = 1   // mark as found
+           endif
+       endfor
+
+7.     if intFlag = 0 then
+           output "Value is NOT found"
+       endif
+8. Stop
+
+Explanation: The flag variable solves the earlier problem. Instead of printing “NOT found” multiple times, we only check the flag after the loop finishes. This is more logical and clean.
+
+---
+
+Version 5: Flag + Early Termination
+
+0. Start
+1. Declarations
+       num intNum[10]
+       num intCount
+       num intSearch
+       num intFlag
+
+2.     for intCount = 0 to 9 Step 1
+           intNum[intCount] = intCount + 1
+       endfor
+
+3.     output "What number are you looking for? : "
+4.     input intSearch
+
+5.     intFlag = 0   // 0 = not yet found
+
+6.     for intCount = 0 to 9 Step 1
+           if intSearch = intNum[intCount] then
+               output "Value is found"
+               intFlag = 1
+               intCount = 25   // stop searching early
+           endif
+       endfor
+
+7.     if intFlag = 0 then
+           output "Value is NOT found"
+       endif
+8. Stop
+
+Explanation: This combines the flag with early termination. Once the value is found, the loop stops immediately. This improves efficiency — especially if the value is near the start of the array. But, while this code is logical and understandble, the manipulation of the intCount variable is not the best choice. (Take note of V6 below)
+
+---
+
+Version 6: While Loop with Compound Condition
+
+0. Start
+1. Declarations
+       num intNum[10]
+       num intCount
+       num intSearch
+       num intFlag
+
+2.     for intCount = 0 to 9 Step 1
+           intNum[intCount] = intCount + 1
+       endfor
+
+3.     output "What number are you looking for? : "
+4.     input intSearch
+
+5.     intFlag = 0   // 0 = not yet found
+6.     intCount = 0
+
+7.     while intCount <= 9 AND intFlag <> 1
+           if intSearch = intNum[intCount] then
+               output "Value is found"
+               intFlag = 1   // stop searching
+           endif
+           intCount = intCount + 1
+       endwhile
+
+8.     if intFlag = 0 then
+           output "Value is NOT found"
+       endif
+9. Stop
+
+Explanation: This is the cleanest version. The while loop continues only while there are elements left AND the value hasn’t been found. This ensures early termination without hacks.  
+
+---
+
+Trace Table Example (Version 6)
+
+Suppose we search for: intSearch = 3.
+
+| Step | intCount | intNum[intCount] | intFlag | Output            |
+|------|----------|------------------|---------|-------------------|
+| Init | 0        | -                | 0       | -                 |
+| Loop | 0        | 1                | 0       | -                 |
+| Loop | 1        | 2                | 0       | -                 |
+| Loop | 2        | 3                | 1       | "Value is found"  |
+| End  | 3        | -                | 1       | Stop loop early   |
+
+---
+
+JavaScript Versions
+
+Basic Sequential Search
+
+let intNum = new Array(10);
+let intCount, intSearch;
+
+for (intCount = 0; intCount <= 9; intCount++) {
+    intNum[intCount] = intCount + 1; // fill array with 1–10
+}
+
+intSearch = Number(prompt("What number are you looking for? : "));
+
+for (intCount = 0; intCount <= 9; intCount++) {
+    if (intSearch == intNum[intCount]) {
+        console.log("Value is found");
+    }
+}
+
+---
+
+Sequential Search with Flag + While Loop
+
+let intNum = new Array(10);
+let intCount, intSearch, intFlag;
+
+for (intCount = 0; intCount <= 9; intCount++) {
+    intNum[intCount] = intCount + 1;
+}
+
+intSearch = Number(prompt("What number are you looking for? : "));
+intFlag = 0; // 0 = not found
+intCount = 0;
+
+while (intCount <= 9 && intFlag !== 1) {
+    if (intSearch == intNum[intCount]) {
+        console.log("Value is found");
+        intFlag = 1;
+    }
+    intCount++;
+}
+
+if (intFlag === 0) {
+    console.log("Value is NOT found");
+}
+
+---
+
+- Efficiency matters: Sequential search is simple, but not optimal for large arrays.  
+- Best vs Worst Case: Best case: value at position 0, loop stops immediately. Worst case: value not present, loop checks all elements.  
+- Flags are logical: Prevent incorrect multiple outputs. 
+
+---
+
+0. Start 
+1. Declarations 
+	num fltSales[15]
+	string strDate[15] 
+	num intDay 
+	string strSearchDate
+	boolean blnFound 
+	num intFoundIndex 
+
+2.	for intDay = 0 to 14 Step 1 
+		output "Enter the sales date for day #" + (intDay + 1) + " : " 
+		input strDate[intDay] 
+		 
+		output "Enter the sales for day #" + (intDay + 1) + " : R" 
+		input fltSales[intDay] 
+	endfor 
+
+3.	output "Enter date of the sale you are looking for: "
+4.	input strSearchDate 
+5.	blnFound = false 
+6.	intDay = 0 
+
+7.	while (intDay <= 14) AND (blnFound = false) 
+		if strSearchDate = strDate[intDay] then 
+			intFoundIndex = intDay 
+			blnFound = true
+		endif
+		intDay = intDay + 1  
+	endwhile
+
+8.	if blnFound = false then 
+		output "Date not found" 	
+	else 
+		output "The sales is found and it is R" + fltSales[intFoundIndex]
+	endif
+9. Stop  
+
+---
+
+- Parallel Arrays (Again)
+
+Storyline: From Excel to Code  
+
+Imagine we’re in Excel with a class list: each row is a student, each column is a mark (Assignment 1, Assignment 2, ICE, Exam, Final). In Excel, we type formulas in cells to calculate totals or averages.  
+
+Index | strStudents |  A1 |  A2 | ICE | Exam | Final
+-----------------------------------------------------
+0     | John        |  27 |  13 |   5 |   96 |   43
+...
+...
+
+But when we move into programming, we don’t have “rows and columns” in the same way. Instead, we use **parallel arrays**:  
+- One array for student names.  
+- One array for Assignment 1 marks.  
+- One array for Assignment 2 marks.  
+- One array for ICE marks.  
+- One array for Exam marks.  
+- One array for Final marks.  
+
+The index is the glue. For example:  
+- strStudents[0] = "John"  
+- intAssign1[0] = 27  
+- intExam[0] = 96  
+- intFinal[0] = 43  
+
+All of these belong to the same student because they share the same index.  
+
+So while the table looks like rows and columns, programmers must think in terms of indexes across multiple arrays. The storyline (students and their marks) helps us understand why the data is structured this way.  
+
+---
+
+Class List
+
+Index | strStudents |  A1 |  A2 | ICE | Exam | Final
+-----------------------------------------------------
+0     | John        |  27 |  13 |   5 |   96 |   43
+1     | Jack        |  70 |  35 |  22 |   23 |   35
+2     | Jessica     |  87 |  91 |  65 |   63 |   73
+3     | Jenny       |  36 |  84 |   1 |   92 |   65
+4     | Jax         |  27 |   4 |  78 |   34 |   26
+5     | Joe         |  24 |  31 |  46 |   33 |   30
+6     | Joseph      |  95 |  19 |  52 |   23 |   38
+7     | Jacinta     |  35 |   2 |  92 |   78 |   44
+
+---
+
+Note  
+- The Final mark column is shown here for clarity, but in reality it is not stored directly in the arrays.  
+- Instead, it is calculated during program execution using the weighted formula:  
+
+	Final = (A1 x 0.2) + (A2 x 0.3) + (ICE x 0.1) + (Exam x 0.35)
+
+- This reinforces the idea that parallel arrays hold raw data (names, marks), and the program processes them to produce new results.  
+
+---
+
+Discussion Before Coding  
+
+What are we going to code?  
+1. Input phase: Ask for each student’s name and marks, storing them in parallel arrays.  
+2. Calculation phase: Compute the final mark using weighted averages.  
+3. Output phase: Show who passed/failed, count failures, and calculate the average exam mark.  
+4. Analysis phase: Find the highest and lowest marks for assignments, and report which student achieved them.  
+
+This mirrors what we did in Excel, but now we’re coding it step by step.  
+
+---
+
+Program Code
+
+0. Start
+1. Declarations
+       num intNUMSTUDS = 20   // constant - number of students
+       string strStudents[intNUMSTUDS]
+       num intAssign1[intNUMSTUDS]
+       num intAssign2[intNUMSTUDS]
+       num intIce[intNUMSTUDS]
+       num intExam[intNUMSTUDS]
+       num intFinal[intNUMSTUDS]
+       num intIndex
+       num intCountFailed
+       num intTotalExam
+       num fltAvgExam
+       num intHighA1, intHIndexA1
+       num intHighA2, intHIndexA2
+       num intLowA1, intLIndexA1
+       num intLowA2, intLIndexA2
+
+       // Input phase: read names and marks
+2.     for intIndex = 0 to (intNUMSTUDS - 1) Step 1
+           output "Enter the name for Student #" + (intIndex + 1) + " : "
+           input strStudents[intIndex]
+
+           output "Enter Assignment 1 mark for " + strStudents[intIndex] + " : "
+           input intAssign1[intIndex]
+
+           output "Enter Assignment 2 mark for " + strStudents[intIndex] + " : "
+           input intAssign2[intIndex]
+
+           output "Enter ICE mark for " + strStudents[intIndex] + " : "
+           input intIce[intIndex]
+
+           output "Enter Exam mark for " + strStudents[intIndex] + " : "
+           input intExam[intIndex]
+       endfor
+
+      // Calculation phase: calculate the final marks
+3.    for intIndex = 0 to (intNUMSTUDS - 1) Step 1
+          intFinal[intIndex] = ROUND((intAssign1[intIndex] * 0.2) +
+                                     (intAssign2[intIndex] * 0.3) +
+                                     (intIce[intIndex] * 0.1) +
+                                     (intExam[intIndex] * 0.35))
+       endfor
+
+4.     intCountFailed = 0
+
+       // Output phase: pass/fail results
+5.     for intIndex = 0 to (intNUMSTUDS - 1) Step 1
+           if intFinal[intIndex] < 50 then
+               output "#" + (intIndex + 1) + " - " + strStudents[intIndex] + " : failed"
+               intCountFailed = intCountFailed + 1
+           else
+               output "#" + (intIndex + 1) + " - " + strStudents[intIndex] + " : passed"
+           endif
+       endfor
+
+6.     output "The number of students who failed is " + intCountFailed
+
+7.     intTotalExam = 0
+
+       // Calculate average exam mark
+8.     for intIndex = 0 to (intNUMSTUDS - 1) Step 1
+           intTotalExam = intTotalExam + intExam[intIndex]
+       endfor
+
+9.     fltAvgExam = intTotalExam / intNUMSTUDS
+
+      // Initialize high/low values for assignments
+10.   intHighA1 = intAssign1[0]
+11.   intHIndexA1 = 0
+12.   intLowA1 = intAssign1[0]
+13.   intLIndexA1 = 0
+
+14.   intHighA2 = intAssign2[0]
+15.   intHIndexA2 = 0
+16.   intLowA2 = intAssign2[0]
+17.   intLIndexA2 = 0
+
+      // Analysis phase: determine the highs and lows for the assignments
+18.   for intIndex = 1 to (intNUMSTUDS - 1) Step 1
+          if intAssign1[intIndex] > intHighA1 then
+              intHighA1 = intAssign1[intIndex]
+              intHIndexA1 = intIndex
+          endif
+
+          if intAssign2[intIndex] > intHighA2 then
+              intHighA2 = intAssign2[intIndex]
+              intHIndexA2 = intIndex
+          endif
+
+          if intAssign1[intIndex] < intLowA1 then
+              intLowA1 = intAssign1[intIndex]
+              intLIndexA1 = intIndex
+          endif
+
+          if intAssign2[intIndex] < intLowA2 then
+              intLowA2 = intAssign2[intIndex]
+              intLIndexA2 = intIndex
+          endif
+      endfor
+
+19.   output "The highest mark for Assignment 1 is " + intHighA1 + "% by " + strStudents[intHIndexA1]
+20.   output "The lowest mark for Assignment 1 is " + intLowA1 + "% by " + strStudents[intLIndexA1]
+
+21.   output "The highest mark for Assignment 2 is " + intHighA2 + "% by " + strStudents[intHIndexA2]
+22.   output "The lowest mark for Assignment 2 is " + intLowA2 + "% by " + strStudents[intLIndexA2]
+
+23. Stop
+
+---
+
+Trace Table Example  
+
+Suppose we have 3 students: John, Jack, Jessica.  
+
+| Index | strStudents | intAssign1 | intAssign2 | intIce | intExam | intFinal | Pass/Fail |
+|-------|-------------|------------|------------|--------|---------|----------|-----------|
+| 0     | John        | 27         | 13         | 5      | 96      | 43       | Fail      |
+| 1     | Jack        | 70         | 35         | 22     | 23      | 35       | Fail      |
+| 2     | Jessica     | 87         | 91         | 65     | 63      | 73       | Pass      |
+
+The trace table shows how each student’s marks are stored in parallel arrays and how the final mark is calculated per index.  
+
+---
+
+JavaScript Version (Parallel Arrays)
+
+const intNUMSTUDS = 8; // example size
+
+// decided to load the values at declaration 
+let strStudents = ["John","Jack","Jessica","Jenny","Jax","Joe","Joseph","Jacinta"];
+let intAssign1 = [27,70,87,36,27,24,95,35];
+let intAssign2 = [13,35,91,84,4,31,19,2];
+let intIce     = [5,22,65,1,78,46,52,92];
+let intExam    = [96,23,63,92,34,33,23,78];
+let intFinal   = new Array(intNUMSTUDS);
+
+let intCountFailed = 0;
+let intTotalExam = 0;
+
+// Calculation phase: calculate the final marks
+for (let i = 0; i < intNUMSTUDS; i++) {
+    intFinal[i] = Math.round(intAssign1[i]*0.2 + intAssign2[i]*0.3 +
+                             intIce[i]*0.1 + intExam[i]*0.35);
+}
+
+// Output phase: pass/fail results
+for (let i = 0; i < intNUMSTUDS; i++) {
+    if (intFinal[i] < 50) {
+        console.log(`#${i+1} ${strStudents[i]} : failed`);
+        intCountFailed++;
+    } else {
+        console.log(`#${i+1} ${strStudents[i]} : passed`);
+    }
+}
+console.log("The number of students who failed is " + intCountFailed);
+
+// Average exam mark
+for (let i = 0; i < intNUMSTUDS; i++) {
+    intTotalExam += intExam[i];
+}
+
+let fltAvgExam = intTotalExam / intNUMSTUDS;
+console.log("Average exam mark is " + fltAvgExam.toFixed(2));
+
+// High/Low analysis for Assignment 1 and 2
+let intHighA1 = intAssign1[0], intHIndexA1 = 0;
+let intLowA1  = intAssign1[0], intLIndexA1 = 0;
+let intHighA2 = intAssign2[0], intHIndexA2 = 0;
+let intLowA2  = intAssign2[0], intLIndexA2 = 0;
+
+for (let i = 1; i < intNUMSTUDS; i++) {
+    if (intAssign1[i] > intHighA1) {
+        intHighA1 = intAssign1[i];
+        intHIndexA1 = i;
+    }
+    if (intAssign1[i] < intLowA1) {
+        intLowA1 = intAssign1[i];
+        intLIndexA1 = i;
+    }
+    if (intAssign2[i] > intHighA2) {
+        intHighA2 = intAssign2[i];
+        intHIndexA2 = i;
+    }
+    if (intAssign2[i] < intLowA2) {
+        intLowA2 = intAssign2[i];
+        intLIndexA2 = i;
+    }
+}
+
+console.log("Highest Assignment 1 mark: " + intHighA1 + "% by " + strStudents[intHIndexA1]);
+console.log("Lowest Assignment 1 mark: " + intLowA1 + "% by " + strStudents[intLIndexA1]);
+console.log("Highest Assignment 2 mark: " + intHighA2 + "% by " + strStudents[intHIndexA2]);
+console.log("Lowest Assignment 2 mark: " + intLowA2 + "% by " + strStudents[intLIndexA2]);
+
+Explanation:   
+
+- Storyline matters**: Thinking of students and marks makes the data meaningful.  
+
+- Parallel arrays: Each array holds one type of data (names, marks). The index ties them together.  
+- Indexes are the glue**: Each student’s data is spread across arrays, but the index keeps it aligned.  
+
+- Calculation phase: Weighted formula applied per student.  
+- Pass/Fail phase: Uses the final mark to decide outcome.  
+- Average exam mark: Shows how to aggregate across an array.  
+- High/Low analysis: Demonstrates scanning arrays to find extremes.  
+
+
+---
+
+- Sorting Algorithms**
+
+- Sorting is about comparison + swapping.
+- Algorithms trade off simplicity vs efficiency.
+
+---
+
+- Bubble Sort
+
+* Repeatedly compare neighbours.
+
+What Bubble Sort Does
+Bubble Sort is a simple sorting algorithm. It works by repeatedly comparing pairs of neighbouring elements in 
+the array and swapping them if they are out of order.
+
+First compare cells:
+ 0 and 1, then 
+ 1 and 2, then 
+ 2 and 3, then 
+ 3 and 4, then
+ 4 and 5, then
+ 5 and 6, then
+ 6 and 7, then
+ 7 and 8, then
+ and 8 and 9.
+
+After one full pass, the largest (heaviest) number sinks to the bottom of the array.
+
+On the next pass, we don’t need to check the last cell again, because it’s already in its correct place.
+
+That’s why intElements decreases by 1 each iteration:
+
+First pass: compare 0–8
+
+Second pass: compare 0–7
+
+Third pass: compare 0–6
+
+… until the array is sorted.
+
+The flag (intFlag) is used to detect if any swaps happened. If no swaps occur, the array is already sorted and we can stop early.
+
+First Iteration of the for..loop 
+
+Index | Pass 0 (0-1) | Pass 1 (1-2) | Pass 2 (2-3) | Pass 3 (3-4) | Pass 4 (4-5) | Pass 5 (5-6) | Pass 6 (6-7) | Pass 7 (7-8) | Pass 8 (8-9) | End of 1st Cycle
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+0     | 44           | 9            | 9            | 9            | 9            | 9            | 9            | 9            | 9            | 9
+1     | 9            | 44           | 3            | 3            | 3            | 3            | 3            | 3            | 3            | 3
+2     | 3            | 3            | 44           | 13           | 13           | 13           | 13           | 13           | 13           | 13
+3     | 13           | 13           | 13           | 44           | 44           | 44           | 44           | 44           | 44           | 44
+4     | 48           | 48           | 48           | 48           | 48           | 31           | 31           | 31           | 31           | 31
+5     | 31           | 31           | 31           | 31           | 31           | 48           | 22           | 22           | 22           | 22
+6     | 22           | 22           | 22           | 22           | 22           | 22           | 48           | 23           | 23           | 23
+7     | 23           | 23           | 23           | 23           | 23           | 23           | 23           | 48           | 43           | 43
+8     | 43           | 43           | 43           | 43           | 43           | 43           | 43           | 43           | 48           | 45
+9     | 45           | 45           | 45           | 45           | 45           | 45           | 45           | 45           | 45           | 48
+
+
+Each column shows the array after one swap cycle. Notice how the largest number (48) “sinks” to the bottom by Pass 1.  
+
+Second Iteration of the for..loop
+
+Step | Array State
+-------------------------
+0-1  | 3  9  13  44  31  22  23  43  45  48   (swap 9 & 3)
+... continue until 7-8
+
+After this, the second largest number (45) is in place.
+
+---
+
+Explanations  
+
+Neighbour Comparisons  
+
+Bubble Sort works by comparing pairs of neighboring cells:  
+- Compare 0–1, then 1–2, then 2–3, ... until 8–9.  
+- Each comparison checks if the left value is greater than the right. If so, they swap.  
+- This repeats until no swaps are needed.  
+
+Why the loop runs from 0 to intElements (not 0 to 9). At index 8, we compare intNum[8] with intNum[9]. 
+If we went to 9, we’d try to compare intNum[9] with intNum[10] — which doesn’t exist.  
+
+---
+
+Why intElements Decreases 
+ 
+After each pass, the largest number has sunk to the bottom.  
+- Pass 1: largest number is in cell 9.  
+- Pass 2: second largest is in cell 8.  
+- Pass 3: third largest is in cell 7.  
+
+Since those cells are already sorted, we don’t need to check them again. That’s why intElements decreases by 1 each time:  
+- First pass: 0–8  
+- Second pass: 0–7  
+- Third pass: 0–6  
+- ... until 0–0.  
+
+This saves unnecessary comparisons.  
+
+---
+
+The Flag Variable  
+
+The flag (intFlag) is critical.  
+- At the start of each pass, set intFlag = 0.  
+- If a swap occurs, set intFlag = 1.  
+- If no swaps occur during a pass, the array is already sorted — stop the algorithm.  
+
+This prevents wasting time on passes when the array is already in order.  
+
+---
+
+Swapping with a Temp Variable  
+
+Swapping is the heart of Bubble Sort. But we must do it carefully.  
+
+Suppose:  
+
+A = 10
+B = 9
+
+We want to swap so that:  
+
+A = 9
+B = 10
+
+If we write:  
+
+A = B
+B = A
+
+This fails. Why?  
+- First line: A = B - A becomes 9. The original 10 is lost.  
+- Second line: B = A - B becomes 9 as well. Both are 9.  
+
+We lost the 10 because it was overwritten.  
+
+The correct way is to use a **temporary variable**:  
+
+temp = A   // temp holds 10
+A = B      // A becomes 9
+B = temp   // B becomes 10
+
+This way, the values are passed around in a circle: A > temp > B. Nothing is lost.  
+
+---
+
+Program 
+
+
+0. Start
+1. Declarations
+       num intSIZE = 10
+       num intNum[intSIZE]
+       num intIndex
+       num intFlag
+       num intElements
+       num intTemp
+
+      	// Input phase: user enters unsorted numbers
+2.	for intIndex = 0 to (intSIZE - 1) Step 1
+        	output "Enter number for cell [" + intIndex + "] : "
+        	input intNum[intIndex]
+   	endfor
+
+3. 	intFlag = 1
+4. 	intElements = intSIZE - 2   // start at 8, because we compare pairs (0 to 8)
+
+	// Bubble Sort loop
+5.	while intFlag = 1
+       		intFlag = 0
+       		for intIndex = 0 to intElements Step 1
+           		if intNum[intIndex] > intNum[intIndex + 1] then
+               			// Swap using temp variable
+               			intTemp = intNum[intIndex]
+               			intNum[intIndex] = intNum[intIndex + 1]
+               			intNum[intIndex + 1] = intTemp
+
+		        	intFlag = 1   // mark that a swap occurred
+           		endif
+       		endfor
+       		intElements = intElements - 1   // largest number is in place, reduce comparisons
+   	endwhile
+
+6. 	output "SORTED ARRAY"
+7. 	for intIndex = 0 to (intSIZE - 1) Step 1
+       		output "Cell [" + intIndex + "] : " + intNum[intIndex]
+   	endfor
+8. Stop
+
+
+- Bubble Sort is visual: numbers “bubble” up or sink down.  
+- It shows how indexes control comparisons.  
+- It introduces flags (to stop early) and temp variables (to swap safely).  
+- The column visualization makes the process clear: each pass pushes the largest number into place.  
+
+---
+
+Selection Sort  
+
+Storyline: Imagine you’re packing for a trip and you want to arrange your clothes from smallest to largest item (say, socks to jackets). Instead of swapping every time you see something smaller, you scan the whole pile first, find the smallest item, and then place it at the front. That’s Selection Sort: one swap per pass, after you’ve identified the smallest.  
+
+- Each pass = “searching the pile for the smallest item.”  
+- Swap only once = “putting that smallest item in its proper place.”  
+- Efficiency = fewer swaps, but still requires scanning the whole pile each time.  
+
+0. SelectionExchangeSort()
+1.   intElements = intNumberOfElements - 2 
+2.   for intCount = 0 to intElements Step 1 
+       intMinimum = intCount   // assume current index is smallest
+
+       // scan ahead to find the true smallest
+       for intCount2 = (intCount + 1) to (intNumberOfElements - 1) Step 1 
+           if intNum[intMinimum] > intNum[intCount2] then 
+              intMinimum = intCount2   // update smallest position
+           endif 
+       endfor 
+
+       // swap only once per pass
+       if intCount > intMinimum then 
+           intTemp = intNum[intMinimum]
+           intNum[intMinimum] = intNum[intCount]
+           intNum[intCount] = intTemp 
+       endif 
+     endfor 
+3. return
+
+---
+
+Insertion Sort  
+
+Storyline: Think of playing cards. You pick them up one by one and insert each into your hand in the correct position. You don’t reshuffle the whole hand — you slide bigger cards to the right until the right spot opens up, then insert the new card.  
+
+- Sorted portion = “your hand of cards.”  
+- New card = “the next element.”  
+- Shifting = “moving cards to make space.”  
+- Insertion = “placing the card where it belongs.”  
+
+This is why Insertion Sort feels natural — we do it instinctively when organizing things like cards, books, or files.  
+
+0. InsertionSort()
+1.   for intCount = 1 to intNumberOfElements Step 1 
+       intIndex = intCount
+       intTemp = intNum[intIndex]   // hold current card
+
+       // shift larger cards to the right
+       while (intIndex > 0) AND (intNum[intIndex - 1] > intTemp)
+           intNum[intIndex] = intNum[intIndex - 1]
+           intIndex = intIndex - 1
+       endwhile 
+
+       // insert card into correct spot
+       intNum[intIndex] = intTemp 
+     endfor 
+2. return
+
+---
+
+Shell Sort  
+
+Storyline: Imagine tidying a messy bookshelf. If you only move one book at a time (like Insertion Sort), it takes forever. Shell Sort says: “Let’s first compare books that are far apart — maybe every 5th book — and move them closer to where they belong. Then reduce the gap to 2, then 1.”  
+
+- Gap = “how far apart the books are compared.”  
+- Large gap passes = “big adjustments early.”  
+- Smaller gap passes = “fine-tuning later.”  
+
+This way, books don’t have to travel all the way across the shelf one step at a time. Shell Sort speeds things up by reducing the distance gradually.  
+
+0. ShellSort()
+1.   intGap = intNumberOfElements \ 2   // start with half-size gap
+
+2.   while intGap > 0 
+         intMiddle = intNumberOfElements - intGap
+         for intCount = 0 to intMiddle Step 1 
+             if intNum[intCount] > intNum[intCount + intGap] then 
+                 intL = intCount
+                 blnFlag = true 
+
+                 // swap backwards in gap sequence
+                 while blnFlag 
+                     intTemp = intNum[intL]
+                     intNum[intL] = intNum[intL + intGap]
+                     intNum[intL + intGap] = intTemp 
+
+                     intL = intL - intGap
+                     if intL >= 1 then 
+                         if intNum[intL] <= intNum[intL + intGap] then 
+                             blnFlag = false
+                         endif 
+                     else 
+                         blnFlag = false 
+                     endif 
+                 endwhile 
+             endif
+         endfor
+         intGap = intGap \ 2   // reduce gap
+     endwhile 
+3. return
+
+---
+
+- Selection Sort: Like packing — scan for the smallest item, swap once.  
+- Insertion Sort: Like playing cards — build your hand gradually, sliding bigger ones aside.  
+- Shell Sort: Like tidying a bookshelf — big moves first, then fine adjustments.  
+
+---
+
+Why Do We Care About Sorting Efficiency?
+
+Large Datasets  
+- In class, we worked with arrays of size 10 or 20 — easy to visualize. But in reality, data sets can be **millions or billions of records**.  
+- Imagine sorting all the students in a country by exam scores, or all the transactions in a bank by date.  
+- A slow algorithm like Bubble Sort might take hours or days, while a more efficient one could finish in seconds.  
+- Efficiency becomes critical when the dataset is too large to “brute force” with repeated swaps.  
+
+---
+
+Real-World Scale  
+- Sorting isn’t just about numbers in arrays — it’s everywhere:  
+  - E-commerce: Sorting products by price, rating, or popularity.  
+  - Airlines: Sorting passenger lists or flight schedules.  
+  - Hospitals: Sorting patient records by urgency.  
+- At this scale, the choice of algorithm affects user experience. A slow sort means delays, frustration, or even risks in critical systems.  
+- That’s why programmers don’t just learn Bubble Sort — they learn about faster algorithms like Quick Sort, Merge Sort, or Shell Sort, and when to apply them.  
+
+---
+
+Performance  
+- Sorting efficiency directly impacts system performance.  
+- A poor choice of algorithm can waste CPU cycles, memory, and energy.  
+- Efficient sorting means:  
+  - Faster apps.  
+  - Lower costs for companies (less server time).  
+  - Better scalability when data grows.  
+- In exams, we ask you to repeat Bubble Sort because it’s easy to demonstrate. But in practice, you’ll need to know which algorithm fits the situation.  
+
+---
+
+The Bigger Lesson  
+
+- Bubble Sort: Teaches the basics of swapping, flags, and iteration.  
+- Selection Sort: Shows scanning for the smallest and swapping once per pass.  
+- Insertion Sort: Relates to everyday actions like sorting cards — efficient for small or nearly sorted data.  
+- Shell Sort: Bridges to advanced algorithms by introducing gaps and refinement.  
+
+The point isn’t just memorizing steps. It’s understanding why different algorithms exist and how to choose wisely.  
+
+---
+
+Homework for the Future  
+
+When faced with sorting in real-world programming:  
+- Ask: How big is the dataset?
+- Ask: Is the data already partly sorted?
+- Ask: Do I need speed, or is simplicity enough?  
+- Then choose the algorithm that balances efficiency and practicality.  
+
+Sorting is a foundation — once you understand it, you start to see why efficiency matters in all algorithms, not just sorting.  
+
+---
+
+Binary Search
+
+Binary Search is a major conceptual step because it only works if the array is already sorted. That’s why we studied sorting first — without a sorted array, Binary Search cannot function.  
+
+---
+
+Storyline Explanation  
+
+Think of a dictionary or a phone book. If you’re looking for “Jessica,” you don’t start at page 1 and check every entry. Instead, you open the book in the middle:  
+- If the name you want comes alphabetically before the middle, you search the left half.  
+- If it comes after, you search the right half.  
+- Each time, you cut the search space in half.  
+
+This is the essence of Binary Search: divide and conquer.  
+
+---
+
+Boundaries and Adjustments  
+
+Binary Search uses two boundaries:  
+- Lower boundary: the start of the search space.  
+- Upper boundary: the end of the search space.   
+
+At the start:  
+- intLowerBoundary = 0  
+- intUpperBoundary = intSIZE - 1  
+
+Each iteration:  
+1. Find the middle:  
+
+   intMiddle = (intLowerBoundary + intUpperBoundary) \ 2
+
+2. Compare the middle value with the search value.  
+   - If equal > found.  
+   - If search value is greater > move the lower boundary up (intLowerBoundary = intMiddle + 1).  
+   - If search value is smaller > move the upper boundary down (intUpperBoundary = intMiddle - 1).  
+
+This shrinking of boundaries continues until either the value is found or the boundaries cross.  
+
+---
+
+Why intFlag = 2  
+
+- intFlag = 0 : not yet found.  
+- intFlag = 1 : found.  
+- intFlag = 2 : never going to be found.  
+
+The flag is set to 2 when the boundaries cross — meaning the lower boundary is now greater than the upper boundary. At that point, there’s no search space left.  
+
+---
+
+Example 1: Value Exists  
+
+Array:  
+
+Index | Value
+----------------
+0     | 1
+1     | 2
+2     | 3
+3     | 4
+4     | 5
+5     | 6
+6     | 7
+7     | 8
+8     | 9
+9     | 10
+
+
+Search for 7:  
+- Start: lower = 0, upper = 9 	> middle = 4 	> value = 5.  
+- 7 > 5 > move lower to 5.
+  
+- New middle = (5+9)/2 = 7 	> value = 8.  
+- 7 < 8 > move upper to 6.  
+
+- New middle = (5+6)/2 = 5 	> value = 6.  
+
+- 7 > 6 > move lower to 6.  
+- New middle = (6+6)/2 = 6 	> value = 7 > found! > intFlag = 1.  
+
+---
+
+Example 2: Value Does Not Exist  
+
+Search for 11:
+  
+- Start: lower = 0, upper = 9 	> middle = 4 	> value = 5.  
+- 11 > 5 > move lower to 5.  
+
+- Middle = (5+9)/2 = 7 	> value = 8.  
+- 11 > 8 > move lower to 8.  
+
+- Middle = (8+9)/2 = 8 	> value = 9.  
+- 11 > 9 > move lower to 9.  
+
+- Middle = (9+9)/2 = 9 	> value = 10.  
+- 11 > 10 > move lower to 10.  
+
+Now:  
+- Lower = 10, Upper = 9 > lower > upper.  
+- No search space left 	> intFlag = 2.
+  
+- Output: “Number is not in the array.”  
+
+---
+
+This is a gateway into Chapter 8, where we begin working with procedures (methods).
+
+Control Module vs Procedure
+
+- The main program (from Start to Stop) acts as the control module.
+- Inside it, we declare global variables and set up the array.
+- Then we call the BinarySearch() procedure.
+- When the procedure finishes and executes return, control goes back to the main program, and the next instruction runs as normal.
+
+Think of it like a manager (main program) delegating a task to a team member (procedure). The team member does the job, reports back, and then the manager continues with the rest of the plan.
+
+---
+
+Global vs Local Variables
+
+- Global variables: Declared in the main program. They are accessible to all procedures. For example, intNum[] and intSIZE are global — BinarySearch can use them without needing to redeclare them.
+
+- Local variables: Declared inside the procedure. They exist only while the procedure is running. For example, intSearch, intFlag, intLowerBoundary, intUpperBoundary, and intMiddle are local to BinarySearch().
+
+- Once the procedure ends, local variables disappear — they don’t exist in the scope of the main program anymore.
+
+This distinction is important: global variables are shared resources, while local variables are temporary tools used by the procedure.
+
+---
+
+Program 
+
+0. Start   // main program
+1. Declarations
+       num intSIZE = 10
+       num intNum[intSIZE]
+       num intIndex
+
+	// Fill array with sorted values
+2.   	for intIndex = 0 to (intSIZE - 1) Step 1
+       		intNum[intIndex] = intIndex + 1
+   	endfor
+
+3. 	BinarySearch()   // call the search procedure
+
+4. Stop
+
+---
+
+0. BinarySearch()
+1. Declarations
+       num intSearch, intFlag
+       num intUpperBoundary, intLowerBoundary
+       num intMiddle
+
+2. 	intFlag = 0   // 0 = not yet found, 1 = found, 2 = not found
+3. 	intUpperBoundary = intSIZE - 1
+4. 	intLowerBoundary = 0
+
+5. 	output "Enter the value you are looking for? : "
+6. 	input intSearch
+
+7. 	while intFlag = 0
+       		intMiddle = (intLowerBoundary + intUpperBoundary) \ 2
+       		if intNum[intMiddle] = intSearch then
+           		intFlag = 1   // found
+       		else
+           		if intSearch > intNum[intMiddle] then
+               			intLowerBoundary = intMiddle + 1   // move lower up
+           		else
+               			intUpperBoundary = intMiddle - 1   // move upper down
+           		endif
+
+           		if intLowerBoundary > intUpperBoundary then
+               			intFlag = 2   // boundaries crossed, not found
+           		endif
+       		endif
+   	endwhile
+
+8. 	if intFlag = 2 then
+       		output "Number is not in the array"
+   	else
+       		output "Number was found in cell [" + intMiddle + "]"
+   	endif
+9. return
+
+---
+
+- Binary Search is efficient because it halves the search space each time.  
+- Sorting matters because without a sorted array, the halving logic breaks.  
+- Boundaries (lower, upper) are the key — they shrink until either the value is found or the search space disappears.  
+- intFlag = 2 is the safeguard: it tells us when the search is impossible because the boundaries have crossed.  
+
+---
+
+- Table Lookup with Arrays
+
+a good oppportunity for real-world applications.
+
+Example 1: Days in a Month
+
+0. Start
+1. Declarations
+       num intDays[12] = 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+       num intMonth
+       num intDaysInMonth
+
+2.     output "Enter the month number "
+3.     input intMonth
+4.     intDaysInMonth = intDays[intMonth - 1]   // subtract 1 because arrays start at index 0
+
+5.     output "The number of days in month " + intMonth + " is " + intDaysInMonth
+6. Stop
+
+Explanation: This is the simplest form of table lookup. The array intDays stores the number of days for each month. 
+When the user enters a month number (1–12), we subtract 1 to match the 0-based index of the array. This shows how 
+arrays can act as lookup tables: instead of calculating, we just retrieve the stored value.
+
+---
+
+Example 2: Grade Boundaries
+
+0. Start
+1. Declarations
+       num intGradeBoundaries[5] = 50, 60, 70, 80, 90
+       string strGradeLetters[5] = "F", "D", "C", "B", "A"
+       num intStudentScore
+       num intCount = 0
+       boolean blnFound = false
+
+2.     output "Enter student score "
+3.     input intStudentScore
+
+4.     while (intCount < 5 AND blnFound = false)
+           if intStudentScore < intGradeBoundaries[intCount] then
+               output "Grade: " + strGradeLetters[intCount]
+               blnFound = true
+           endif
+           intCount = intCount + 1
+       endwhile
+
+5. Stop
+
+Explanation: Here, the arrays store grade thresholds and corresponding letters. The while loop continues until 
+either the index reaches the end or the grade is found (blnFound = true). This demonstrates how arrays can replace 
+long chains of if..then statements with a neat lookup.
+
+---
+
+Example 3: Tax Brackets
+
+0. Start
+1. Declarations
+       num fltTaxLimits[4] = 10000, 30000, 60000, 100000
+       num fltTaxRates[4] = 0.10, 0.20, 0.30, 0.40
+       num fltIncome
+       num intCount = 0
+       boolean blnFound = false
+
+2.     output "Enter income "
+3.     input fltIncome
+
+4.     while (intCount < 4 AND blnFound = false)
+           if fltIncome <= fltTaxLimits[intCount]
+               output "Tax Rate: " + fltTaxRates[intCount]
+               blnFound = true
+           endif
+           intCount = intCount + 1
+       endwhile
+
+5. Stop
+
+Explanation: The arrays act as a tax table. Each income limit has a corresponding rate. The while loop checks each 
+bracket until the correct one is found. This is a classic **table lookup**: instead of writing multiple conditions, 
+we store the rules in arrays.
+
+---
+
+Example 4: Conversion Table (Miles > Kilometers)
+
+0. Start
+1. Declarations
+       num intMiles[5] = 1, 5, 10, 50, 100
+       num fltKilometers[5] = 1.609, 8.045, 16.09, 80.45, 160.9
+       num intDistanceInMiles
+       num intCount = 0
+       boolean blnFound = false
+
+2.     output "Enter distance in miles "
+3.     input intDistanceInMiles
+
+4.     while (intCount < 5 AND blnFound = false)
+           if intDistanceInMiles == intMiles[intCount]
+               output "Equivalent in km: " + fltKilometers[intCount]
+               blnFound = true
+           endif
+           intCount = intCount + 1
+       endwhile
+
+5. Stop
+
+Explanation: This example shows a conversion table. Instead of recalculating every time, we store pre-computed 
+conversions in arrays. The while loop searches until it finds the matching miles value, then outputs the 
+corresponding kilometers.
+
+A table lookup with arrays means storing fixed values (like days, grades, tax rates, conversions) in arrays and 
+retrieving them based on input. The while loop with compound condition ensures we stop searching once the correct 
+value is found.  
+
+
+We promote: 
+- Clean code
+- Maintainability
+- Scalability
+
+---
+
+- Constants in Array Processing
+
+Important for:
+
+* Avoiding magic numbers
+* Improving readability
+
+Example:
+
+Instead of:
+
+```
+for (i = 0; i < 50; i++)
+```
+
+Use:
+
+```
+for (i = 0; i < MAX_STUDENTS; i++)
+```
+
+Ask:
+
+> What happens if the class size changes next year?
+
+This reinforces maintainability.
+
+---
+
+# Bigger Conceptual Themes You Can Weave Through the Chapter
+
+1. Arrays introduce structured thinking.
+2. They force algorithmic reasoning.
+3. They expose efficiency concerns.
+4. They prepare students for:
+
+   * Objects
+   * Data structures
+   * Databases
+   * Memory management
+
+---
+
+A Closing Thought
+
+> “Arrays are simple — but they change how we think.
+> Once you understand arrays, you stop thinking in single values and start thinking in collections.”
+
+---
