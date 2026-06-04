@@ -1,0 +1,402 @@
+The Examples Again 
+------------------
+
+0. Start 
+1. Declarations 
+	   num intLength, intBreadth 
+	   num intArea 
+
+2.	output "** Area of a Rectangle **"
+
+3.	output "Enter length: " 
+4.	input intLength
+
+5.	output "Enter breadth: " 
+6.	input intBreadth 
+
+7.	intArea = intLength * intBreadth 
+
+8.	output "The area is " + intArea 
+
+9. Stop 
+
+----------------------------------------------------------------------------------
+
+0. Start 
+1. Declarations 
+	   num intLength, intBreadth 
+	   num intArea 
+
+2.	output "** Area of a Rectangle **"
+
+3.	inputDimensions()
+4.	calcArea()
+5.	printArea()
+
+6. Stop
+
+---
+0. inputDimensions()
+1.	output "Enter length: " 
+2.	input intLength
+
+3.	output "Enter breadth: " 
+4.	input intBreadth 
+5. return 
+
+---
+0. calcArea()
+1.	intArea = intLength * intBreadth 
+2. return 
+
+---
+0. printArea()
+1.	output "The area is " + intArea 
+2. return
+
+----------------------------------------------------------------------------------
+0. Start 
+1. Declarations 
+	   num intLength, intBreadth 
+	   num intArea 
+
+2.	printHeader()
+
+3.	inputDimensions()
+4.	calcArea()
+5.	printArea()
+
+6. Stop
+
+---
+0. printHeader()
+1. 	output "** Area of a Rectangle **"
+2. return 
+
+---
+0. inputDimensions()
+1.	output "Enter length: " 
+2.	input intLength
+
+3.	output "Enter breadth: " 
+4.	input intBreadth 
+5. return 
+
+---
+0. calcArea()
+1.	intArea = intLength * intBreadth 
+2. return 
+
+---
+0. printArea()
+1.	output "The area is " + intArea 
+2. return
+----------------------------------------------------------------------------------
+
+0. Start 
+1. Declarations 
+	   num intLength, intBreadth 
+	   num intArea 
+
+2.	printHeader()
+
+3.	inputDimensions()
+4.	intArea = retArea()
+5.	printArea()
+
+6. Stop
+
+---
+0. printHeader()
+1. 	output "** Area of a Rectangle **"
+2. return 
+
+---
+0. inputDimensions()
+1.	output "Enter length: " 
+2.	input intLength
+
+3.	output "Enter breadth: " 
+4.	input intBreadth 
+5. return 
+
+---
+0. retArea() returns num 
+1. Declarations 
+	   intTheArea // local variable  
+
+	  // did a conversion from cm to mm 
+2.	intTheArea = intLength * intBreadth 
+
+3. return intTheArea 
+
+---
+0. printArea()
+1.	output "The area is " + intArea 
+2. return
+
+----------------------------------------------------------------------------------
+
+0. Start 
+1. Declarations 
+	   num intLength, intBreadth 
+	   num intArea 
+
+2.	printHeader()
+
+3.	inputDimensions()
+4.	intArea = retArea()
+5.	printArea(intArea, "Thank you for using this program, Goodbye")
+
+6. Stop
+
+---
+0. printHeader()
+1. 	output "** Area of a Rectangle **"
+2. return 
+
+---
+0. inputDimensions()
+1.	output "Enter length: " 
+2.	input intLength
+
+3.	output "Enter breadth: " 
+4.	input intBreadth 
+5. return 
+
+---
+0. retArea() returns num 
+1. Declarations 
+	   intTheArea 
+
+	// did convert cm to mm 
+2.	intTheArea = intLength * intBreadth 
+
+3. return intTheArea 
+
+---
+0. printArea(num intTheArea, string strExitMessage)
+1.	output "The area is " + intTheArea
+2.	output strExitMessage 
+3. return
+
+==================================================================================
+
+0. Start 
+1. Declarations 
+	   string strStore[100]
+	   num fltSales[100]
+	   num intCustomers[100]
+	string strRegion[100] 
+	...
+	...
+
+
+2.	readStoreInfo()
+3.	calcAvg(fltSales)
+
+?.
+----
+0. readStoreInfo()
+1. Declarations 
+	   intCount 
+
+	// loop 
+	// output - prompt 
+	// input 
+?. return 
+---
+0. calcAvg(num fltStoreSales[100])
+1. Declarations 
+	   num fltTotal, fltAvg 
+	   ...
+
+	// initialize, loop > accumulate > avg 
+	// output the average 
+?. return 
+
+==================================================================================
+
+0. Start 							// main program 
+1. Declarations 
+	   num intAge 
+	   num intTotal, intCount 
+	   num fltAvg 
+
+2.	intTotal = 0 						// init
+3.	intCount = 0 
+
+4.	output "Enter Age (-1 to Stop): "			// init
+5.	input intAge 
+
+6.	while intAge <> -1 
+		  intTotal = intTotal + intAge			// processing  
+		  intCount = intCount + 1 
+		  output "Enter Age (-1 to Stop): " 
+		  input intAge 
+	  endwhile 
+
+7.	fltAvg = intTotal / intCount 				// wrap-up 
+8. 	output "The average age is " + fltAvg + " years." 
+9. Stop 
+
+----------------------------------------------------------------------------------
+
+0. Start 				// main program 
+1. Declarations 
+	   num intAge 
+	   num intTotal, intCount 
+	   num fltAvg 
+
+2.	initializeAccInc()		// calling a procedure
+3.	readAge()
+
+4.	while intAge <> -1 
+		  processAge() 
+		  readAge() 
+	  endwhile 
+5.	outputAvg() 
+6. Stop 
+
+---
+0. initializeAccInc()
+1.	intTotal = 0 			
+2.	intCount = 0 
+3. return 
+
+---
+0. readAge() 
+1.	output "Enter Age (-1 to Stop): "
+2.	input intAge 
+3. return
+
+--- 
+0. processAge()
+1.	intTotal = intTotal + intAge		 
+2.	intCount = intCount + 1 
+3. return
+
+--- 
+0. outputAvg()
+1.	fltAvg = intTotal / intCount 				
+2. 	output "The average age is " + fltAvg + " years." 
+3. return 
+
+----------------------------------------------------------------------------------
+
+0. Start 				// main program 
+1. Declarations 
+	   num intAge 
+	   num intTotal, intCount 
+	   num fltAvg 
+
+2.	initializeAccInc()		// calling a procedure
+3.	readAge()
+4.	processAges()	
+5.	outputAvg() 
+6. Stop 
+
+---
+0. initializeAccInc()
+1.	intTotal = 0 			
+2.	intCount = 0 
+3. return 
+
+---
+0. readAge() 
+1.	output "Enter Age (-1 to Stop): "
+2.	input intAge 
+3. return
+
+---
+0. processAges()
+1.	while intAge <> -1 
+		  calcTotalCount() 
+		  readAge() 
+	  endwhile 
+2. return 
+
+---
+0. calcTotalCount()
+1.	intTotal = intTotal + intAge		 
+2.	intCount = intCount + 1 
+3. return
+
+--- 
+0. outputAvg()
+1.	fltAvg = intTotal / intCount 				
+2. 	output "The average age is " + fltAvg + " years." 
+3. return 
+
+==================================================================================
+
+0. Start 
+1. Declarations 
+	   string strStudentNum[55] 
+	   num intICE[55]
+	   num intA1[55]
+	   num intA2[55] 
+	   num intFinal[55] 
+	   num intSearchIndex 
+	   string strSearch 
+
+2.	inputData()
+3.	calcFinalMarks()
+
+4.	output "Enter the student number you are looking for: " 
+5.	input strSearch
+
+6.	intSearchIndex = searchStudent(strSearch)
+7.	if intSearchIndex = -1 then 
+		  output "The student number does not exist" 
+	  else 
+		  printStudentDetails(strStudentNum[intSearchIndex], intFinal[intSearchIndex])
+	  endif 
+
+8.	printReport(strStudentNum, intICE, intA1, intA2, intFinal)
+9. Stop 
+
+----
+0. searchStudent(string strStudNum) returns num 
+1. Declarations 
+	   num intFlag = 0 	// not found 
+	   num intFoundIndex = -1 	// search value doesn't exist 
+	   num intIndex 
+
+2.	for intIndex = 0 to 54 Step 1 
+		  if strStudNum = strStudentNum[intIndex] then 
+			  intFlag = 1
+			  intFoundIndex = intIndex 
+		  endif 
+	  endfor 
+3. return intFoundIndex
+
+---
+0. printStudentDetails(string strSNum, num intFinalMark)
+1.	output "Student Number: " + strSNum + " - FMark = " + intFinalMark + "%" 
+2. return  
+---
+0. printReport(string strStNum[55], num intICEM[55], intA1M[55], intA2M[55], intFinalM[55])
+1. Declarations 
+	   num intCount 
+
+2.	output "Student Marksheet" 
+3.	output "		ICE		A1		A2		Final" 
+	
+4.	for intCount = 0 to 54 Step 1 
+		  output "Student #" + strStNum[intCount] + " 	" + intICEM[intCount] + " 	" + intA1M[intCount] + 
+			  " 	" + intA2M[intCount] + " 	" + intFinalM[intCount]
+	  endfor 
+
+3. return 
+
+==================================================================================
+Student Marksheet 
+			            ICE	A1	A2	Final 
+Student # ST101		100	55	65	70
+Student # ST102		100	54	61	71
+Student # ST103		100	56	62	72
+Student # ST104		100	57	63	73
+Student # ST105		100	58	64	74
+----------------------------------------------------------------------------------
+ 
