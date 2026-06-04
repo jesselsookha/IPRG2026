@@ -1,0 +1,757 @@
+Chapter 8 — Methods (Modularisation)
+
+All the programs we’ve written so far in pseudocode have lived neatly between Start and Stop — one complete program from beginning to end. Now, in Chapter 8, we step into the world of Methods and Modularisation.
+
+But before diving in, let’s look ahead to your future as programmers. When you land that first job, you won’t be building an entire program alone. You’ll be part of a team, each person responsible for smaller, well-defined tasks. These tasks are the methods — procedures and functions — that slot into the bigger system. Think of it like a puzzle: each piece is carefully crafted, and when combined, they form the complete picture. A method can be reused, called whenever it’s needed, and together they achieve the program’s goals.
+
+Up to now, we’ve built full programs ourselves. Breaking them into methods will feel natural — and that’s exactly what this chapter will teach you. But in the professional world, you’ll often start by designing the pieces first, coding them, and then assembling them into the whole program. That’s the power of modularisation: building reliable parts that fit together seamlessly.
+
+---
+
+- Why Modular Programming?
+
+Question - If your assignment was 20 lines long, did you need methods? 
+Question - What about 2000? 5000 lines? 
+
+Modular programming is how we survive complexity. 
+
+*   Abstraction
+- Simple explanation: I don't care how it works, I care what it does
+- The idea that we have the ability to call/invoke a method whatever I am expected to get back from it, is what I am looking for. I am not immediately interested in what processing was executed to get to the result. 
+
+- As programmers in the team, who are about to call these methods, we would expect the  programmer who coded the method, to have fully tested the method for all possible scenarios. 
+
+- However, is this dangerous? If I am going to call a method to use in my part of the program, do I even have an understanding of the logic being implemented? Should programmers understand what's inside a method they didn't write? ** According to the above statement made, we expect the method to work as needed. So we don't really care of the exact code, but over time, we should take an interest. 
+
+*   Reusability
+- Coding a function or procedure once and using it multiple times 
+- In real software companies, reused modules can save millions. 
+
+Example:
+- Payment processing modules reused in multiple apps.
+- Login authentication reused across systems.
+
+As students, copy-&-paste code is not resuability - that still means if something changes, students would need to copy-&-paste multiple times.  
+
+*   Team collaboration
+- Large systems are never built by one person 
+
+Example: Student Management System
+- One team: Login
+- One team: Results processing
+- One team: Reports
+
+Without modularisation, everyone edits the same giant file which can lead to chaos.
+
+- In a team, what if 2 programmers edit the same code? 
+We should have something in place to prevent this from happening. 
+We should have processes in place to help document all work being completed  
+
+- If everything is clearly discussed, each person understands their responsibilities, we prevent conflict, hopefully...  
+
+*   Maintainability
+- Programs are written once, but maintained forever. 
+- Remember that in the future, you would likely be joining a team that has an existing product, so your job is fixing or improving old code. Maintenance is important process we will all learn. 
+
+Also, we don't have to wait for the future, next semester, when you are working on a project in a team for the WIL subject, each of the team members is going to come together, create the product, but also going to rework or revise certain areas after feedback and discussions, so maintenance. 
+
+---
+
+- Types of Modules
+
+* Control Module (Main Program)
+- The Main program should read like a story 
+
+	readMarks()		// input 
+	processResults() 	// processing
+	displayReport()		// output 
+
+- This is not just the only variation 
+- There are many more methods we can call 
+- Will Main contain calculations? - We would prefer that it does not, because of what this chapter wants us to learn - but - if it happens, there must be a reason 
+
+* Initialisation Modules
+- Executed once at the start of the program 
+- Set starting values - initialize variables, high, low, sum, count, and whatever else 
+- Read initial input 
+
+Example 
+0. Start 
+1. Declarations 
+	num intAge, intCount, intSum 
+
+2.	intCount = 0			// these 2 lines are likely to be moved  
+3.	intSum = 0 			// to a procedure 
+
+4.	output "Enter Age (-1 to stop): " 	// these 2 lines are likely to be moved 
+5.	input intAge				// to a procedure 
+?. 	...
+
+- Open files & databases: The time will come where we will learn to access data from external sources (files or databases). We will need to open the connection that gives us access to read data. This will have to be done once at the beginning of the program. 
+
+
+* Processing Modules
+* real work
+- Calculate totals & averages 
+- Find highest and lowest marks
+- Making decisions 
+- Sorting arrays 
+- Search 
+- Calculate percentages 
+
+Each method (procedure, function) should do ONE thing. Yes there are times when we will execute a few things within these blocks of code, but that ONE thing means that it has a single purpose. 
+
+	displayReport() - its main job is to display the report, but within, there might be a 	few extra things that are done. 
+
+
+* Wrap-Up (Final Output) Modules
+- Executed once at the end of the program 
+- Display results 
+- Print summaries 
+- Close file and database connections 
+
+---
+
+- Structure of Methods
+
+0. methodName ([dataType parameter1, dataType parameter2]) [returns dataType]
+1.	// code 
+2. return [variable / value]
+
+Now let's break it down: 
+
+Method Header
+*   Name	// good names reduce comments - helps identify before reading the code . 
+
+*   Parameters  // optional - these are local variables declared as part of the header - because these variables are declared here, it means that when we call the function or procedure, we will need to pass values (known as arguments) so that these values can be used in the programming inside the block. 
+
+*   Return type // only needed when the block is a function, because the function must return a value back to the "whomever" calls it. 
+
+** Remember that both a procedure and a function use the same format but with key differences. 
+
+Example: procedure (does not return a value)
+
+0. readMarks() 
+0. processMarks() 
+0. displayStudent(string strName, string strStudentNum) 
+
+Example: function (must return a value)
+
+0. retDiscount() returns num 
+0. returnDiscount(num fltPrice) returns num
+
+Method Body
+*   Logic statements
+*   Local variables
+
+Inside of the block, we are allowed to have a declarations statement that declare local variables - these variables are used in the processing of the block and will disappear after execution. 
+
+
+Return Statement
+
+return ends the method immediately. 
+If its a procedure, the return statement is just the keyword: 
+	return
+If its a function, the return statement is the keyword with a variable or a value: 
+	return true 
+	return fltDiscount 
+
+---
+
+- Procedures vs Functions
+
+Briefly mentioned above. 
+
+Procedures
+
+*   No return value
+*   Perform action/s
+*   Usually printing or updating 
+
+?.	...
+?.	calcSquareArea(intSide)
+?. 	...
+
+*************
+
+// original coding from previous chapters 
+
+0. Start 
+1. Declarations 
+	   num intLength, intBreadth 
+	   num intArea 
+
+2.	output "Area of the Rectangle" 
+
+3.	output "Enter the length: " 
+4.	input intLength 
+
+5.	output "Enter the breadth: " 
+6.	input intBreadth 
+
+7.	intArea = intLength * intBreadth 
+
+8. 	output "The area of the rectangle is " + intArea 
+
+9. Stop 
+
+*************
+ 
+0. Start 
+1. Declarations 
+	   num intLength, intBreadth 
+	  num intArea 
+
+2.	output "Area of the Rectangle" 
+
+	// calling procedures 
+3.	inputDimensions()		
+4.	calcArea() 
+5.	printArea()
+
+6. Stop
+
+---
+0. inputDimensions()
+1.	output "Enter the length: " 
+2.	input intLength 
+
+3.	output "Enter the breadth: " 
+4.	input intBreadth 
+
+5. return 
+
+---
+0. calcArea()
+1. 	intArea = intLength * intBreadth
+2. return
+
+---
+0. printArea() 
+1. 	output "The area of the rectangle is " + intArea
+2. return 
+
+---
+
+*************
+
+Functions
+
+*   Returns value
+*   Can be used inside expressions
+*   If not within an expression, then we need a variable to accept the value being returned
+
+?.	output "The discount you have been given is " + retDiscount(fltPrice)
+?.	...
+?.	fltAverage = returnAverage(intTotal, intCount)
+
+*************
+
+0. Start 
+1. Declarations 
+	   num intLength, intBreadth 
+	   num intArea 
+
+2.	output "Area of the Rectangle" 
+
+3.	inputDimensions()		
+4.	intArea = calcArea() 
+5.	printArea()
+
+6. Stop
+
+---
+0. inputDimensions()
+1.	output "Enter the length: " 
+2.	input intLength 
+
+3.	output "Enter the breadth: " 
+4.	input intBreadth 
+
+5. return 
+
+---
+0. calcArea() returns num 
+1. Declarations 
+	   num intAreaOfTheRectangle 
+
+2. 	intAreaOfTheRectangle = intLength * intBreadth
+3. return intAreaOfTheRectangle
+
+---
+0. printArea() 
+1. 	output "The area of the rectangle is " + intArea
+2. return 
+
+---
+
+- Parameters & Arguments
+
+Important distinction: 
+
+* Parameter = placeholder (in method definition - in the method headr)
+* Argument = actual value (when calling - these values are passed to the method)
+
+Passing Variables
+
+?.	printHighestMark(strStudents, intAssignment1Marks)
+
+strStudents and intAssignment1Marks are the arguments being passed to the method 
+
+// the procedure
+0. printHighestMark(string strStud[10], num intA1[10])
+
+strStud & intA1 are the parameters declared for the method, which just so happen to arrays
+
+*************
+
+0. Start 
+1. Declarations 
+	   num intLength, intBreadth 
+	   num intArea 
+
+2.	output "Area of the Rectangle" 
+
+3.	inputDimensions()		
+4.	intArea = calcArea() 
+5.	printArea(intArea, "Thank you, Goodbye") // passing arguments
+
+6. Stop
+
+---
+0. inputDimensions()
+1.	output "Enter the length: " 
+2.	input intLength 
+3.	output "Enter the breadth: " 
+4.	input intBreadth 
+5. return 
+
+---
+0. calcArea() returns num 
+1. Declarations 
+	   num intAreaOfTheRectangle 
+
+2. 	 intAreaOfTheRectangle = intLength * intBreadth
+3. return intAreaOfTheRectangle
+
+---
+
+// parameters declared for this print procedure 
+0. printArea(num intTheArea, string strExitMessage) 
+1. 	output "The area of the rectangle is " + intTheArea
+2.	output strExitMessage 
+3. return 
+---
+
+*************
+
+0. Start 
+1. Declarations 
+	   num intMark 
+	   num intTotal = 50 
+	
+2.	output "Enter the mark for the test"
+3.	input intMark 
+
+	  // function is called as part of an expression in the output statement 
+4.	output "The student got " + (retPercentage(intMark)) + "%"
+5. Stop 
+
+---
+
+0. retPercentage(num intTheMark) returns num 
+1. Declarations 
+	   num fltThePercentage 
+2.	 fltThePercentage = (intTheMark / intTotal) * 100	 
+3. return fltThePercentage
+
+---
+
+Arrays as Parameters
+
+- Similar to the above example, passing arrays as arguments to a procedure or function is a perfectly accepted idea to send over (a copy of) the many values contained within the array. 
+
+*************
+
+So in the main program 
+1. Declarations 
+	  num intAssignment1[55] 
+	  num intAssignment2[55] 
+
+?.	processResults(intAssignment1, intAssignment2) // calling the procedure
+	  // the 2 arrays are passed as arguments to the procedure
+?.  ...
+
+The procedure
+0. processResults(num intA1[55], num intA2[55])
+
+// intA1, and intA2 as parameter variables will accept the values and the same
+// content from intAssignment1 is accessible inside of intA1, and the same for 
+// intAssignment2, it is passed to intA2, which means intA2 has a copy of that data 
+// as well  
+		
+*************
+
+0. Start 
+1. Declarations 
+	  string strStudentName[100]
+	  string strStudentNum[100]
+	  num intICE[100], intA1[100], intA2[100], intExam[100], intFinal[100]
+	  ...
+
+
+2.	 inputMarks()
+3.	 processResults()
+
+4.	 printClassMarks() 
+
+	   // arrays are passed as arguments 
+5.	 sortFinal(strStudentName, strStudentNum, intICE, intA1, intA2, intExam, intFinal)
+
+?.	 ...
+?.	 ...
+
+?. Stop
+
+----
+
+// parameters are also array variables waiting to get a copy of the data from 
+// the arguments
+
+0. sortFinal(string strSName[100], string strSNum[100], num intI[100], num intAA1[100], num intAA2[100], intE[100], intF[100])
+
+1.	// sort the arrays by the Final mark - in descending order 
+	  ...
+
+?	  printClassMarks() // below is the example of what would have likely printed out
+?. return  	
+
+
+Student Number 		Name		ICE 	A1 	A2 	Exam	Final 
+ST999			       John		  100	  98	50	60	  85	
+ST101			       Jane		  100	  85	74	70	  ???
+	
+*************
+
+---
+
+- Scope
+
+Local Variables
+* Exist only inside method.
+* Cannot be accessed outside.
+* Remember the example spoken about in class about our Android Studio Projects and the variable declarations inside of the Activity.
+
+
+Global Variables
+
+*   Risks
+- Hard to track changes // because it is accessible everywhere
+- Bugs become invisible // not really, but again, would not know where the error began
+- Harder testing
+
+*   Usage scenarios
+* Configuration constants
+* Shared settings
+
+** Remember that because of our approach for learning with this chapter, our variables declared in the main program (in between Start and Stop) are global and is accessible to all procedures and functions contained as a whole. The expectation in the exams is going to possibly  request local and global variables within your pseudocode. 
+
+** But the true experience of global and local variables is experienced in the real programming languages 
+
+*************
+
+0. Start 
+1. Declarations 
+	  // arrays (global)
+	  // - for the sales person 
+	  // - for the months
+
+
+2. 	  readSales() 
+3.	  calcTotalSales() 
+4.	  determineAverage()	
+5.	  sortData()	
+6.	  search()
+
+?. Stop 
+
+---
+0. readSales()
+	  // declarations 
+	  // loop + output & input 
+?. return 
+
+---
+0. calcTotalSales()
+	  // loop + accumulate + store totals 
+	  dispTotalSales(strSPID, strSurname, fltTotalSales)
+?. return 
+
+---
+0. dispTotalSales(string strID[10], string strSName[10], fltTotal[10])
+1. Declarations 
+	  ...
+2.	// loop + read parameters + display data 
+?. return 
+
+---
+0. determineAverage()
+	// declarations 
+	  // calculate the grand total 
+	  // determine the average
+	
+	  // print the averages  
+	  output "Sales Person: " + strFirstName[intIndex] + " " + strSurname[intIndex] + 
+		  "R" + averageVariable + (retAverageEvaluation(averageVariable))
+?. return 
+
+---
+0. retAverageEvaluation(num fltAvg) returns string 
+1. Declaration 
+	   string strMessage 
+
+2.	if fltAvg > fltTotalAverage then 
+		  strMessage = "Above Average" 
+	  else 
+		  strMessage = "Below Average" 
+	  endif 
+3. return strMessage
+
+--- 
+0. sortData() 
+	  // declarations 
+	  // sort 
+	  // - swap
+
+	  // dispData() 
+?. return  
+
+--- 
+0. search()
+	  // declarations 
+	  // initialization 
+	  // input 
+	  // loop + search 
+	  // output 
+?. return 
+
+*************
+
+---
+
+- Modularisation Process
+
+*   Write main first
+- Main = your blueprint 
+- Write comments first to help identify 
+
+Example 
+0. Start 
+1. Declarations 
+	  ... 
+2.	// get input 
+3.	// calculate totals 
+4.	// display output 
+
+- Each of the comments can turn into a method call 
+
+*   Identify responsibilities
+- Each method should have: ONE responsibility.
+
+*   Break large tasks into modules
+
+*   Functional cohesion
+- Everything inside method contributes to one purpose.
+
+
+*************
+
+0. Start 
+1. Declarations 
+	   num intAge 
+	   num intTotal 
+	   num fltAvg 
+	   num intCount 
+
+2.	intTotal = 0 
+3.	intCount = 0 
+
+4.	output "Enter age (-1 to Stop): " 
+5.	input intAge 
+
+6.	while intAge <> -1 
+		  intTotal = intTotal + intAge 
+		  intCount = intCount + 1 
+		  output "Enter age (-1 to Stop): " 
+		   input intAge
+	endwhile 
+
+7.	fltAvg = intTotal / intCount 
+8.	output "The average age is " + fltAvg + " years." 
+9. Stop  
+
+==========================================================
+
+0. Start 
+1. Declarations 
+	   num intAge 
+	   num intTotal 
+	   num fltAvg 
+	   num intCount 
+
+2.	initAccInc()
+3.	readAge()
+4.	while intAge <> -1 
+		  processAge()
+		  readAge()
+	  endwhile 
+5.	printAvg()
+6. Stop  
+
+---
+0. initAccInc()
+1.	intTotal = 0 
+2.	intCount = 0 
+3. return
+
+---
+0. readAge()
+1.	output "Enter age (-1 to Stop): " 
+2.	input intAge 
+3.	do
+		  if intAge < 0 OR intAge <> -1 then 
+			  output "Error - Enter Again"
+			  input intAge  
+		  endif 
+	  while intAge < 0 OR intAge <> -1
+4.  return
+
+--- 
+0. processAge()
+1.	intTotal = intTotal + intAge 
+2.	intCount = intCount + 1 
+3. return
+
+---
+0. printAvg()
+1.	fltAvg = intTotal / intCount 
+2.	output "The average age is " + fltAvg + " years." 
+3. return
+
+*************
+
+---
+
+- Hierarchy Charts
+
+*   Visual structure
+- Top = Main
+- Below = Submodules
+
+- Shows structure without code
+- Helps planning before coding
+
+*   Module relationships
+
+*   Reusable module marking
+- Top-right corner is coloured in to show that a method has been reused 
+
+Examples - please note that because this is shared here within this text document, it is not a perfect representation. 
+
+	       +----------------+
+	       |     Main       |
+	       +----------------+
+		             |
+    _____________|_____________
+    |		         |	          |
+    |		         |	          |
++-------+ +------------+  +--------+
+| Input | | Processing |  | Output |
++-------+ +------------+  +--------+
+
+---
+
+	          +----------------+
+	          |     Main       |
+	          +----------------+
+	      	         |
+     ______________|_______________
+     |		         |   	          |
+     |		         |	            |
++-----------+ +-------------+ +----------------+
+| readAge() | | processAge() | | outputAverage()|
++-----------+ +-------------+ +----------------+
+                   |
+                   |
+             +------------+
+             | readAge() *|
+             +------------+
+
+---
+
+Scenario: A program that calculates student grades.
+
+- Main
+	-- InputData()
+	-- CalculateGrades()
+		--- readScores()
+		--- computeAverage()
+		--- assignGrade()
+		--- readScores() (reused)
+	-- OutputResults()
+
+      	       +----------------+
+       	       |     Main       |
+               +----------------+
+                        |
+     ___________________|____________________
+     |                  |                   |
+     |                  |                   |
++---------------+ +----------------+ +-----------------+
+| readScores() *| | CalculateGrades| | OutputResults() |
++---------------+ +----------------+ +-----------------+
+                        |
+        ________________|______________________
+        |               |                     |
+        |               |                     |
++--------------+ +-----------------+ +----------------+
+| readScores()*| | computeAverage()| | assignGrade() |
++--------------+ +-----------------+ +----------------+
+
+---
+
+Another complex example 
+
+                			          +----------------+
+       			                    |     Main       |
+       			                    +----------------+
+               			                    | 
+     ___________________________________|_______________________________________
+     |                  |                          |                           |
+     |                  |                          |                           |
++-------------+ +----------------+          +---------------+          +----------------+
+| ReadData()  | |  SearchBook()  |          | ProcessLoan() |          | OutputReport() |
++-------------+ +----------------+          +---------------+          +----------------+
+       |                |                          |
+       |                |              ____________|____________________________
++----------------+ +-------------+     |                    |                  |
+| ValidateData()*| | ReadData() *|     |                    |                  |
++----------------+ +-------------+     |                    |                  |
+                        |         +-----------------+ +----------------+ +-----------------+
+                        |         |CheckAvailability| | UpdateRecords()| |GenerateReceipt()|
+                +---------------+ +-----------------+ +----------------+ +-----------------+
+                |ValidateData()*|         |
+                +---------------+         |
+                                    +-------------+
+                                    | ReadData() *|
+                                    +-------------+
+                                          |
+                                          |
+                                    +----------------+
+                                    | ValidateData()*|
+                                    +----------------+
+
+---
+
+- “Modular programming is not about methods.
+- It is about managing complexity.”
